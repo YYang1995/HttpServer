@@ -1,0 +1,2 @@
+/usr/local/lib/libmy_base.a
+/usr/local/include/muduo_practice/base/noncopyable.h

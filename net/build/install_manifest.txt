@@ -1,0 +1,4 @@
+/usr/local/lib/libmy_net.a
+/usr/local/include/muduo_practice/net/Channel.h
+/usr/local/include/muduo_practice/net/EventLoop.h
+/usr/local/include/muduo_practice/net/Poller.h
