@@ -17,7 +17,6 @@ void Channel::update() {
 }
 
 void Channel::handleEvent() {
-  //TODO
   if(revents_& POLLNVAL){
     std::cerr<<"Channel::handleEvent() POLLNAVAL;"<<std::endl;
   }

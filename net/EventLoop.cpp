@@ -40,10 +40,35 @@ void EventLoop::loop() {
     for(auto iter=activeChannels_.begin();iter!=activeChannels_.end();++iter){
       (*iter)->handleEvent();
     }
+    doPendingFunctors();
   }
 
 }
+void EventLoop::runInLoop(const Functor &cb) {
+  if(isInLoopThread()){
+    cb();
+  }else{
+    queueInLoop(cb);
+  }
+}
+void EventLoop::doPendingFunctors() {
+  std::vector<Functor> functors;
+  callingPendingFunctors_= true;
+  {
+    std::lock_guard<std::mutex> lock(mutex_);
+    functors.swap(pendingFunctors);
+  }
+  for(size_t i=0;i<functors.size();i++)
+  {
+    functors[i]();
+  }
+  callingPendingFunctors_=false;
 
+
+}
+void EventLoop::wakeup() {
+  //TODO
+}
 void EventLoop::assertInLoopThread() {
   if (!isInLoopThread()) {
     std::cerr << "assertInLoopThraed() error\n";
@@ -54,6 +79,9 @@ void EventLoop::assertInLoopThread() {
 
 void EventLoop::quit(){
   quit_=true;
+  if(!isInLoopThread()){
+    wakeup();
+  }
 
 }
 
