@@ -4,3 +4,7 @@ project(muduo_practice_test)
 add_executable(eventloopTest EventLoopTest.cpp)
 target_link_libraries(eventloopTest my_net pthread)
 add_test(NAME eventloopTest COMMAND eventloopTest)
+
+add_executable(tcpAcceptorTest TcpAcceptorTest.cpp)
+target_link_libraries(tcpAcceptorTest my_net pthread)
+add_test(NAME tcpAcceptorTest COMMAND tcpAcceptorTest)

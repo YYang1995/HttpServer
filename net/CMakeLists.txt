@@ -7,6 +7,9 @@ set(SOURCES
         Poller.cpp
         EventLoopThread.cpp
         SocketOperation.cpp
+        Socket.cpp
+        SocketAddr.cpp
+        TcpAcceptor.cpp
         )
 add_library(my_net ${SOURCES})
 target_link_libraries(my_net pthread my_base)

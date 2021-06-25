@@ -2,6 +2,11 @@ file(REMOVE_RECURSE
   "CMakeFiles/my_net.dir/Channel.cpp.o"
   "CMakeFiles/my_net.dir/EventLoop.cpp.o"
   "CMakeFiles/my_net.dir/Poller.cpp.o"
+  "CMakeFiles/my_net.dir/EventLoopThread.cpp.o"
+  "CMakeFiles/my_net.dir/SocketOperation.cpp.o"
+  "CMakeFiles/my_net.dir/Socket.cpp.o"
+  "CMakeFiles/my_net.dir/SocketAddr.cpp.o"
+  "CMakeFiles/my_net.dir/TcpAcceptor.cpp.o"
   "libmy_net.pdb"
   "libmy_net.a"
 )

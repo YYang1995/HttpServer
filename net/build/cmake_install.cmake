@@ -45,7 +45,13 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/muduo_practice/net" TYPE FILE FILES
     "/home/ubuntu/c++/muduo_practice/net/Channel.h"
     "/home/ubuntu/c++/muduo_practice/net/EventLoop.h"
+    "/home/ubuntu/c++/muduo_practice/net/EventLoopThread.h"
     "/home/ubuntu/c++/muduo_practice/net/Poller.h"
+    "/home/ubuntu/c++/muduo_practice/net/Socket.h"
+    "/home/ubuntu/c++/muduo_practice/net/SocketAddr.h"
+    "/home/ubuntu/c++/muduo_practice/net/SocketOperation.h"
+    "/home/ubuntu/c++/muduo_practice/net/SocketOperator.h"
+    "/home/ubuntu/c++/muduo_practice/net/TcpAcceptor.h"
     )
 endif()
 

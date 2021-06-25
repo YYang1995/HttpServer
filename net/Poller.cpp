@@ -31,7 +31,7 @@ void Poller::poll(int timeoutMs, ChannelList *activeChannels) {
     std::cout << numEvents << " events happened!\n";
     fillActiveChannels(numEvents, activeChannels);
   } else if (numEvents == 0) {
-    std::cout << "nothing happened\n";
+//    std::cout << "nothing happened\n";
   } else {
     std::cerr << "Poller::poll()\n";
   }

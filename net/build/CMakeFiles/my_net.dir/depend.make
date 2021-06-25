@@ -13,9 +13,38 @@ CMakeFiles/my_net.dir/EventLoop.cpp.o: ../EventLoop.cpp
 CMakeFiles/my_net.dir/EventLoop.cpp.o: ../EventLoop.h
 CMakeFiles/my_net.dir/EventLoop.cpp.o: ../Poller.h
 
+CMakeFiles/my_net.dir/EventLoopThread.cpp.o: /home/ubuntu/c++/muduo_practice/base/noncopyable.h
+CMakeFiles/my_net.dir/EventLoopThread.cpp.o: ../Channel.h
+CMakeFiles/my_net.dir/EventLoopThread.cpp.o: ../EventLoop.h
+CMakeFiles/my_net.dir/EventLoopThread.cpp.o: ../EventLoopThread.cpp
+CMakeFiles/my_net.dir/EventLoopThread.cpp.o: ../EventLoopThread.h
+CMakeFiles/my_net.dir/EventLoopThread.cpp.o: ../Poller.h
+
 CMakeFiles/my_net.dir/Poller.cpp.o: /home/ubuntu/c++/muduo_practice/base/noncopyable.h
 CMakeFiles/my_net.dir/Poller.cpp.o: ../Channel.h
 CMakeFiles/my_net.dir/Poller.cpp.o: ../EventLoop.h
 CMakeFiles/my_net.dir/Poller.cpp.o: ../Poller.cpp
 CMakeFiles/my_net.dir/Poller.cpp.o: ../Poller.h
+
+CMakeFiles/my_net.dir/Socket.cpp.o: ../Socket.cpp
+CMakeFiles/my_net.dir/Socket.cpp.o: ../Socket.h
+CMakeFiles/my_net.dir/Socket.cpp.o: ../SocketAddr.h
+CMakeFiles/my_net.dir/Socket.cpp.o: ../SocketOperation.h
+
+CMakeFiles/my_net.dir/SocketAddr.cpp.o: ../SocketAddr.cpp
+CMakeFiles/my_net.dir/SocketAddr.cpp.o: ../SocketAddr.h
+CMakeFiles/my_net.dir/SocketAddr.cpp.o: ../SocketOperation.h
+
+CMakeFiles/my_net.dir/SocketOperation.cpp.o: ../SocketOperation.cpp
+CMakeFiles/my_net.dir/SocketOperation.cpp.o: ../SocketOperation.h
+
+CMakeFiles/my_net.dir/TcpAcceptor.cpp.o: /home/ubuntu/c++/muduo_practice/base/noncopyable.h
+CMakeFiles/my_net.dir/TcpAcceptor.cpp.o: ../Channel.h
+CMakeFiles/my_net.dir/TcpAcceptor.cpp.o: ../EventLoop.h
+CMakeFiles/my_net.dir/TcpAcceptor.cpp.o: ../Poller.h
+CMakeFiles/my_net.dir/TcpAcceptor.cpp.o: ../Socket.h
+CMakeFiles/my_net.dir/TcpAcceptor.cpp.o: ../SocketAddr.h
+CMakeFiles/my_net.dir/TcpAcceptor.cpp.o: ../SocketOperation.h
+CMakeFiles/my_net.dir/TcpAcceptor.cpp.o: ../TcpAcceptor.cpp
+CMakeFiles/my_net.dir/TcpAcceptor.cpp.o: ../TcpAcceptor.h
 

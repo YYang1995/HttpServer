@@ -93,7 +93,13 @@ void SocketOperation::getAddrAnyIpv4(struct sockaddr_in &addr, uint16_t port) {
   addr.sin_port = htons(port);
   addr.sin_addr.s_addr = Ipv4AddrAny;
 }
-
+/**
+ *
+ * @param addrstr ipv4地址
+ * @param port 端口
+ * @param addr 将被修改的socketaddr_in
+ * @return success返回true
+ */
 bool SocketOperation::toAddrIpv4(const std::string &addrstr, uint16_t port, struct sockaddr_in &addr) {
   std::vector<int> ip;
   size_t first = 0;
@@ -130,6 +136,7 @@ bool SocketOperation::toAddrIpv4(const std::string &addrstr, struct sockaddr_in 
   return toAddrIpv4(addrstr.substr(0, pos), std::stoi(addrstr.substr(pos + 1)), addr);
 }
 
+//点分十进制ip:port转为字符串
 string SocketOperation::ipToString(struct sockaddr_in addr) {
   std::stringstream stream;
   uint8_t *addrArray = (uint8_t *) &addr.sin_addr.s_addr;
@@ -139,7 +146,7 @@ string SocketOperation::ipToString(struct sockaddr_in addr) {
     if(i!=3){
       stream<<".";
     }
-    stream<<":"<<(addr.sin_port<<8)&0x00fffff|(addr.sin_port>>8);//TODO
+    stream<<":"<<(((addr.sin_port<<8)&0x00fffff)|(addr.sin_port>>8));//TODO 作用？
     return stream.str();
   }
 }

@@ -223,6 +223,33 @@ EventLoop.cpp.s:
 	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/EventLoop.cpp.s
 .PHONY : EventLoop.cpp.s
 
+EventLoopThread.o: EventLoopThread.cpp.o
+
+.PHONY : EventLoopThread.o
+
+# target to build an object file
+EventLoopThread.cpp.o:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/EventLoopThread.cpp.o
+.PHONY : EventLoopThread.cpp.o
+
+EventLoopThread.i: EventLoopThread.cpp.i
+
+.PHONY : EventLoopThread.i
+
+# target to preprocess a source file
+EventLoopThread.cpp.i:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/EventLoopThread.cpp.i
+.PHONY : EventLoopThread.cpp.i
+
+EventLoopThread.s: EventLoopThread.cpp.s
+
+.PHONY : EventLoopThread.s
+
+# target to generate assembly for a file
+EventLoopThread.cpp.s:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/EventLoopThread.cpp.s
+.PHONY : EventLoopThread.cpp.s
+
 Poller.o: Poller.cpp.o
 
 .PHONY : Poller.o
@@ -250,6 +277,114 @@ Poller.cpp.s:
 	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/Poller.cpp.s
 .PHONY : Poller.cpp.s
 
+Socket.o: Socket.cpp.o
+
+.PHONY : Socket.o
+
+# target to build an object file
+Socket.cpp.o:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/Socket.cpp.o
+.PHONY : Socket.cpp.o
+
+Socket.i: Socket.cpp.i
+
+.PHONY : Socket.i
+
+# target to preprocess a source file
+Socket.cpp.i:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/Socket.cpp.i
+.PHONY : Socket.cpp.i
+
+Socket.s: Socket.cpp.s
+
+.PHONY : Socket.s
+
+# target to generate assembly for a file
+Socket.cpp.s:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/Socket.cpp.s
+.PHONY : Socket.cpp.s
+
+SocketAddr.o: SocketAddr.cpp.o
+
+.PHONY : SocketAddr.o
+
+# target to build an object file
+SocketAddr.cpp.o:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/SocketAddr.cpp.o
+.PHONY : SocketAddr.cpp.o
+
+SocketAddr.i: SocketAddr.cpp.i
+
+.PHONY : SocketAddr.i
+
+# target to preprocess a source file
+SocketAddr.cpp.i:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/SocketAddr.cpp.i
+.PHONY : SocketAddr.cpp.i
+
+SocketAddr.s: SocketAddr.cpp.s
+
+.PHONY : SocketAddr.s
+
+# target to generate assembly for a file
+SocketAddr.cpp.s:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/SocketAddr.cpp.s
+.PHONY : SocketAddr.cpp.s
+
+SocketOperation.o: SocketOperation.cpp.o
+
+.PHONY : SocketOperation.o
+
+# target to build an object file
+SocketOperation.cpp.o:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/SocketOperation.cpp.o
+.PHONY : SocketOperation.cpp.o
+
+SocketOperation.i: SocketOperation.cpp.i
+
+.PHONY : SocketOperation.i
+
+# target to preprocess a source file
+SocketOperation.cpp.i:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/SocketOperation.cpp.i
+.PHONY : SocketOperation.cpp.i
+
+SocketOperation.s: SocketOperation.cpp.s
+
+.PHONY : SocketOperation.s
+
+# target to generate assembly for a file
+SocketOperation.cpp.s:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/SocketOperation.cpp.s
+.PHONY : SocketOperation.cpp.s
+
+TcpAcceptor.o: TcpAcceptor.cpp.o
+
+.PHONY : TcpAcceptor.o
+
+# target to build an object file
+TcpAcceptor.cpp.o:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/TcpAcceptor.cpp.o
+.PHONY : TcpAcceptor.cpp.o
+
+TcpAcceptor.i: TcpAcceptor.cpp.i
+
+.PHONY : TcpAcceptor.i
+
+# target to preprocess a source file
+TcpAcceptor.cpp.i:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/TcpAcceptor.cpp.i
+.PHONY : TcpAcceptor.cpp.i
+
+TcpAcceptor.s: TcpAcceptor.cpp.s
+
+.PHONY : TcpAcceptor.s
+
+# target to generate assembly for a file
+TcpAcceptor.cpp.s:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/TcpAcceptor.cpp.s
+.PHONY : TcpAcceptor.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -269,9 +404,24 @@ help:
 	@echo "... EventLoop.o"
 	@echo "... EventLoop.i"
 	@echo "... EventLoop.s"
+	@echo "... EventLoopThread.o"
+	@echo "... EventLoopThread.i"
+	@echo "... EventLoopThread.s"
 	@echo "... Poller.o"
 	@echo "... Poller.i"
 	@echo "... Poller.s"
+	@echo "... Socket.o"
+	@echo "... Socket.i"
+	@echo "... Socket.s"
+	@echo "... SocketAddr.o"
+	@echo "... SocketAddr.i"
+	@echo "... SocketAddr.s"
+	@echo "... SocketOperation.o"
+	@echo "... SocketOperation.i"
+	@echo "... SocketOperation.s"
+	@echo "... TcpAcceptor.o"
+	@echo "... TcpAcceptor.i"
+	@echo "... TcpAcceptor.s"
 .PHONY : help
 
 
