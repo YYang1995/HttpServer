@@ -63,7 +63,7 @@ bool HttpContext::parseRequest(Buffer *buffer, string receiveTime) {
             state_ = GotAll;
             hasMore = false;
           }
-          buf->retrieveUntil(crlf + 2);
+          buffer->retrieveUntil(crlf + 2);
           continue;
         }
         hasMore=false;
