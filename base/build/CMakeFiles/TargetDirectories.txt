@@ -1,7 +1,0 @@
-/home/ubuntu/c++/muduo_practice/base/build/CMakeFiles/install/strip.dir
-/home/ubuntu/c++/muduo_practice/base/build/CMakeFiles/edit_cache.dir
-/home/ubuntu/c++/muduo_practice/base/build/CMakeFiles/my_base.dir
-/home/ubuntu/c++/muduo_practice/base/build/CMakeFiles/install.dir
-/home/ubuntu/c++/muduo_practice/base/build/CMakeFiles/rebuild_cache.dir
-/home/ubuntu/c++/muduo_practice/base/build/CMakeFiles/list_install_components.dir
-/home/ubuntu/c++/muduo_practice/base/build/CMakeFiles/install/local.dir

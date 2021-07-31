@@ -1,7 +1,0 @@
-/home/ubuntu/c++/muduo_practice/http/build/CMakeFiles/install/strip.dir
-/home/ubuntu/c++/muduo_practice/http/build/CMakeFiles/edit_cache.dir
-/home/ubuntu/c++/muduo_practice/http/build/CMakeFiles/my_http.dir
-/home/ubuntu/c++/muduo_practice/http/build/CMakeFiles/rebuild_cache.dir
-/home/ubuntu/c++/muduo_practice/http/build/CMakeFiles/list_install_components.dir
-/home/ubuntu/c++/muduo_practice/http/build/CMakeFiles/install/local.dir
-/home/ubuntu/c++/muduo_practice/http/build/CMakeFiles/install.dir

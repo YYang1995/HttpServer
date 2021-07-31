@@ -1,9 +1,8 @@
-http/build/*
-./base/build/*
-./net/build/*
+http/build/
+base/build/
+net/build
 
-./base/test/build/*
-./http/test/build/*
-./net/test/build/*
+base/test/build/
+http/test/build/
+net/test/build/
 
-http/test/HttpContextTest.cpp
