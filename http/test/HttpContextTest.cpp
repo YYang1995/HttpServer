@@ -27,5 +27,4 @@ int main()
 
   HttpContext context;
   cout<<context.gotAll()<<endl;
-
 }
