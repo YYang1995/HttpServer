@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/my_base.dir/noncopyable.cpp.o"
+  "CMakeFiles/my_base.dir/Thread.cpp.o"
   "libmy_base.pdb"
   "libmy_base.a"
 )

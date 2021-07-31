@@ -6,7 +6,37 @@
 
 #IncludeRegexTransform: 
 
+/home/ubuntu/c++/muduo_practice/base/Thread.h
+thread
+-
+condition_variable
+-
+mutex
+-
+memory
+-
+
 /home/ubuntu/c++/muduo_practice/base/noncopyable.h
+
+/home/ubuntu/c++/muduo_practice/net/Buffer.cpp
+Buffer.h
+/home/ubuntu/c++/muduo_practice/net/Buffer.h
+sys/uio.h
+-
+SocketOperation.h
+/home/ubuntu/c++/muduo_practice/net/SocketOperation.h
+algorithm
+-
+iostream
+-
+
+/home/ubuntu/c++/muduo_practice/net/Buffer.h
+vector
+-
+stdint.h
+-
+string
+-
 
 /home/ubuntu/c++/muduo_practice/net/Channel.cpp
 Channel.h
@@ -59,14 +89,28 @@ condition_variable
 -
 functional
 -
+mutex
+-
 string
 -
-thread
--
+../base/Thread.h
+/home/ubuntu/c++/muduo_practice/base/Thread.h
 ../base/noncopyable.h
 /home/ubuntu/c++/muduo_practice/base/noncopyable.h
 EventLoop.h
 /home/ubuntu/c++/muduo_practice/net/EventLoop.h
+
+/home/ubuntu/c++/muduo_practice/net/EventLoopThreadPool.cpp
+EventLoopThreadPool.h
+/home/ubuntu/c++/muduo_practice/net/EventLoopThreadPool.h
+
+/home/ubuntu/c++/muduo_practice/net/EventLoopThreadPool.h
+EventLoopThread.h
+/home/ubuntu/c++/muduo_practice/net/EventLoopThread.h
+vector
+-
+memory
+-
 
 /home/ubuntu/c++/muduo_practice/net/Poller.cpp
 Poller.h
@@ -151,6 +195,8 @@ TcpAcceptor.h
 /home/ubuntu/c++/muduo_practice/net/TcpAcceptor.h
 SocketOperation.h
 /home/ubuntu/c++/muduo_practice/net/SocketOperation.h
+iostream
+-
 unistd.h
 -
 
@@ -167,4 +213,20 @@ EventLoop.h
 /home/ubuntu/c++/muduo_practice/net/EventLoop.h
 Socket.h
 /home/ubuntu/c++/muduo_practice/net/Socket.h
+
+/home/ubuntu/c++/muduo_practice/net/TcpConnect.cpp
+TcpConnect.h
+/home/ubuntu/c++/muduo_practice/net/TcpConnect.h
+
+/home/ubuntu/c++/muduo_practice/net/TcpConnect.h
+Buffer.h
+/home/ubuntu/c++/muduo_practice/net/Buffer.h
+EventLoop.h
+/home/ubuntu/c++/muduo_practice/net/EventLoop.h
+Socket.h
+/home/ubuntu/c++/muduo_practice/net/Socket.h
+string
+-
+memory.h
+-
 

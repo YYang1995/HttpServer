@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /home/ubuntu/c++/muduo_practice/net/test/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -77,6 +66,17 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -123,6 +123,19 @@ eventloopTest/fast:
 	$(MAKE) -f CMakeFiles/eventloopTest.dir/build.make CMakeFiles/eventloopTest.dir/build
 .PHONY : eventloopTest/fast
 
+#=============================================================================
+# Target rules for targets named threadTest
+
+# Build rule for target.
+threadTest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 threadTest
+.PHONY : threadTest
+
+# fast build rule for target.
+threadTest/fast:
+	$(MAKE) -f CMakeFiles/threadTest.dir/build.make CMakeFiles/threadTest.dir/build
+.PHONY : threadTest/fast
+
 EventLoopTest.o: EventLoopTest.cpp.o
 
 .PHONY : EventLoopTest.o
@@ -150,18 +163,49 @@ EventLoopTest.cpp.s:
 	$(MAKE) -f CMakeFiles/eventloopTest.dir/build.make CMakeFiles/eventloopTest.dir/EventLoopTest.cpp.s
 .PHONY : EventLoopTest.cpp.s
 
+ThreadTest.o: ThreadTest.cpp.o
+
+.PHONY : ThreadTest.o
+
+# target to build an object file
+ThreadTest.cpp.o:
+	$(MAKE) -f CMakeFiles/threadTest.dir/build.make CMakeFiles/threadTest.dir/ThreadTest.cpp.o
+.PHONY : ThreadTest.cpp.o
+
+ThreadTest.i: ThreadTest.cpp.i
+
+.PHONY : ThreadTest.i
+
+# target to preprocess a source file
+ThreadTest.cpp.i:
+	$(MAKE) -f CMakeFiles/threadTest.dir/build.make CMakeFiles/threadTest.dir/ThreadTest.cpp.i
+.PHONY : ThreadTest.cpp.i
+
+ThreadTest.s: ThreadTest.cpp.s
+
+.PHONY : ThreadTest.s
+
+# target to generate assembly for a file
+ThreadTest.cpp.s:
+	$(MAKE) -f CMakeFiles/threadTest.dir/build.make CMakeFiles/threadTest.dir/ThreadTest.cpp.s
+.PHONY : ThreadTest.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
-	@echo "... eventloopTest"
 	@echo "... edit_cache"
+	@echo "... eventloopTest"
+	@echo "... rebuild_cache"
+	@echo "... threadTest"
 	@echo "... EventLoopTest.o"
 	@echo "... EventLoopTest.i"
 	@echo "... EventLoopTest.s"
+	@echo "... ThreadTest.o"
+	@echo "... ThreadTest.i"
+	@echo "... ThreadTest.s"
 .PHONY : help
 
 

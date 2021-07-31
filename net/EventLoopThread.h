@@ -1,29 +1,24 @@
 #pragma once
 #include <condition_variable>
 #include <functional>
+#include <mutex>
 #include <string>
-#include <thread>
 
+#include "../base/Thread.h"
 #include "../base/noncopyable.h"
 #include "EventLoop.h"
 
 namespace yy {
-class EventLoopThread : noncopyable {
+class EventLoopThread : public yy::Thread {
 public:
-  typedef std::function<void(EventLoop*)> ThreadInitCallback;
-
-  EventLoopThread(const ThreadInitCallback& cb = ThreadInitCallback(),
-                  const std::string& name = std::string());
+  EventLoopThread();
   ~EventLoopThread();
-  EventLoop* startLoop();
+  virtual void run() override;
+  EventLoop* getLoopInThread();
 
 private:
-  void threadFunc();
   EventLoop* loop_;
-  bool existing_;
-  std::thread thread_;//与muduo不同
-  std::mutex mutex_;
-  std::condition_variable cond_;//与muduo不同;
-  ThreadInitCallback callback_;
+  std::mutex mtx_;
+  std::condition_variable cond_;
 };
 }// namespace yy

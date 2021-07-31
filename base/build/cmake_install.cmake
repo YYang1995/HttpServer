@@ -42,7 +42,10 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/muduo_practice/base" TYPE FILE FILES "/home/ubuntu/c++/muduo_practice/base/noncopyable.h")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/muduo_practice/base" TYPE FILE FILES
+    "/home/ubuntu/c++/muduo_practice/base/Thread.h"
+    "/home/ubuntu/c++/muduo_practice/base/noncopyable.h"
+    )
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)

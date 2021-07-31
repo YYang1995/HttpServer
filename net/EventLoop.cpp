@@ -42,7 +42,7 @@ void EventLoop::loop() {
     }
     doPendingFunctors();
   }
-
+  looping_=false;
 }
 void EventLoop::runInLoop(const Functor &cb) {
   if(isInLoopThread()){

@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "")
+    set(CMAKE_INSTALL_CONFIG_NAME "Debug")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -43,9 +43,18 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/muduo_practice/net" TYPE FILE FILES
+    "/home/ubuntu/c++/muduo_practice/net/Buffer.h"
     "/home/ubuntu/c++/muduo_practice/net/Channel.h"
     "/home/ubuntu/c++/muduo_practice/net/EventLoop.h"
+    "/home/ubuntu/c++/muduo_practice/net/EventLoopThread.h"
+    "/home/ubuntu/c++/muduo_practice/net/EventLoopThreadPool.h"
     "/home/ubuntu/c++/muduo_practice/net/Poller.h"
+    "/home/ubuntu/c++/muduo_practice/net/Socket.h"
+    "/home/ubuntu/c++/muduo_practice/net/SocketAddr.h"
+    "/home/ubuntu/c++/muduo_practice/net/SocketOperation.h"
+    "/home/ubuntu/c++/muduo_practice/net/SocketOperator.h"
+    "/home/ubuntu/c++/muduo_practice/net/TcpAcceptor.h"
+    "/home/ubuntu/c++/muduo_practice/net/TcpConnect.h"
     )
 endif()
 

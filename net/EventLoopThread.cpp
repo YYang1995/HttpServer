@@ -1,22 +1,33 @@
 #include "EventLoopThread.h"
 
 using namespace yy;
-EventLoopThread::EventLoopThread(const ThreadInitCallback &cb, const std::string &name)
-    : loop_(nullptr),
-      existing_(false),
-      mutex_(),
-      cond_(),
-      callback_(cb),
-      thread_(std::bind(&EventLoopThread::threadFunc, this)) {}
+using namespace std;
 
-EventLoopThread::~EventLoopThread() {
-  existing_=true;
-  if(loop_!= nullptr){
-    loop_->quit();
-    thread_.join();
-  }
+EventLoopThread::EventLoopThread():loop_(nullptr) {
+
 }
 
-EventLoop* EventLoopThread::startLoop() {
+EventLoopThread::~EventLoopThread() {
 
+}
+
+void EventLoopThread::run() {
+  EventLoop loop;
+  {
+    std::unique_lock<std::mutex> lock(mtx_);
+    this->loop_=&loop;
+    cond_.notify_one();
+  }
+  loop.loop();
+}
+
+EventLoop* EventLoopThread::getLoopInThread() {
+  this->start();  //必不可少，原版少了此行;这一行的位置？
+  {
+    unique_lock<std::mutex> lock(mtx_);
+    while(loop_== nullptr){
+      cond_.wait(lock);
+    }
+  }
+  return loop_;
 }

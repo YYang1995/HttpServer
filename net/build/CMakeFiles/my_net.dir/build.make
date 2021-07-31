@@ -249,6 +249,78 @@ CMakeFiles/my_net.dir/TcpAcceptor.cpp.o.provides: CMakeFiles/my_net.dir/TcpAccep
 CMakeFiles/my_net.dir/TcpAcceptor.cpp.o.provides.build: CMakeFiles/my_net.dir/TcpAcceptor.cpp.o
 
 
+CMakeFiles/my_net.dir/Buffer.cpp.o: CMakeFiles/my_net.dir/flags.make
+CMakeFiles/my_net.dir/Buffer.cpp.o: ../Buffer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/c++/muduo_practice/net/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/my_net.dir/Buffer.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/my_net.dir/Buffer.cpp.o -c /home/ubuntu/c++/muduo_practice/net/Buffer.cpp
+
+CMakeFiles/my_net.dir/Buffer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/my_net.dir/Buffer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/c++/muduo_practice/net/Buffer.cpp > CMakeFiles/my_net.dir/Buffer.cpp.i
+
+CMakeFiles/my_net.dir/Buffer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_net.dir/Buffer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/c++/muduo_practice/net/Buffer.cpp -o CMakeFiles/my_net.dir/Buffer.cpp.s
+
+CMakeFiles/my_net.dir/Buffer.cpp.o.requires:
+
+.PHONY : CMakeFiles/my_net.dir/Buffer.cpp.o.requires
+
+CMakeFiles/my_net.dir/Buffer.cpp.o.provides: CMakeFiles/my_net.dir/Buffer.cpp.o.requires
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/Buffer.cpp.o.provides.build
+.PHONY : CMakeFiles/my_net.dir/Buffer.cpp.o.provides
+
+CMakeFiles/my_net.dir/Buffer.cpp.o.provides.build: CMakeFiles/my_net.dir/Buffer.cpp.o
+
+
+CMakeFiles/my_net.dir/TcpConnect.cpp.o: CMakeFiles/my_net.dir/flags.make
+CMakeFiles/my_net.dir/TcpConnect.cpp.o: ../TcpConnect.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/c++/muduo_practice/net/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/my_net.dir/TcpConnect.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/my_net.dir/TcpConnect.cpp.o -c /home/ubuntu/c++/muduo_practice/net/TcpConnect.cpp
+
+CMakeFiles/my_net.dir/TcpConnect.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/my_net.dir/TcpConnect.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/c++/muduo_practice/net/TcpConnect.cpp > CMakeFiles/my_net.dir/TcpConnect.cpp.i
+
+CMakeFiles/my_net.dir/TcpConnect.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_net.dir/TcpConnect.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/c++/muduo_practice/net/TcpConnect.cpp -o CMakeFiles/my_net.dir/TcpConnect.cpp.s
+
+CMakeFiles/my_net.dir/TcpConnect.cpp.o.requires:
+
+.PHONY : CMakeFiles/my_net.dir/TcpConnect.cpp.o.requires
+
+CMakeFiles/my_net.dir/TcpConnect.cpp.o.provides: CMakeFiles/my_net.dir/TcpConnect.cpp.o.requires
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/TcpConnect.cpp.o.provides.build
+.PHONY : CMakeFiles/my_net.dir/TcpConnect.cpp.o.provides
+
+CMakeFiles/my_net.dir/TcpConnect.cpp.o.provides.build: CMakeFiles/my_net.dir/TcpConnect.cpp.o
+
+
+CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.o: CMakeFiles/my_net.dir/flags.make
+CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.o: ../EventLoopThreadPool.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/c++/muduo_practice/net/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.o -c /home/ubuntu/c++/muduo_practice/net/EventLoopThreadPool.cpp
+
+CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/c++/muduo_practice/net/EventLoopThreadPool.cpp > CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.i
+
+CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/c++/muduo_practice/net/EventLoopThreadPool.cpp -o CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.s
+
+CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.o.requires:
+
+.PHONY : CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.o.requires
+
+CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.o.provides: CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.o.requires
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.o.provides.build
+.PHONY : CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.o.provides
+
+CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.o.provides.build: CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.o
+
+
 # Object files for target my_net
 my_net_OBJECTS = \
 "CMakeFiles/my_net.dir/Channel.cpp.o" \
@@ -258,7 +330,10 @@ my_net_OBJECTS = \
 "CMakeFiles/my_net.dir/SocketOperation.cpp.o" \
 "CMakeFiles/my_net.dir/Socket.cpp.o" \
 "CMakeFiles/my_net.dir/SocketAddr.cpp.o" \
-"CMakeFiles/my_net.dir/TcpAcceptor.cpp.o"
+"CMakeFiles/my_net.dir/TcpAcceptor.cpp.o" \
+"CMakeFiles/my_net.dir/Buffer.cpp.o" \
+"CMakeFiles/my_net.dir/TcpConnect.cpp.o" \
+"CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.o"
 
 # External object files for target my_net
 my_net_EXTERNAL_OBJECTS =
@@ -271,9 +346,12 @@ libmy_net.a: CMakeFiles/my_net.dir/SocketOperation.cpp.o
 libmy_net.a: CMakeFiles/my_net.dir/Socket.cpp.o
 libmy_net.a: CMakeFiles/my_net.dir/SocketAddr.cpp.o
 libmy_net.a: CMakeFiles/my_net.dir/TcpAcceptor.cpp.o
+libmy_net.a: CMakeFiles/my_net.dir/Buffer.cpp.o
+libmy_net.a: CMakeFiles/my_net.dir/TcpConnect.cpp.o
+libmy_net.a: CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.o
 libmy_net.a: CMakeFiles/my_net.dir/build.make
 libmy_net.a: CMakeFiles/my_net.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/c++/muduo_practice/net/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX static library libmy_net.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/c++/muduo_practice/net/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX static library libmy_net.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/my_net.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/my_net.dir/link.txt --verbose=$(VERBOSE)
 
@@ -290,6 +368,9 @@ CMakeFiles/my_net.dir/requires: CMakeFiles/my_net.dir/SocketOperation.cpp.o.requ
 CMakeFiles/my_net.dir/requires: CMakeFiles/my_net.dir/Socket.cpp.o.requires
 CMakeFiles/my_net.dir/requires: CMakeFiles/my_net.dir/SocketAddr.cpp.o.requires
 CMakeFiles/my_net.dir/requires: CMakeFiles/my_net.dir/TcpAcceptor.cpp.o.requires
+CMakeFiles/my_net.dir/requires: CMakeFiles/my_net.dir/Buffer.cpp.o.requires
+CMakeFiles/my_net.dir/requires: CMakeFiles/my_net.dir/TcpConnect.cpp.o.requires
+CMakeFiles/my_net.dir/requires: CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.o.requires
 
 .PHONY : CMakeFiles/my_net.dir/requires
 

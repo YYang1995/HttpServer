@@ -31,7 +31,7 @@ bool TcpAcceptor::isListen() {
   return listening_;
 }
 
-void TcpAcceptor::setNewConnectCallback(const NewConnectCallback callback) {
+void TcpAcceptor::setNewConnectCallback(const NewConnectCallback &callback) {
   newConnectCallback_=callback;
 }
 

@@ -81,17 +81,43 @@ CMakeFiles/my_base.dir/noncopyable.cpp.o.provides: CMakeFiles/my_base.dir/noncop
 CMakeFiles/my_base.dir/noncopyable.cpp.o.provides.build: CMakeFiles/my_base.dir/noncopyable.cpp.o
 
 
+CMakeFiles/my_base.dir/Thread.cpp.o: CMakeFiles/my_base.dir/flags.make
+CMakeFiles/my_base.dir/Thread.cpp.o: ../Thread.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/c++/muduo_practice/base/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/my_base.dir/Thread.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/my_base.dir/Thread.cpp.o -c /home/ubuntu/c++/muduo_practice/base/Thread.cpp
+
+CMakeFiles/my_base.dir/Thread.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/my_base.dir/Thread.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/c++/muduo_practice/base/Thread.cpp > CMakeFiles/my_base.dir/Thread.cpp.i
+
+CMakeFiles/my_base.dir/Thread.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_base.dir/Thread.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/c++/muduo_practice/base/Thread.cpp -o CMakeFiles/my_base.dir/Thread.cpp.s
+
+CMakeFiles/my_base.dir/Thread.cpp.o.requires:
+
+.PHONY : CMakeFiles/my_base.dir/Thread.cpp.o.requires
+
+CMakeFiles/my_base.dir/Thread.cpp.o.provides: CMakeFiles/my_base.dir/Thread.cpp.o.requires
+	$(MAKE) -f CMakeFiles/my_base.dir/build.make CMakeFiles/my_base.dir/Thread.cpp.o.provides.build
+.PHONY : CMakeFiles/my_base.dir/Thread.cpp.o.provides
+
+CMakeFiles/my_base.dir/Thread.cpp.o.provides.build: CMakeFiles/my_base.dir/Thread.cpp.o
+
+
 # Object files for target my_base
 my_base_OBJECTS = \
-"CMakeFiles/my_base.dir/noncopyable.cpp.o"
+"CMakeFiles/my_base.dir/noncopyable.cpp.o" \
+"CMakeFiles/my_base.dir/Thread.cpp.o"
 
 # External object files for target my_base
 my_base_EXTERNAL_OBJECTS =
 
 libmy_base.a: CMakeFiles/my_base.dir/noncopyable.cpp.o
+libmy_base.a: CMakeFiles/my_base.dir/Thread.cpp.o
 libmy_base.a: CMakeFiles/my_base.dir/build.make
 libmy_base.a: CMakeFiles/my_base.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/c++/muduo_practice/base/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libmy_base.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/c++/muduo_practice/base/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library libmy_base.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/my_base.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/my_base.dir/link.txt --verbose=$(VERBOSE)
 
@@ -101,6 +127,7 @@ CMakeFiles/my_base.dir/build: libmy_base.a
 .PHONY : CMakeFiles/my_base.dir/build
 
 CMakeFiles/my_base.dir/requires: CMakeFiles/my_base.dir/noncopyable.cpp.o.requires
+CMakeFiles/my_base.dir/requires: CMakeFiles/my_base.dir/Thread.cpp.o.requires
 
 .PHONY : CMakeFiles/my_base.dir/requires
 

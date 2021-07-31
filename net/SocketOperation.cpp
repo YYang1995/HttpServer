@@ -136,17 +136,17 @@ bool SocketOperation::toAddrIpv4(const std::string &addrstr, struct sockaddr_in 
   return toAddrIpv4(addrstr.substr(0, pos), std::stoi(addrstr.substr(pos + 1)), addr);
 }
 
-//点分十进制ip:port转为字符串
+//点分十进制ip:port转为字符串   主机序or网络序？
 string SocketOperation::ipToString(struct sockaddr_in addr) {
   std::stringstream stream;
   uint8_t *addrArray = (uint8_t *) &addr.sin_addr.s_addr;
-  for(int i=0;i<4;i++)
+  for(int i=3;i>=0;i--)
   {
     stream<<(uint16_t)addrArray[i];
-    if(i!=3){
+    if(i!=0){
       stream<<".";
     }
-    stream<<":"<<(((addr.sin_port<<8)&0x00fffff)|(addr.sin_port>>8));//TODO 作用？
+//    stream<<":"<<(((addr.sin_port<<8)&0x00fffff)|(addr.sin_port>>8));//TODO 作用？
     return stream.str();
   }
 }

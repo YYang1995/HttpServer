@@ -25,7 +25,7 @@ public:
   void quit();
   void updateChannel(Channel *channel);
   void queueInLoop(const Functor &cb);
-  void runInLoop(const Functor &cb);
+  void runInLoop(const Functor &cb);  //作用？
 private:
   typedef std::vector<Channel *> ChannelList;
 

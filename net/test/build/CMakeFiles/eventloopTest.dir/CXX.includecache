@@ -13,16 +13,18 @@ functional
 -
 
 /home/ubuntu/c++/muduo_practice/net/EventLoop.h
+atomic
+-
+memory
+-
+mutex
+-
+vector
+-
 ../base/noncopyable.h
 /home/ubuntu/c++/muduo_practice/base/noncopyable.h
 Channel.h
 /home/ubuntu/c++/muduo_practice/net/Channel.h
-atomic
--
-vector
--
-memory
--
 Poller.h
 /home/ubuntu/c++/muduo_practice/net/Poller.h
 

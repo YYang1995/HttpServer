@@ -17,7 +17,7 @@ public:
   ~TcpAcceptor();
   void listen();
   bool isListen();
-  void setNewConnectCallback(const NewConnectCallback callback);
+  void setNewConnectCallback(const NewConnectCallback &callback);
 
 private:
   EventLoop *loop_;

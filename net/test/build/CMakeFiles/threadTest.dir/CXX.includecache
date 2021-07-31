@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ubuntu/c++/muduo_practice/net/test/ThreadTest.cpp
+iostream
+-
+muduo_practice/base/Thread.h
+/home/ubuntu/c++/muduo_practice/net/test/muduo_practice/base/Thread.h
+

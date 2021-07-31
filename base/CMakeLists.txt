@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 
 set(SOURCES
         noncopyable.cpp
+        Thread.cpp
         )
 add_library(my_base ${SOURCES})
 file(GLOB HEADERS "*.h")

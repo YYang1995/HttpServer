@@ -14,9 +14,7 @@ void timeout() {
  printf("Timeout\n");
  g_loop->quit();
 }
-void f(){
-  cout<<"in f()\n";
-}
+
 int main() {
   EventLoop loop;
   g_loop=&loop;
@@ -24,8 +22,7 @@ int main() {
   int timerfd=timerfd_create(CLOCK_MONOTONIC,TFD_NONBLOCK|TFD_CLOEXEC);
   Channel channel(&loop,timerfd);
   channel.setReadCallback(timeout);
-  channel.enableReading();
-  Poller poller(&loop);
+  channel.enableReading();  //这里更新poll中的channel列表
 
   struct itimerspec howlong;
   bzero(&howlong,sizeof howlong);

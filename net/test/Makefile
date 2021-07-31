@@ -169,6 +169,33 @@ my_net/fast:
 	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/build
 .PHONY : my_net/fast
 
+Buffer.o: Buffer.cpp.o
+
+.PHONY : Buffer.o
+
+# target to build an object file
+Buffer.cpp.o:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/Buffer.cpp.o
+.PHONY : Buffer.cpp.o
+
+Buffer.i: Buffer.cpp.i
+
+.PHONY : Buffer.i
+
+# target to preprocess a source file
+Buffer.cpp.i:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/Buffer.cpp.i
+.PHONY : Buffer.cpp.i
+
+Buffer.s: Buffer.cpp.s
+
+.PHONY : Buffer.s
+
+# target to generate assembly for a file
+Buffer.cpp.s:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/Buffer.cpp.s
+.PHONY : Buffer.cpp.s
+
 Channel.o: Channel.cpp.o
 
 .PHONY : Channel.o
@@ -223,6 +250,60 @@ EventLoop.cpp.s:
 	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/EventLoop.cpp.s
 .PHONY : EventLoop.cpp.s
 
+EventLoopThread.o: EventLoopThread.cpp.o
+
+.PHONY : EventLoopThread.o
+
+# target to build an object file
+EventLoopThread.cpp.o:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/EventLoopThread.cpp.o
+.PHONY : EventLoopThread.cpp.o
+
+EventLoopThread.i: EventLoopThread.cpp.i
+
+.PHONY : EventLoopThread.i
+
+# target to preprocess a source file
+EventLoopThread.cpp.i:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/EventLoopThread.cpp.i
+.PHONY : EventLoopThread.cpp.i
+
+EventLoopThread.s: EventLoopThread.cpp.s
+
+.PHONY : EventLoopThread.s
+
+# target to generate assembly for a file
+EventLoopThread.cpp.s:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/EventLoopThread.cpp.s
+.PHONY : EventLoopThread.cpp.s
+
+EventLoopThreadPool.o: EventLoopThreadPool.cpp.o
+
+.PHONY : EventLoopThreadPool.o
+
+# target to build an object file
+EventLoopThreadPool.cpp.o:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.o
+.PHONY : EventLoopThreadPool.cpp.o
+
+EventLoopThreadPool.i: EventLoopThreadPool.cpp.i
+
+.PHONY : EventLoopThreadPool.i
+
+# target to preprocess a source file
+EventLoopThreadPool.cpp.i:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.i
+.PHONY : EventLoopThreadPool.cpp.i
+
+EventLoopThreadPool.s: EventLoopThreadPool.cpp.s
+
+.PHONY : EventLoopThreadPool.s
+
+# target to generate assembly for a file
+EventLoopThreadPool.cpp.s:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.s
+.PHONY : EventLoopThreadPool.cpp.s
+
 Poller.o: Poller.cpp.o
 
 .PHONY : Poller.o
@@ -250,6 +331,141 @@ Poller.cpp.s:
 	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/Poller.cpp.s
 .PHONY : Poller.cpp.s
 
+Socket.o: Socket.cpp.o
+
+.PHONY : Socket.o
+
+# target to build an object file
+Socket.cpp.o:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/Socket.cpp.o
+.PHONY : Socket.cpp.o
+
+Socket.i: Socket.cpp.i
+
+.PHONY : Socket.i
+
+# target to preprocess a source file
+Socket.cpp.i:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/Socket.cpp.i
+.PHONY : Socket.cpp.i
+
+Socket.s: Socket.cpp.s
+
+.PHONY : Socket.s
+
+# target to generate assembly for a file
+Socket.cpp.s:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/Socket.cpp.s
+.PHONY : Socket.cpp.s
+
+SocketAddr.o: SocketAddr.cpp.o
+
+.PHONY : SocketAddr.o
+
+# target to build an object file
+SocketAddr.cpp.o:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/SocketAddr.cpp.o
+.PHONY : SocketAddr.cpp.o
+
+SocketAddr.i: SocketAddr.cpp.i
+
+.PHONY : SocketAddr.i
+
+# target to preprocess a source file
+SocketAddr.cpp.i:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/SocketAddr.cpp.i
+.PHONY : SocketAddr.cpp.i
+
+SocketAddr.s: SocketAddr.cpp.s
+
+.PHONY : SocketAddr.s
+
+# target to generate assembly for a file
+SocketAddr.cpp.s:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/SocketAddr.cpp.s
+.PHONY : SocketAddr.cpp.s
+
+SocketOperation.o: SocketOperation.cpp.o
+
+.PHONY : SocketOperation.o
+
+# target to build an object file
+SocketOperation.cpp.o:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/SocketOperation.cpp.o
+.PHONY : SocketOperation.cpp.o
+
+SocketOperation.i: SocketOperation.cpp.i
+
+.PHONY : SocketOperation.i
+
+# target to preprocess a source file
+SocketOperation.cpp.i:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/SocketOperation.cpp.i
+.PHONY : SocketOperation.cpp.i
+
+SocketOperation.s: SocketOperation.cpp.s
+
+.PHONY : SocketOperation.s
+
+# target to generate assembly for a file
+SocketOperation.cpp.s:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/SocketOperation.cpp.s
+.PHONY : SocketOperation.cpp.s
+
+TcpAcceptor.o: TcpAcceptor.cpp.o
+
+.PHONY : TcpAcceptor.o
+
+# target to build an object file
+TcpAcceptor.cpp.o:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/TcpAcceptor.cpp.o
+.PHONY : TcpAcceptor.cpp.o
+
+TcpAcceptor.i: TcpAcceptor.cpp.i
+
+.PHONY : TcpAcceptor.i
+
+# target to preprocess a source file
+TcpAcceptor.cpp.i:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/TcpAcceptor.cpp.i
+.PHONY : TcpAcceptor.cpp.i
+
+TcpAcceptor.s: TcpAcceptor.cpp.s
+
+.PHONY : TcpAcceptor.s
+
+# target to generate assembly for a file
+TcpAcceptor.cpp.s:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/TcpAcceptor.cpp.s
+.PHONY : TcpAcceptor.cpp.s
+
+TcpConnect.o: TcpConnect.cpp.o
+
+.PHONY : TcpConnect.o
+
+# target to build an object file
+TcpConnect.cpp.o:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/TcpConnect.cpp.o
+.PHONY : TcpConnect.cpp.o
+
+TcpConnect.i: TcpConnect.cpp.i
+
+.PHONY : TcpConnect.i
+
+# target to preprocess a source file
+TcpConnect.cpp.i:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/TcpConnect.cpp.i
+.PHONY : TcpConnect.cpp.i
+
+TcpConnect.s: TcpConnect.cpp.s
+
+.PHONY : TcpConnect.s
+
+# target to generate assembly for a file
+TcpConnect.cpp.s:
+	$(MAKE) -f CMakeFiles/my_net.dir/build.make CMakeFiles/my_net.dir/TcpConnect.cpp.s
+.PHONY : TcpConnect.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -263,15 +479,39 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... list_install_components"
 	@echo "... install/local"
+	@echo "... Buffer.o"
+	@echo "... Buffer.i"
+	@echo "... Buffer.s"
 	@echo "... Channel.o"
 	@echo "... Channel.i"
 	@echo "... Channel.s"
 	@echo "... EventLoop.o"
 	@echo "... EventLoop.i"
 	@echo "... EventLoop.s"
+	@echo "... EventLoopThread.o"
+	@echo "... EventLoopThread.i"
+	@echo "... EventLoopThread.s"
+	@echo "... EventLoopThreadPool.o"
+	@echo "... EventLoopThreadPool.i"
+	@echo "... EventLoopThreadPool.s"
 	@echo "... Poller.o"
 	@echo "... Poller.i"
 	@echo "... Poller.s"
+	@echo "... Socket.o"
+	@echo "... Socket.i"
+	@echo "... Socket.s"
+	@echo "... SocketAddr.o"
+	@echo "... SocketAddr.i"
+	@echo "... SocketAddr.s"
+	@echo "... SocketOperation.o"
+	@echo "... SocketOperation.i"
+	@echo "... SocketOperation.s"
+	@echo "... TcpAcceptor.o"
+	@echo "... TcpAcceptor.i"
+	@echo "... TcpAcceptor.s"
+	@echo "... TcpConnect.o"
+	@echo "... TcpConnect.i"
+	@echo "... TcpConnect.s"
 .PHONY : help
 
 

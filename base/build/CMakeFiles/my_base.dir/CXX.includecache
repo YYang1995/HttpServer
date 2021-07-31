@@ -6,5 +6,23 @@
 
 #IncludeRegexTransform: 
 
+/home/ubuntu/c++/muduo_practice/base/Thread.cpp
+Thread.h
+/home/ubuntu/c++/muduo_practice/base/Thread.h
+chrono
+-
+functional
+-
+
+/home/ubuntu/c++/muduo_practice/base/Thread.h
+thread
+-
+condition_variable
+-
+mutex
+-
+memory
+-
+
 /home/ubuntu/c++/muduo_practice/base/noncopyable.cpp
 

@@ -1,0 +1,3 @@
+/home/ubuntu/c++/muduo_practice/base/test/build/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/c++/muduo_practice/base/test/build/CMakeFiles/threadTest.dir
+/home/ubuntu/c++/muduo_practice/base/test/build/CMakeFiles/edit_cache.dir

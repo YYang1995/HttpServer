@@ -7,6 +7,9 @@ file(REMOVE_RECURSE
   "CMakeFiles/my_net.dir/Socket.cpp.o"
   "CMakeFiles/my_net.dir/SocketAddr.cpp.o"
   "CMakeFiles/my_net.dir/TcpAcceptor.cpp.o"
+  "CMakeFiles/my_net.dir/Buffer.cpp.o"
+  "CMakeFiles/my_net.dir/TcpConnect.cpp.o"
+  "CMakeFiles/my_net.dir/EventLoopThreadPool.cpp.o"
   "libmy_net.pdb"
   "libmy_net.a"
 )

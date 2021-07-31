@@ -1,2 +1,2 @@
-/usr/bin/ar qc libmy_base.a  CMakeFiles/my_base.dir/noncopyable.cpp.o
+/usr/bin/ar qc libmy_base.a  CMakeFiles/my_base.dir/noncopyable.cpp.o CMakeFiles/my_base.dir/Thread.cpp.o
 /usr/bin/ranlib libmy_base.a

@@ -10,6 +10,9 @@ set(SOURCES
         Socket.cpp
         SocketAddr.cpp
         TcpAcceptor.cpp
+        Buffer.cpp
+        TcpConnect.cpp
+        EventLoopThreadPool.cpp
         )
 add_library(my_net ${SOURCES})
 target_link_libraries(my_net pthread my_base)

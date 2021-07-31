@@ -169,6 +169,33 @@ my_base/fast:
 	$(MAKE) -f CMakeFiles/my_base.dir/build.make CMakeFiles/my_base.dir/build
 .PHONY : my_base/fast
 
+Thread.o: Thread.cpp.o
+
+.PHONY : Thread.o
+
+# target to build an object file
+Thread.cpp.o:
+	$(MAKE) -f CMakeFiles/my_base.dir/build.make CMakeFiles/my_base.dir/Thread.cpp.o
+.PHONY : Thread.cpp.o
+
+Thread.i: Thread.cpp.i
+
+.PHONY : Thread.i
+
+# target to preprocess a source file
+Thread.cpp.i:
+	$(MAKE) -f CMakeFiles/my_base.dir/build.make CMakeFiles/my_base.dir/Thread.cpp.i
+.PHONY : Thread.cpp.i
+
+Thread.s: Thread.cpp.s
+
+.PHONY : Thread.s
+
+# target to generate assembly for a file
+Thread.cpp.s:
+	$(MAKE) -f CMakeFiles/my_base.dir/build.make CMakeFiles/my_base.dir/Thread.cpp.s
+.PHONY : Thread.cpp.s
+
 noncopyable.o: noncopyable.cpp.o
 
 .PHONY : noncopyable.o
@@ -209,6 +236,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... list_install_components"
 	@echo "... install/local"
+	@echo "... Thread.o"
+	@echo "... Thread.i"
+	@echo "... Thread.s"
 	@echo "... noncopyable.o"
 	@echo "... noncopyable.i"
 	@echo "... noncopyable.s"
