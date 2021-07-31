@@ -1,30 +1,22 @@
 #include "../HttpContext.h"
 #include "../../net/Buffer.h"
-#include <assert.h>
-#include <string>
-#include <iostream>
 #include "../HttpRequest.h"
+#include "../HttpResponse.h"
+
+#include <iostream>
+#include <string>
 
 using namespace std;
 using namespace yy;
 
-int main()
-{
-//  Buffer buffer;
-  string stimu_request="GET www.baidu.com http/1.1\r\n";
-//  buffer.append(stimu_request);
-//  HttpContext context;
-////  auto result=context.parseRequest(&buffer,"132");
-  const char *str=stimu_request.c_str();
-//  context.processRequestLine(str,str+4);
-//
-//
-//  auto request=context.getRequest();
-//
-//  cout<<request.getMethod()<<endl;
-//  cout<<request.getVersion()<<endl;
-//  cout<<request.getPath()<<endl;
+int main() {
+  Buffer buffer;
+  HttpResponse response;
+  response.setStatusCode(HttpResponse::StatusCode::_200OK);
+  response.setStatusMessage("OK");
+  response.setCloseConnection("Text/Html");
+  response.addHeader("Server", "localhost");
+  response.setBody("test function of HttpResponse");
+  response.addToBuffer(&buffer);
 
-  HttpContext context;
-  cout<<context.gotAll()<<endl;
 }

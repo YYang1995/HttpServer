@@ -1,7 +1,7 @@
 #include "HttpContext.h"
 
 #include <algorithm>
-
+#include <iostream>
 #include "../net/Buffer.h"
 
 using namespace yy;
@@ -46,9 +46,8 @@ bool HttpContext::parseRequest(Buffer *buffer, string receiveTime) {
           }
         }
         hasMore = false;
-
+        break;
       }
-      break;
       case ExpectRequestHead:
       {
         const char *crlf = buffer->findCRLF();
@@ -67,12 +66,13 @@ bool HttpContext::parseRequest(Buffer *buffer, string receiveTime) {
           continue;
         }
         hasMore=false;
+        break;
       }
-      break;
       case ExpectRequestBody:
       {
         //直接保存在buffer中，不解析
-      } break;
+        break;
+      } 
       default:
         break;
     }
@@ -84,7 +84,9 @@ bool HttpContext::processRequestLine(const char *begin, const char *end) {
   bool succeed = false;
   const char *pos = begin;
   const char *space = std::find(pos, end, ' ');
-  if (space != end && request_.setMethod(pos, space)) {
+  if (space != end) {
+    if(!request_.setMethod(pos,space))
+      return false;
     pos = space + 1;
     space = std::find(pos, end, ' ');
     if (space != end) {
@@ -97,7 +99,7 @@ bool HttpContext::processRequestLine(const char *begin, const char *end) {
       }
     }
     pos = space + 1;
-    succeed = end - pos == 8 && std::equal(pos, end - 1, "HTTP/1.");
+    succeed = (end - pos == 8) && std::equal(pos, end - 1, "HTTP/1.");
     if (succeed) {
       if (*(end - 1) == '1') {
         request_.setVersion(HttpRequest::Http11);

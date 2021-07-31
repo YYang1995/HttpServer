@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 2.6)
 set(SOURCES
         HttpContext.cpp
         HttpRequest.cpp
+        HttpResponse.cpp
         )
 
 add_library(my_http ${SOURCES})

@@ -19,7 +19,7 @@ Version HttpRequest::getVersion() const {
 }
 
 bool HttpRequest::setMethod(const char *begin,const char *end) {
-  if(!method_)
+  if(method_)
     return false;
   string method=string(begin,end);
   if(method=="GET"){
