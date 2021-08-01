@@ -2,7 +2,7 @@
 using namespace yy;
 using namespace std;
 
-TcpConncet::TcpConncet(EventLoop *loop, SocketAddr &a, int fd) : loop(loop),
+TcpConnect::TcpConnect(EventLoop *loop, SocketAddr &a, int fd) : loop(loop),
                                                                  addr(a),
                                                                  name(addr.toString()),
                                                                  event(new Channel(loop, fd)),
@@ -10,29 +10,29 @@ TcpConncet::TcpConncet(EventLoop *loop, SocketAddr &a, int fd) : loop(loop),
                                                                  state(Disconnected) {
   setNoDelay();
   loop->updateChannel(event.get());
-  event->setReadCallback(std::bind(&TcpConncet::readEvent, this));
-  event->setWriteCallback(std::bind(&TcpConncet::writeEvent, this));
-  event->setErrorCallback(std::bind(&TcpConncet::errorEvent, this));
-  event->setCloseCallback(std::bind(&TcpConncet::closeCallback, this));
+  event->setReadCallback(std::bind(&TcpConnect::readEvent, this));
+  event->setWriteCallback(std::bind(&TcpConnect::writeEvent, this));
+  event->setErrorCallback(std::bind(&TcpConnect::errorEvent, this));
+  event->setCloseCallback(std::bind(&TcpConnect::closeCallback, this));
 }
 
-TcpConncet::~TcpConncet() {
+TcpConnect::~TcpConnect() {
   event->disableAll();
   //  event->removeEvnet(shared_from_this()); TODO
 }
 
-void TcpConncet::setNoDelay() {
+void TcpConnect::setNoDelay() {
   socket->setTcpNoDelay();
 }
 
-void TcpConncet::shutDownWrite() {
+void TcpConnect::shutDownWrite() {
   if (state == Connected) {
     state = Disconnecting;
     socket->shutDownWrite();
   }
 }
 
-void TcpConncet::readEvent() {
+void TcpConnect::readEvent() {
   int error = 0;
   int n = readBuffer.readFromIO(event->fd(), error);
   if (n > 0) {
@@ -47,12 +47,19 @@ void TcpConncet::readEvent() {
   }
 }
 
-void TcpConncet::closeEvent() {
+void TcpConnect::closeEvent() {
   state = Disconnected;
   if (closeCallback) {
     closeCallback(shared_from_this());
   }
 }
 
-void TcpConncet::writeEvent() {
+void TcpConnect::writeEvent() {
+}
+
+void TcpConnect::connectHandle(){
+  state=Connected;
+  event->enableReading();
+  // event->enableError();
+
 }

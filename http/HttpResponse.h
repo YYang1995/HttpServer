@@ -14,7 +14,7 @@ public:
     _400BadRequest = 400,
     _404NotFound = 404
   };
-  HttpResponse();
+  HttpResponse(const bool &close);
   ~HttpResponse();
   void setStatusCode(const StatusCode &code);
   void setStatusMessage(const std::string &msg);

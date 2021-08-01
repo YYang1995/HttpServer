@@ -6,12 +6,12 @@
 #include <memory.h>
 
 namespace yy{
-class TcpConncet:public std::enable_shared_from_this<TcpConncet>{
+class TcpConnect:public std::enable_shared_from_this<TcpConnect>{
 public:
-  typedef std::shared_ptr<TcpConncet> ptr;
-  typedef std::function<void(std::shared_ptr<TcpConncet>,Buffer&)> MessageCallback;
-  typedef std::function<void(std::shared_ptr<TcpConncet>)> WriteCompleteCallback;
-  typedef std::function<void(std::shared_ptr<TcpConncet>)> CloseCallback;
+  typedef std::shared_ptr<TcpConnect> ptr;
+  typedef std::function<void(std::shared_ptr<TcpConnect>,Buffer&)> MessageCallback;
+  typedef std::function<void(std::shared_ptr<TcpConnect>)> WriteCompleteCallback;
+  typedef std::function<void(std::shared_ptr<TcpConnect>)> CloseCallback;
 
   enum ConnectState{
     Disconnected,
@@ -21,12 +21,12 @@ public:
   };
 
 public:
-  TcpConncet(EventLoop *loop,SocketAddr &a,int fd);
-  ~TcpConncet();
+  TcpConnect(EventLoop *loop,SocketAddr &a,int fd);
+  ~TcpConnect();
 
   void setMessageCallback(const MessageCallback &callback){messageCallback=callback;};
   void setCloseCallback(const CloseCallback &callback){closeCallback=callback;}
-  void setWriteComleteCallback(const WriteCompleteCallback &callback){writeCompleteCallback=callback;};
+  void setWriteCompleteCallback(const WriteCompleteCallback &callback){writeCompleteCallback=callback;};
 
 
   SocketAddr& getAddr(){return addr;}
