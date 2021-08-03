@@ -5,7 +5,7 @@ namespace yy {
 class EventLoop;
 
 class Channel {
-public:
+ public:
   typedef std::function<void()> EventCallback;
   Channel(EventLoop *loop, int fd);
   void handleEvent();
@@ -43,7 +43,7 @@ public:
 
   EventLoop *ownerLoop() { return loop_; }
 
-private:
+ private:
   void update();
 
   static const int kNoneEvent;
@@ -52,13 +52,13 @@ private:
 
   EventLoop *loop_;
   const int fd_;
-  int events_; //关心的事件
-  int revents_;//发生的事件
-  int index_;  // used by poller
+  int events_;   //关心的事件
+  int revents_;  //发生的事件
+  int index_;    // used by poller
 
   EventCallback readCallback_;
   EventCallback writeCallback_;
   EventCallback errorCallback_;
   EventCallback closeCallback_;
 };
-}// namespace yy
+}  // namespace yy

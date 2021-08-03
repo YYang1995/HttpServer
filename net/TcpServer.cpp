@@ -1,16 +1,25 @@
 #include "TcpServer.h"
+
 #include <iostream>
 
 using namespace std;
 using namespace yy;
 
 TcpServer::TcpServer(EventLoop *loop, SocketAddr &addr)
-    : loop_(loop), tcpAddr_(addr), tcpAccpet_(new TcpAcceptor(loop, addr)),
-      isStart_(false), threadPool_(new EventLoopThreadPool(loop))
+    : loop_(loop),
+      tcpAddr_(addr),
+      tcpAccpet_(new TcpAcceptor(loop, addr)),
+      isStart_(false),
+      threadPool_(new EventLoopThreadPool(loop))
 {
   tcpAccpet_->setNewConnectCallback(std::bind(&TcpServer::newConnected, this,
                                               std::placeholders::_1,
                                               std::placeholders::_2));
+}
+
+TcpServer::~TcpServer()
+{
+
 }
 
 void TcpServer::start()
@@ -45,7 +54,8 @@ void TcpServer::addConnect(string name, TcpConnect::ptr connect)
 
 void TcpServer::addConnect(string name, TcpConnect *connect)
 {
-  addConnect(name, make_shared<TcpConnect>(connect));
+  TcpConnect::ptr sp(connect);
+  addConnect(name, sp);
 }
 
 bool TcpServer::havaConnect(std::string name)

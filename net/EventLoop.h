@@ -8,11 +8,13 @@
 #include "Channel.h"
 #include "Poller.h"
 
-namespace yy {
+namespace yy
+{
 class Channel;
 class Poller;
-class EventLoop : public noncopyable {
-public:
+class EventLoop : public noncopyable
+{
+ public:
   typedef std::function<void()> Functor;
   EventLoop();
   ~EventLoop();
@@ -26,7 +28,7 @@ public:
   void updateChannel(Channel *channel);
   void queueInLoop(const Functor &cb);
   void runInLoop(const Functor &cb);  //作用？
-private:
+ private:
   typedef std::vector<Channel *> ChannelList;
 
   std::vector<Functor> pendingFunctors;
@@ -36,7 +38,7 @@ private:
   const pthread_t threadId_;
   bool quit_;
   ChannelList activeChannels_;
-  std::shared_ptr<Poller> poller_;//poller_所指在何处？？
+  std::shared_ptr<Poller> poller_;  // poller_所指在何处？？
   int wakeupFd_;
   std::shared_ptr<Channel> wakeupChannel_;
 
@@ -44,4 +46,4 @@ private:
   void wakeup();
   void doPendingFunctors();
 };
-}// namespace yy
+}  // namespace yy

@@ -5,6 +5,7 @@ set(SOURCES
         HttpRequest.cpp
         HttpResponse.cpp
         HttpServer.cpp
+        echo.cpp
         )
 
 add_library(my_http ${SOURCES})

@@ -11,12 +11,11 @@ using namespace yy;
 
 int main() {
   Buffer buffer;
-  HttpResponse response;
+  HttpResponse response(true);
   response.setStatusCode(HttpResponse::StatusCode::_200OK);
   response.setStatusMessage("OK");
   response.setCloseConnection("Text/Html");
   response.addHeader("Server", "localhost");
   response.setBody("test function of HttpResponse");
   response.addToBuffer(&buffer);
-
 }
