@@ -44,7 +44,6 @@ void Channel::handleEvent()
   }
   if(revents_ & EPOLLRDHUP && !(revents_ & EPOLLIN))
   {
-    cout<<"herr?\n";
     if(closeCallback_) closeCallback_();
   }
 }
