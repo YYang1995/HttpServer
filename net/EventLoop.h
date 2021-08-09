@@ -6,12 +6,13 @@
 
 #include "../base/noncopyable.h"
 #include "Channel.h"
-#include "Poller.h"
+#include "Epoll.h"
 
 namespace yy
 {
 class Channel;
-class Poller;
+// class Poller;
+class Epoll;
 class EventLoop : public noncopyable
 {
  public:
@@ -38,7 +39,7 @@ class EventLoop : public noncopyable
   const pthread_t threadId_;
   bool quit_;
   ChannelList activeChannels_;
-  std::shared_ptr<Poller> poller_;  // poller_所指在何处？？
+  std::shared_ptr<Epoll> poller_;  // poller_所指在何处？？
   int wakeupFd_;
   std::shared_ptr<Channel> wakeupChannel_;
 

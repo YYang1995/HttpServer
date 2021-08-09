@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/threadTest.dir/ThreadTest.cpp.o  -o threadTest -lmy_base -lpthread 

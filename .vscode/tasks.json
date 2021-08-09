@@ -8,7 +8,9 @@
         "-g",
         "${file}",
         "-o",
-        "${fileDirname}/${fileBasenameNoExtension}"
+        "${fileDirname}/${fileBasenameNoExtension}",
+        "-lmy_net","-lmy_http","-lmy_base",
+        "-lpthread"
       ],
       "options": {
         "cwd": "${fileDirname}"

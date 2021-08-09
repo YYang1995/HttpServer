@@ -17,15 +17,13 @@ TcpServer::TcpServer(EventLoop *loop, SocketAddr &addr)
                                               std::placeholders::_2));
 }
 
-TcpServer::~TcpServer()
-{
-
-}
+TcpServer::~TcpServer() {}
 
 void TcpServer::start()
 {
   threadPool_->init();
-  tcpAccpet_->listen();
+  // tcpAccpet_->listen();
+  loop_->runInLoop(std::bind(&TcpAcceptor::listen,tcpAccpet_.get()));
   isStart_ = true;
 }
 

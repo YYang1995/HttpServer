@@ -39,6 +39,7 @@ int SocketOperation::bind(int sockfd, const struct sockaddr_in *addr)
 
 int SocketOperation::listen(int sockfd)
 {
+  std::cout<<"SocketOperatiion::listen() sockfd="<<sockfd<<std::endl;
   int ret = ::listen(sockfd, SOMAXCONN);
   if (ret < 0)
   {
@@ -60,11 +61,14 @@ int SocketOperation::connect(int sockfd, const struct sockaddr *addr)
 
 int SocketOperation::accept(int sockfd, struct sockaddr_in *addr)
 {
+  std::cout<<"sockfd= "<<sockfd<<std::endl;
   socklen_t addrlen = sizeof(struct sockaddr_in);
-  int ret = ::accept(sockfd, (struct sockaddr *)addr, &addrlen);
+  // int ret = ::accept(sockfd, (struct sockaddr *)addr, &addrlen);
+  int ret=::accept4(sockfd,(struct sockaddr*)addr,&addrlen,SOCK_CLOEXEC|SOCK_NONBLOCK);
   if (ret < 0)
   {
     std::cerr << "accept socket error" << std::endl;
+    std::cerr << strerror(errno) << std::endl;
   }
   return ret;
 }

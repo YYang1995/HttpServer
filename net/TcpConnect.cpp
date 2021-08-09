@@ -1,4 +1,6 @@
 #include "TcpConnect.h"
+#include <iostream>
+
 using namespace yy;
 using namespace std;
 
@@ -53,7 +55,7 @@ void TcpConnect::readEvent()
   else
   {
     std::cerr << "Error: TcpConnect read error" << std::to_string(error)
-              << endl;
+              << std::endl;
     closeEvent();
   }
 }
@@ -85,4 +87,9 @@ void TcpConnect::write(const char *data)
 void TcpConnect::write(const string &data)
 {
 
+}
+
+void TcpConnect::errorEvent()
+{
+  
 }

@@ -12,9 +12,9 @@ TcpAcceptor::TcpAcceptor(EventLoop *loop, SocketAddr &addr) :
     event_(new Channel(loop,socket_->getFd())),
     listening_(false)
 {
-  loop_->updateChannel(event_.get());
   socket_->bind(addr);
   event_->setReadCallback(std::bind(&TcpAcceptor::acceptHandle,this));
+  loop_->updateChannel(event_.get());
 }
 
 TcpAcceptor::~TcpAcceptor() {
@@ -23,8 +23,10 @@ TcpAcceptor::~TcpAcceptor() {
 }
 
 void TcpAcceptor::listen() {
+  listening_=true;
   socket_->listen();
   event_->enableReading();
+  cout<<"TcpAcceptor is listening\n";
 }
 
 bool TcpAcceptor::isListen() {
@@ -37,6 +39,7 @@ void TcpAcceptor::setNewConnectCallback(const NewConnectCallback &callback) {
 
 void TcpAcceptor::acceptHandle() {
   SocketAddr connectAddr;
+  cout<<"in acceptHandle\n";
   int connectfd=-1;
   if((connectfd=socket_->accept(connectAddr))>0){
     if(!!newConnectCallback_){

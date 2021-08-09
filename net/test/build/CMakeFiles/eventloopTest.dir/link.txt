@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/eventloopTest.dir/EventLoopTest.cpp.o  -o eventloopTest -lmy_net -lpthread 

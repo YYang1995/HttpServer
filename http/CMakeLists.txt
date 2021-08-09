@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
+project(muduo_practice_http)
 
 set(SOURCES
         HttpContext.cpp
@@ -9,7 +10,7 @@ set(SOURCES
         )
 
 add_library(my_http ${SOURCES})
-#target_link_libraries(my_http)
+target_link_libraries(my_http my_net)
 
 file(GLOB HTTPS "*.h")
 

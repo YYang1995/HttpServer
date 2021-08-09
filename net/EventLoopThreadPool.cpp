@@ -12,8 +12,10 @@ void EventLoopThreadPool::init(int num) {
   threadNum_=num;
   for(int i=0;i<threadNum_;i++){
     std::shared_ptr<EventLoopThread> thread(new EventLoopThread());
+
     thread->start();
     threadPool_.push_back(thread);
+
     eventLoopPool_.push_back(thread->getLoopInThread());
   }
   started_=true;

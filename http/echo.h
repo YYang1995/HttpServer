@@ -2,6 +2,7 @@
 
 #include "../net/EventLoop.h"
 #include "../net/TcpServer.h"
+#include <memory>
 
 class Echo : public yy::TcpServer
 {

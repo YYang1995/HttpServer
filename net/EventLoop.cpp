@@ -1,94 +1,113 @@
 #include "EventLoop.h"
+
 #include <assert.h>
-#include <iostream>
 #include <pthread.h>
 
-namespace yy {
+#include <iostream>
+#include "Epoll.h"
 
+namespace yy
+{
 __thread EventLoop *t_loopInThisThread = 0;
 
-EventLoop::EventLoop() : looping_(false), threadId_(pthread_self()) {
-
-  poller_=std::make_shared<Poller>(this);
+EventLoop::EventLoop() : looping_(false), threadId_(pthread_self())
+{
+  poller_ = std::make_shared<Epoll>(this);
   std::cout << "EventLoop created " << this << " in thread " << threadId_
             << std::endl;
-  if (t_loopInThisThread) {
+  if (t_loopInThisThread)
+  {
     std::cerr << "Another EvnetLoop " << t_loopInThisThread
               << " exists in this thread\n";
-  } else {
+  }
+  else
+  {
     t_loopInThisThread = this;
   }
 }
-EventLoop::~EventLoop() {
+EventLoop::~EventLoop()
+{
   assert(!looping_);
   t_loopInThisThread = nullptr;
 }
 
-EventLoop *EventLoop::getEventLoopOfCurrentThread() {
+EventLoop *EventLoop::getEventLoopOfCurrentThread()
+{
   return t_loopInThisThread;
 }
 bool EventLoop::isInLoopThread() { return threadId_ == pthread_self(); }
 
-void EventLoop::loop() {
+void EventLoop::loop()
+{
   assert(!looping_);
   looping_ = true;
-  quit_=false;
+  quit_ = false;
 
-  while(!quit_){
+  while (!quit_)
+  {
     activeChannels_.clear();
-    poller_->poll(100,&activeChannels_);
-    for(auto iter=activeChannels_.begin();iter!=activeChannels_.end();++iter){
+    poller_->poll(100, &activeChannels_);
+    for (auto iter = activeChannels_.begin(); iter != activeChannels_.end();
+         ++iter)
+    {
       (*iter)->handleEvent();
     }
     doPendingFunctors();
   }
-  looping_=false;
+  looping_ = false;
 }
-void EventLoop::runInLoop(const Functor &cb) {
-  if(isInLoopThread()){
+void EventLoop::runInLoop(const Functor &cb)
+{
+  if (isInLoopThread())
+  {
     cb();
-  }else{
+  }
+  else
+  {
     queueInLoop(cb);
   }
 }
-void EventLoop::doPendingFunctors() {
+void EventLoop::doPendingFunctors()
+{
   std::vector<Functor> functors;
-  callingPendingFunctors_= true;
+  callingPendingFunctors_ = true;
   {
     std::lock_guard<std::mutex> lock(mutex_);
     functors.swap(pendingFunctors);
   }
-  for(size_t i=0;i<functors.size();i++)
+  for (size_t i = 0; i < functors.size(); i++)
   {
     functors[i]();
   }
-  callingPendingFunctors_=false;
-
-
+  callingPendingFunctors_ = false;
 }
-void EventLoop::wakeup() {
-  //TODO
+void EventLoop::wakeup()
+{
+  // TODO
 }
-void EventLoop::assertInLoopThread() {
-  if (!isInLoopThread()) {
-    std::cerr << "assertInLoopThraed() error\n";
-    //TODO
-//    this->~EventLoop();
+void EventLoop::assertInLoopThread()
+{
+  if (!isInLoopThread())
+  {
+    // std::cerr << "thread id ="<<loop;
+    // TODO
+    //    this->~EventLoop();
   }
 }
 
-void EventLoop::quit(){
-  quit_=true;
-  if(!isInLoopThread()){
+void EventLoop::quit()
+{
+  quit_ = true;
+  if (!isInLoopThread())
+  {
     wakeup();
   }
-
 }
 
-void EventLoop::updateChannel(Channel *channel) {
-  assert(channel->ownerLoop()== this );
+void EventLoop::updateChannel(Channel *channel)
+{
+  assert(channel->ownerLoop() == this);
   assertInLoopThread();
   poller_->updateChannel(channel);
-
 }
-} // namespace yy
+}  // namespace yy

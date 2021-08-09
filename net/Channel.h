@@ -1,10 +1,12 @@
 #pragma once
 #include <functional>
 
-namespace yy {
+namespace yy
+{
 class EventLoop;
 
-class Channel {
+class Channel
+{
  public:
   typedef std::function<void()> EventCallback;
   Channel(EventLoop *loop, int fd);
@@ -20,19 +22,23 @@ class Channel {
   void set_revents(int revt) { revents_ = revt; }
   bool isNoneEvent() const { return events_ == kNoneEvent; }
 
-  void enableReading() {
+  void enableReading()
+  {
     events_ |= kReadEvent;
     update();
   }
-  void enableWriting() {
+  void enableWriting()
+  {
     events_ |= kWriteEvent;
     update();
   }
-  void disableWritinkg() {
+  void disableWritinkg()
+  {
     events_ &= ~kWriteEvent;
     update();
   }
-  void disableAll() {
+  void disableAll()
+  {
     events_ = kNoneEvent;
     update();
   }
