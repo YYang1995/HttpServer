@@ -21,7 +21,7 @@ TcpServer::~TcpServer() {}
 
 void TcpServer::start()
 {
-  threadPool_->init();
+  // threadPool_->init();
   // tcpAccpet_->listen();
   loop_->runInLoop(std::bind(&TcpAcceptor::listen,tcpAccpet_.get()));
   isStart_ = true;
@@ -29,8 +29,8 @@ void TcpServer::start()
 
 void TcpServer::newConnected(int sockfd, SocketAddr &addr)
 {
-  std::cout << "new connect addr" << tcpAddr_.toString()
-            << "cnt: " << std::to_string(getConnectCount());
+  std::cout << "new connect addr " << tcpAddr_.toString()
+            << "cnt: " << std::to_string(getConnectCount())<<endl;
   EventLoop *loop = threadPool_->getOneLoopFromPool();
   TcpConnect::ptr tcpConnect(new TcpConnect(loop, addr, sockfd));
   addConnect(addr.toString(), tcpConnect);

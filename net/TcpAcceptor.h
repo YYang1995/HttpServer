@@ -21,8 +21,8 @@ public:
 
 private:
   EventLoop *loop_;
-  std::shared_ptr<Socket> socket_;
-  std::shared_ptr<Channel> event_;
+  std::unique_ptr<Socket> socket_;
+  std::unique_ptr<Channel> event_;
   bool listening_;
   NewConnectCallback newConnectCallback_;
   void acceptHandle();

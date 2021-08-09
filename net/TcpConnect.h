@@ -44,8 +44,8 @@ private:
   EventLoop *loop;
   SocketAddr addr;
   std::string name;
-  std::shared_ptr<Socket> socket;
-  std::shared_ptr<Channel> event;
+  std::unique_ptr<Socket> socket;
+  std::unique_ptr<Channel> event;
 
   MessageCallback messageCallback;
   CloseCallback closeCallback;

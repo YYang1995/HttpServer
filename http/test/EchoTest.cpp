@@ -1,4 +1,5 @@
 #include "../../net/EventLoop.h"
+#include "../../net/EventLoop.cpp"
 #include "../../net/TcpServer.h"
 #include "../echo.h"
 #include <iostream>
@@ -20,7 +21,9 @@ class Echo2 : public TcpServer
 
   }
   virtual void writeCompleteCallback(TcpConnect::ptr tcpConnect){}
-  virtual void connectCloseCallback(TcpConnect::ptr tcpConnect) {}
+  virtual void connectCloseCallback(TcpConnect::ptr tcpConnect) {
+    cout<<"connectint close\n";
+  }
 
  private:
 
@@ -30,9 +33,6 @@ int main()
 {
   EventLoop loop;
   SocketAddr addr(4220);
-  // Echo echoServer(&loop,addr);
-  // echoServer.start();
-  // loop.loop();
   
   Echo2 echo(&loop,addr);
   echo.start();

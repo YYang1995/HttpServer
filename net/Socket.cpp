@@ -22,7 +22,6 @@ void Socket::listen() { SocketOperation::listen(sockfd_); }
 int Socket::accept(SocketAddr &addr)
 {
   //  SocketOperation::accept(sockfd_,addr.getAddrPtr());
-  cout << "in Socket::accpte()\n";
   struct sockaddr_in temp;
   int ret = SocketOperation::accept(sockfd_, &temp);
 
@@ -36,3 +35,13 @@ int Socket::accept(SocketAddr &addr)
 void Socket::setTcpNoDelay() { SocketOperation::setTcpNoDelay(sockfd_); }
 
 int Socket::shutDownWrite() { SocketOperation::shutdownWrite(sockfd_); }
+
+void Socket::setReusePort(bool on)
+{
+  int optval=on?1:0;
+  auto ret=::setsockopt(sockfd_,SOL_SOCKET,SO_REUSEPORT,&optval,static_cast<socklen_t>(sizeof optval));
+  if(ret<0)
+  {
+    cerr<<"Socket::setReusePort(bool) error\n";
+  }
+}

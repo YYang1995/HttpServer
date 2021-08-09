@@ -12,6 +12,7 @@ TcpAcceptor::TcpAcceptor(EventLoop *loop, SocketAddr &addr) :
     event_(new Channel(loop,socket_->getFd())),
     listening_(false)
 {
+  socket_->setReusePort(true);
   socket_->bind(addr);
   event_->setReadCallback(std::bind(&TcpAcceptor::acceptHandle,this));
   loop_->updateChannel(event_.get());
@@ -39,10 +40,9 @@ void TcpAcceptor::setNewConnectCallback(const NewConnectCallback &callback) {
 
 void TcpAcceptor::acceptHandle() {
   SocketAddr connectAddr;
-  cout<<"in acceptHandle\n";
   int connectfd=-1;
   if((connectfd=socket_->accept(connectAddr))>0){
-    if(!!newConnectCallback_){
+    if(newConnectCallback_){
       newConnectCallback_(connectfd,connectAddr);
     }else{
       ::close(connectfd);

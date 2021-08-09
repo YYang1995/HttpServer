@@ -13,7 +13,7 @@ using namespace yy;
 namespace yy
 {
 const int Channel::kNoneEvent = 0;
-const int Channel::kReadEvent = POLLIN | POLLPRI | POLLRDHUP;
+const int Channel::kReadEvent = POLLIN ; //| POLLPRI | POLLRDHUP
 const int Channel::kWriteEvent = POLLOUT;
 
 Channel::Channel(EventLoop *loop, int fd)
@@ -25,7 +25,7 @@ void Channel::update() { loop_->updateChannel(this); }
 
 void Channel::handleEvent()
 {
-  cout << "in Channel handleEvent() fd= "<<fd_<<endl;
+  cout << "Channel::handleEvent() fd= "<<fd_<<endl;
   if (revents_ & POLLNVAL)
   {
     std::cerr << "Channel::handleEvent() POLLNAVAL;" << std::endl;
@@ -34,13 +34,18 @@ void Channel::handleEvent()
   {
     if (errorCallback_) errorCallback_();
   }
-  if (revents_ & (POLLIN | POLLPRI | POLLRDHUP))
+  if (revents_ & (POLLIN | POLLPRI))
   {
     if (readCallback_) readCallback_();
   }
   if (revents_ & (POLLOUT))
   {
     if (writeCallback_) writeCallback_();
+  }
+  if(revents_ & EPOLLRDHUP && !(revents_ & EPOLLIN))
+  {
+    cout<<"herr?\n";
+    if(closeCallback_) closeCallback_();
   }
 }
 }  // namespace yy

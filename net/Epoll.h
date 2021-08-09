@@ -15,7 +15,7 @@ class Epoll
   Epoll(EventLoop *loop);
   ~Epoll();
 
-  bool updateChannel(Channel *Channel);
+  void updateChannel(Channel *Channel);
   void poll(int timeoutMs,ChannelList *activeChannels);
 
  private:
@@ -29,6 +29,6 @@ class Epoll
   int epfd_;
   // EpollFdList 
   void fillActiveChannels(int numEvents,ChannelList *channelList);
-  bool update(int operation,Channel *Channel);
+  void update(int operation,Channel *Channel);
 };
 }  // namespace yy

@@ -15,6 +15,7 @@ public:
   void listen();
   int accept(SocketAddr &addr);
   void setTcpNoDelay();
+  void setReusePort(bool on);
   int shutDownWrite();
 private:
   int sockfd_;

@@ -4,13 +4,18 @@
 #include <pthread.h>
 
 #include <iostream>
+
 #include "Epoll.h"
+
+using namespace std;
+using namespace yy;
 
 namespace yy
 {
 __thread EventLoop *t_loopInThisThread = 0;
 
-EventLoop::EventLoop() : looping_(false), threadId_(pthread_self())
+EventLoop::EventLoop()
+    : looping_(false), threadId_(pthread_self()), activeChannels_(16)
 {
   poller_ = std::make_shared<Epoll>(this);
   std::cout << "EventLoop created " << this << " in thread " << threadId_
@@ -48,7 +53,7 @@ void EventLoop::loop()
     activeChannels_.clear();
     poller_->poll(100, &activeChannels_);
     for (auto iter = activeChannels_.begin(); iter != activeChannels_.end();
-         ++iter)
+         iter++)
     {
       (*iter)->handleEvent();
     }
