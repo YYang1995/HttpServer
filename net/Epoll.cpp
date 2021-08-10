@@ -107,11 +107,6 @@ void Epoll::poll(int timeoutMs, ChannelList *activeChannels)
   if (numEvents > 0)
   {
     fillActiveChannels(numEvents, activeChannels);
-    // for(auto temp:activeChannels_)
-    // {
-    //   cout<<"?\n";
-    //   temp->handleEvent();
-    // }
   }
   else if (numEvents == 0)
   {
@@ -124,4 +119,21 @@ void Epoll::poll(int timeoutMs, ChannelList *activeChannels)
       cerr << "Epoll::poll().errno=" <<errno<<endl;
     }
   }
+}
+
+void Epoll::removeChannel(Channel *channel)
+{
+  int fd=channel->fd();
+  assert(channels_.find(fd)!=channels_.end());
+  assert(channels_[fd]==channel);
+  assert(channel->isNoneEvent());
+  int index=channel->index();
+  assert(index==kAdd || index==kDelete);
+  auto n=channels_.erase(fd);
+  assert(n==1);
+  if(index==kAdd)
+  {
+    update(EPOLL_CTL_DEL,channel);
+  }
+  channel->set_index(kNew);
 }

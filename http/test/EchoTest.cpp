@@ -1,40 +1,49 @@
-#include "../../net/EventLoop.h"
-#include "../../net/EventLoop.cpp"
-#include "../../net/TcpServer.h"
-#include "../echo.h"
 #include <iostream>
+
+#include "../../net/EventLoop.cpp"
+#include "../../net/EventLoop.h"
+#include "../../net/TcpServer.h"
 
 using namespace std;
 using namespace yy;
 
-class Echo2 : public TcpServer
+void connectCallback(TcpConnect::ptr tcpConnect)
+{
+  cout << "new connection arrived!It's name is  " << tcpConnect->getName()
+       << endl;
+}
+void messageCallback(TcpConnect::ptr tcpConnect, Buffer &buffer) 
+{
+  cout << "Echo messageCallback\n";
+}
+void writeCompleteCallback(TcpConnect::ptr tcpConnect) {}
+void connectCloseCallback(TcpConnect::ptr tcpConnect)
+{
+  cout << "connectint close\n";
+}
+class Echo2
 {
  public:
-  Echo2(EventLoop *loop,SocketAddr &addr):TcpServer(loop,addr){};
-  ~Echo2()=default;
-  virtual void connectCallback(TcpConnect::ptr tcpConnect) 
+  Echo2(EventLoop *loop, SocketAddr &addr) : server(loop, addr)
   {
-    cout<<"new connection arrived!It's name is  "<<tcpConnect->getName()<<endl;
-  }
-  virtual void messageCallback(TcpConnect::ptr tcpConnect, Buffer &buffer) override
+    server.setConnnectCallback(std::bind(&connectCallback,std::placeholders::_1));
+    server.setMessageCallback(std::bind(&messageCallback,std::placeholders::_1,std::placeholders::_2));
+  };
+  ~Echo2() = default;
+  void start()
   {
-
+    server.start();
   }
-  virtual void writeCompleteCallback(TcpConnect::ptr tcpConnect){}
-  virtual void connectCloseCallback(TcpConnect::ptr tcpConnect) {
-    cout<<"connectint close\n";
-  }
-
  private:
-
+  TcpServer server;
 };
 
 int main()
 {
   EventLoop loop;
   SocketAddr addr(4220);
-  
-  Echo2 echo(&loop,addr);
+
+  Echo2 echo(&loop, addr);
   echo.start();
   loop.loop();
 }

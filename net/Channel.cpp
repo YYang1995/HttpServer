@@ -2,7 +2,9 @@
 
 #include <sys/epoll.h>
 #include <sys/poll.h>
-
+#include "TcpConnect.cpp"
+#include "TcpAcceptor.cpp"
+#include "TcpServer.cpp"
 #include <iostream>
 
 #include "EventLoop.h"
@@ -25,7 +27,10 @@ void Channel::update() { loop_->updateChannel(this); }
 
 void Channel::handleEvent()
 {
-  cout << "Channel::handleEvent() fd= "<<fd_<<endl;
+  if((revents_ & EPOLLRDHUP) && !(revents_ & EPOLLIN))  //TODO无效？
+  {
+    if(closeCallback_) closeCallback_();
+  }
   if (revents_ & POLLNVAL)
   {
     std::cerr << "Channel::handleEvent() POLLNAVAL;" << std::endl;
@@ -42,9 +47,6 @@ void Channel::handleEvent()
   {
     if (writeCallback_) writeCallback_();
   }
-  if(revents_ & EPOLLRDHUP && !(revents_ & EPOLLIN))
-  {
-    if(closeCallback_) closeCallback_();
-  }
+  
 }
 }  // namespace yy

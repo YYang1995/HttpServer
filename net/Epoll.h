@@ -16,6 +16,7 @@ class Epoll
   ~Epoll();
 
   void updateChannel(Channel *Channel);
+  void removeChannel(Channel *channel);
   void poll(int timeoutMs,ChannelList *activeChannels);
 
  private:

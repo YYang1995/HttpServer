@@ -17,6 +17,7 @@ public:
   void setTcpNoDelay();
   void setReusePort(bool on);
   int shutDownWrite();
+  void setKeepAlive(bool on);
 private:
   int sockfd_;
 };

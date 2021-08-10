@@ -39,10 +39,12 @@ void TcpAcceptor::setNewConnectCallback(const NewConnectCallback &callback) {
 }
 
 void TcpAcceptor::acceptHandle() {
+  cout<<"in TcpAcceptor::acceptHandle\n";
   SocketAddr connectAddr;
   int connectfd=-1;
   if((connectfd=socket_->accept(connectAddr))>0){
     if(newConnectCallback_){
+      cout<<"in newCononectCallbacl connectfd= "<<connectfd<<endl;
       newConnectCallback_(connectfd,connectAddr);
     }else{
       ::close(connectfd);

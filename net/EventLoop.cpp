@@ -2,7 +2,7 @@
 
 #include <assert.h>
 #include <pthread.h>
-
+#include "Channel.cpp"
 #include <iostream>
 
 #include "Epoll.h"
@@ -115,4 +115,11 @@ void EventLoop::updateChannel(Channel *channel)
   assertInLoopThread();
   poller_->updateChannel(channel);
 }
+
+void EventLoop::removeChannel(Channel *channel)
+{
+  assertInLoopThread();
+  poller_->removeChannel(channel);
+}
+
 }  // namespace yy

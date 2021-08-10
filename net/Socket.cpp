@@ -1,5 +1,6 @@
 #include "Socket.h"
 #include <iostream>
+#include <assert.h>
 
 #include "SocketOperation.h"
 
@@ -44,4 +45,11 @@ void Socket::setReusePort(bool on)
   {
     cerr<<"Socket::setReusePort(bool) error\n";
   }
+}
+
+void Socket::setKeepAlive(bool on)
+{
+  int optval=on?1:0;
+  auto ret=::setsockopt(sockfd_,SOL_SOCKET,SO_KEEPALIVE,&optval,static_cast<socklen_t>(sizeof optval));
+  assert(ret==0);
 }

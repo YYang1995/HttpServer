@@ -61,7 +61,6 @@ int SocketOperation::connect(int sockfd, const struct sockaddr *addr)
 
 int SocketOperation::accept(int sockfd, struct sockaddr_in *addr)
 {
-  std::cout<<"sockfd= "<<sockfd<<std::endl;
   socklen_t addrlen = sizeof(struct sockaddr_in);
   // int ret = ::accept(sockfd, (struct sockaddr *)addr, &addrlen);
   int ret=::accept4(sockfd,(struct sockaddr*)addr,&addrlen,SOCK_CLOEXEC|SOCK_NONBLOCK);
@@ -175,17 +174,16 @@ bool SocketOperation::toAddrIpv4(const std::string &addrstr,
 //点分十进制ip:port转为字符串   主机序or网络序？
 string SocketOperation::ipToString(struct sockaddr_in addr)
 {
-  std::stringstream stream;
+  string ip;
   uint8_t *addrArray = (uint8_t *)&addr.sin_addr.s_addr;
-  for (int i = 3; i >= 0; i--)
+  for (int i = 0; i <= 3; i++)
   {
-    stream << (uint16_t)addrArray[i];
-    if (i != 0)
+    ip.append(std::to_string((int)(addrArray[i])));
+    if (i != 3)
     {
-      stream << ".";
+     ip.push_back('.');
     }
-    //    stream<<":"<<(((addr.sin_port<<8)&0x00fffff)|(addr.sin_port>>8));//TODO
-    //    作用？
-    return stream.str();
+   
   }
+  return ip;
 }

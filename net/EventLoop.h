@@ -27,6 +27,7 @@ class EventLoop : public noncopyable
   void assertInLoopThread();
   void quit();
   void updateChannel(Channel *channel);
+  void removeChannel(Channel *Channel);
   void queueInLoop(const Functor &cb);
   void runInLoop(const Functor &cb);  //作用？
  private:
