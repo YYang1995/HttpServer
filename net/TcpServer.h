@@ -44,7 +44,7 @@ class TcpServer
   void removeConnect(const std::shared_ptr<TcpConnect> &conn);  //必须是const
   long getConnectCount() const;
   void removeConnectionInLoop(const std::shared_ptr<TcpConnect> &conn);
-  
+
  private:
   EventLoop *loop_;
   SocketAddr tcpAddr_;
@@ -59,5 +59,6 @@ class TcpServer
   void connectCloseEvent(TcpConnect::ptr connect);
   std::atomic<bool> isStart_;
   std::shared_ptr<EventLoopThreadPool> threadPool_;
+  int nextId;  //用于连接name的唯一性
 };
 }  // namespace yy

@@ -187,3 +187,9 @@ string SocketOperation::ipToString(struct sockaddr_in addr)
   }
   return ip;
 }
+
+string SocketOperation::portToString(struct sockaddr_in addr)
+{
+  int port=(int)addr.sin_port;
+  return std::to_string(port);
+}

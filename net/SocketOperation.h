@@ -28,5 +28,6 @@ namespace yy
     static bool toAddrIpv4(const std::string &addrstr,struct sockaddr_in &addr);
 
     static std::string ipToString(struct sockaddr_in addr);
+    static std::string portToString(struct sockaddr_in addr);
   };
 }

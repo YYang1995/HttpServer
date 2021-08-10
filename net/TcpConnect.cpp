@@ -9,7 +9,7 @@ using namespace std;
 TcpConnect::TcpConnect(EventLoop *loop, SocketAddr &a, int fd)
     : loop(loop),
       addr(a),
-      name(addr.toString()),
+      name(addr.ipToString()+" "+addr.portToString()),
       event(new Channel(loop, fd)),
       socket(new Socket(fd)),
       state(Disconnected)
@@ -44,8 +44,9 @@ void TcpConnect::shutDownWrite()
 void TcpConnect::readEvent()
 {
   int error = 0;
-  int n = readBuffer.readFromIO(event->fd(), error); 
-  cout<<"TcpConnect::readEvent() n="<<n<<endl;
+  // int n = readBuffer.readFromIO(event->fd(), error); 
+  char buffer[1024];
+  int n=::read(event->fd(),buffer,strlen(buffer));
   if (n > 0)
   {
     if (messageCallback_)
@@ -114,5 +115,4 @@ void TcpConnect::connectEstablished()
   assert(state=Connecting);
   setState(Connected);
   event->enableReading();
-  cout<<"connectEstablised! fd= "<<event->fd()<<endl;;
 }

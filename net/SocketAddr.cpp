@@ -2,7 +2,6 @@
 
 #include "SocketOperation.h"
 
-
 using namespace yy;
 using namespace std;
 
@@ -34,4 +33,12 @@ struct sockaddr_in SocketAddr::getAddr() { return sockaddr_; }
 
 struct sockaddr_in *SocketAddr::getAddrPtr() { return &sockaddr_; }
 
-string SocketAddr::toString() { return SocketOperation::ipToString(sockaddr_); }
+string SocketAddr::ipToString()
+{
+  return SocketOperation::ipToString(sockaddr_);
+}
+
+string SocketAddr::portToString()
+{
+  return SocketOperation::portToString(sockaddr_);
+}

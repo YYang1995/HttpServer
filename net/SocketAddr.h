@@ -14,7 +14,8 @@ public:
   void setAddr(struct sockaddr_in addr);
   struct sockaddr_in getAddr();
   struct sockaddr_in* getAddrPtr();
-  std::string toString();
+  std::string ipToString();
+  std::string portToString();
 private:
   struct sockaddr_in sockaddr_;
 };

@@ -10,7 +10,8 @@ TcpServer::TcpServer(EventLoop *loop, SocketAddr &addr)
       tcpAddr_(addr),
       tcpAccpet_(new TcpAcceptor(loop, addr)),
       isStart_(false),
-      threadPool_(new EventLoopThreadPool(loop))
+      threadPool_(new EventLoopThreadPool(loop)),
+      nextId(1)
 {
   tcpAccpet_->setNewConnectCallback(std::bind(&TcpServer::newConnected, this,
                                               std::placeholders::_1,
@@ -32,13 +33,15 @@ void TcpServer::newConnected(int sockfd, SocketAddr &addr)
 
   EventLoop *ioLoop = threadPool_->getOneLoopFromPool();
   TcpConnect::ptr tcpConnect(new TcpConnect(ioLoop, addr, sockfd));
-  addConnect(addr.toString(), tcpConnect);
+  string connName=addr.ipToString()+" "+addr.portToString();
+  addConnect(connName, tcpConnect);
+  nextId++;
   tcpConnect->setConnectionCallback(connectionCallback_);
   tcpConnect->setMessageCallback(messageCallback_);
   tcpConnect->setWriteCompleteCallback(writeCompleteCallback_);
   tcpConnect->setCloseCallback(std::bind(&TcpServer::removeConnect,this,std::placeholders::_1));
   ioLoop->runInLoop(std::bind(&TcpConnect::connectEstablished,tcpConnect));
-    std::cout << "new connect addr " << tcpAddr_.toString()
+    std::cout << "new connect addr " << connName
             << " cnt: " << std::to_string(getConnectCount())<<endl;
 }
 
