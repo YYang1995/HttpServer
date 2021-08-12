@@ -39,7 +39,6 @@ int SocketOperation::bind(int sockfd, const struct sockaddr_in *addr)
 
 int SocketOperation::listen(int sockfd)
 {
-  std::cout<<"SocketOperatiion::listen() sockfd="<<sockfd<<std::endl;
   int ret = ::listen(sockfd, SOMAXCONN);
   if (ret < 0)
   {

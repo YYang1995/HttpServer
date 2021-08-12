@@ -33,7 +33,7 @@ void TcpServer::newConnected(int sockfd, SocketAddr &addr)
 
   EventLoop *ioLoop = threadPool_->getOneLoopFromPool();
   TcpConnect::ptr tcpConnect(new TcpConnect(ioLoop, addr, sockfd));
-  string connName=addr.ipToString()+" "+addr.portToString();
+  string connName=addr.ipToString()+" : "+addr.portToString();
   addConnect(connName, tcpConnect);
   nextId++;
   tcpConnect->setConnectionCallback(connectionCallback_);

@@ -1,7 +1,7 @@
 #include "Buffer.h"
 
 #include <sys/uio.h>
-
+#include <string.h>
 #include <algorithm>
 #include <iostream>
 
@@ -30,6 +30,7 @@ int Buffer::readFromIO(int fd, int &errNo)
   if (n < 0)
   {
     errNo = errno;
+    cout<<"Buffer::readFromIO errno= "<<strerror(errno)<<endl;
   }
   else if ((uint32_t)n <= writeable)
   {
@@ -40,6 +41,7 @@ int Buffer::readFromIO(int fd, int &errNo)
     writeIndex = buffer.size();
     append(extraBuff, n - writeable);
   }
+  return n;
 }
 
 uint32_t Buffer::writeableBytes() { return buffer.size() - writeIndex; }
@@ -50,6 +52,7 @@ bool Buffer::isReadable() { return readIndex < writeIndex; }
 
 bool Buffer::isEmpty() { return readIndex == writeIndex; }
 
+//确保至少len长度可写？
 void Buffer::ensureWriteableBytes(std::size_t len)
 {
   if (writeableBytes() < len)
@@ -85,7 +88,7 @@ void Buffer::resetIndex()
   writeIndex = 0;
 }
 
-void Buffer::clearReadIndex(uint32_t len)
+void Buffer::updateReadIndex(uint32_t len)
 {
   if (len < readableBytes())
   {
@@ -97,14 +100,14 @@ void Buffer::clearReadIndex(uint32_t len)
   }
 }
 
-int Buffer::readAsString(std::string &readBuf, uint32_t len)
+void Buffer::readAsString(std::string &readBuf, uint32_t len)
 {
   len = std::min(readableBytes(), len);
-  readBuf.assign((const char *)(readIndexPtr()), len);  //类型问题
-  clearReadIndex(len);
+  readBuf.assign((const char *)(readIndexPtr()), len);  
+  updateReadIndex(len);
 }
 
-int Buffer::readAllAsString(std::string &readBuff)
+void Buffer::readAllAsString(std::string &readBuff)
 {
   readAsString(readBuff, readableBytes());
 }
@@ -135,5 +138,5 @@ void Buffer::retrieveUntil(const char *end)
     std::cout << "error retrievaUntil" << std::endl;
     return;
   }
-  clearReadIndex(end - readIndexPtr());
+  updateReadIndex(end - readIndexPtr());
 }

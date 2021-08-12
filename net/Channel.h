@@ -42,7 +42,10 @@ class Channel
     events_ = kNoneEvent;
     update();
   }
-
+  bool isWriting()
+  {
+    return events_ & kWriteEvent;
+  }
   // for poller
   int index() { return index_; }
   void set_index(int index) { index_ = index; }

@@ -3,6 +3,7 @@
 #include <sys/epoll.h>
 #include <sys/poll.h>
 #include "TcpConnect.cpp"
+#include "TcpConnect.h"
 #include "TcpAcceptor.cpp"
 #include "TcpServer.cpp"
 #include <iostream>

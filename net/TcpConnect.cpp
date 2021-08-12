@@ -1,7 +1,12 @@
 #include "TcpConnect.h"
-#include <iostream>
+
 #include <assert.h>
 #include <unistd.h>
+
+#include <iostream>
+
+#include "SocketOperation.h"
+
 
 using namespace yy;
 using namespace std;
@@ -9,7 +14,7 @@ using namespace std;
 TcpConnect::TcpConnect(EventLoop *loop, SocketAddr &a, int fd)
     : loop(loop),
       addr(a),
-      name(addr.ipToString()+" "+addr.portToString()),
+      name(addr.ipToString() + " : " + addr.portToString()),
       event(new Channel(loop, fd)),
       socket(new Socket(fd)),
       state(Disconnected)
@@ -25,7 +30,7 @@ TcpConnect::TcpConnect(EventLoop *loop, SocketAddr &a, int fd)
 
 TcpConnect::~TcpConnect()
 {
-  assert(state==Disconnected);
+  assert(state == Disconnected);
   // event->disableAll();
   //  event->removeEvnet(shared_from_this()); TODO
 }
@@ -44,9 +49,7 @@ void TcpConnect::shutDownWrite()
 void TcpConnect::readEvent()
 {
   int error = 0;
-  // int n = readBuffer.readFromIO(event->fd(), error); 
-  char buffer[1024];
-  int n=::read(event->fd(),buffer,strlen(buffer));
+  int n = readBuffer.readFromIO(event->fd(), error);
   if (n > 0)
   {
     if (messageCallback_)
@@ -68,7 +71,7 @@ void TcpConnect::readEvent()
 
 void TcpConnect::closeEvent()
 {
-  assert(state==Connected || state==Disconnecting);
+  assert(state == Connected || state == Disconnecting);
   setState(Disconnected);
   event->disableAll();
   if (closeCallback_)
@@ -77,30 +80,86 @@ void TcpConnect::closeEvent()
   }
 }
 
-void TcpConnect::writeEvent() {}
-
-void TcpConnect::connectHandle()
+//从writeBuffer中向event->fd()中写数据
+void TcpConnect::writeEvent()
 {
-  state = Connected;
-  event->enableReading();
-  // event->enableError();
+  loop->assertInLoopThread();
+  if (event->isWriting())
+  {
+    auto n = SocketOperation::write(event->fd(), writeBuffer.readIndexPtr(),
+                                    writeBuffer.writeableBytes());
+    if (n > 0)
+    {
+      writeBuffer.updateReadIndex(n);
+      if (writeBuffer.isEmpty())
+      {
+        // LT 避免频繁触发EPOLLOUT
+        event->disableWritinkg();
+        if (writeCompleteCallback_)
+        {
+          // writeCompleteCallback_(shared_from_this());
+          loop->queueInLoop(std::bind(writeCompleteCallback_,shared_from_this()));
+        }
+      }
+    }
+    else
+    {
+      cout << "TcpConnect::writeEvent() errno= " << strerror(errno) << endl;
+    }
+  }
 }
+
+void TcpConnect::connectHandle() { state = Connected; }
 
 void TcpConnect::write(const char *data)
 {
-  int len=strlen(data);
-  //TODO
+  write(data,strlen(data));
 }
 
-void TcpConnect::write(const string &data)
+void TcpConnect::write(const void *data,uint32_t len)
 {
-
+  loop->assertInLoopThread();
+  ssize_t hasWriten=0;
+  int n=0;
+  auto remaining=len;
+  if(state==Disconnected)
+  {
+    cerr<<"disconnected,give up writeing\n";
+    return;
+  }
+  if(!event->isWriting() && writeBuffer.readableBytes()==0)
+  {
+    //直接写入fd，剩下的加入writeBuffer
+    hasWriten=SocketOperation::write(event->fd(),data,len);
+    if(hasWriten>0)
+    {
+      remaining=len-hasWriten;
+      if(remaining==0 && writeCompleteCallback_)
+      {
+        loop->runInLoop(std::bind(writeCompleteCallback_,shared_from_this()));
+      }
+    }
+    else 
+    {
+      if(errno!=EWOULDBLOCK)
+      {
+        cout<<"TcpConnect::write(const void* ,uint32_t)\n";
+      }
+    }
+  }
+  writeBuffer.append(static_cast<const char*>(data)+hasWriten,remaining);//必须用类型转换
+  if(!event->isWriting())
+  {
+    event->enableWriting();
+  }
 }
 
-void TcpConnect::errorEvent()
+void TcpConnect::send(const string &data) 
 {
-  cerr<<"TcpConnect::errorEvent()\n";
+  write(&*data.begin());
 }
+
+void TcpConnect::errorEvent() { cerr << "TcpConnect::errorEvent()\n"; }
 
 void TcpConnect::connectDestroyed()
 {
@@ -112,7 +171,8 @@ void TcpConnect::connectDestroyed()
 
 void TcpConnect::connectEstablished()
 {
-  assert(state=Connecting);
+  assert(state = Connecting);
   setState(Connected);
   event->enableReading();
+  if (connectionCallback_) connectionCallback_(shared_from_this());
 }

@@ -60,12 +60,12 @@ typedef std::shared_ptr<TcpConnect> ptr;
   void shutDownWrite();
 
   void write(const char *data);
-  void write(const std::string &data);
+  void send(const std::string &data);
   void write(const void *data, uint32_t len);
 
   void connectEstablished();
   void connectDestroyed();
-  void connectHandle();
+  void connectHandle(); //?有用？
 
  private:
   EventLoop *loop;
@@ -82,7 +82,7 @@ typedef std::shared_ptr<TcpConnect> ptr;
   int state;
 
   Buffer readBuffer;
-  Buffer writeBUffer;
+  Buffer writeBuffer;
 
   void readEvent();
   void closeEvent();

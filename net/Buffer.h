@@ -21,9 +21,9 @@ public:
 
   const char* readIndexPtr() const ;
   void resetIndex();
-  void clearReadIndex(uint32_t len);  //作用？
-  int readAllAsString(std::string &readBuff);
-  int readAsString(std::string &readBuf,uint32_t len);
+  void updateReadIndex(uint32_t len);  //更新readIndex
+  void readAllAsString(std::string &readBuff); //把buffer中数据全部读入readBuffer
+  void readAsString(std::string &readBuf,uint32_t len);
   int readBytes(std::vector<char> &data,uint32_t len);
   //HTTP用
   const char* findCRLF() const;
@@ -31,7 +31,7 @@ public:
   void retrieveUntil(const char *end);
 private:
   std::vector<char> buffer;
-  uint32_t readIndex;  //TODO 类型问题
+  uint32_t readIndex;  
   uint32_t writeIndex;
   const char* bufferPtr() const {return &(*buffer.begin());}
 };
