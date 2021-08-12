@@ -16,7 +16,7 @@ class TcpServer
  public:
 
   TcpServer(EventLoop *loop, SocketAddr &addr);
-  virtual ~TcpServer();
+  ~TcpServer();
   void start();
   //三个半事件
   // virtual void connectCallback(TcpConnect::ptr tcpConnect) = 0;
@@ -39,9 +39,10 @@ class TcpServer
   {
     writeCompleteCallback_=cb;
   }
+  //TcpConection::closeCallback绑定到这
+  void removeConnect(const std::shared_ptr<TcpConnect> &conn);  //必须是const
 
   bool havaConnect(std::string name);
-  void removeConnect(const std::shared_ptr<TcpConnect> &conn);  //必须是const
   long getConnectCount() const;
   void removeConnectionInLoop(const std::shared_ptr<TcpConnect> &conn);
 

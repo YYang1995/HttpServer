@@ -34,7 +34,7 @@ void HttpResponse::setBody(const string &body) { this->body_ = body; }
 void HttpResponse::addToBuffer(Buffer *output)
 {
   char buffer[32] = {0};
-  snprintf(buffer, sizeof(buffer), "HTTP/1.1 %d", statusCode_);
+  snprintf(buffer, sizeof(buffer), "HTTP/1.1 %d ", statusCode_);
   output->append(buffer);
   output->append(statusMessage_);
   output->append("\r\n");
@@ -42,7 +42,7 @@ void HttpResponse::addToBuffer(Buffer *output)
   //判断是否是最后的信息
   if (closeConnection_)
   {
-    output->append("Connect: close\r\n");
+    output->append("Connection: close\r\n");
   }
   else
   {

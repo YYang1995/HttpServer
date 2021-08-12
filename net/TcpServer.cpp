@@ -41,8 +41,8 @@ void TcpServer::newConnected(int sockfd, SocketAddr &addr)
   tcpConnect->setWriteCompleteCallback(writeCompleteCallback_);
   tcpConnect->setCloseCallback(std::bind(&TcpServer::removeConnect,this,std::placeholders::_1));
   ioLoop->runInLoop(std::bind(&TcpConnect::connectEstablished,tcpConnect));
-    std::cout << "new connect addr " << connName
-            << " cnt: " << std::to_string(getConnectCount())<<endl;
+    std::cout << "new connect <ip:port>= " << connName
+            << " total cnt= " << std::to_string(getConnectCount())<<endl;
 }
 
 long TcpServer::getConnectCount() const { return connectPool_.size(); }

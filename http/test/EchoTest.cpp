@@ -9,22 +9,19 @@ using namespace yy;
 
 void connectCallback(TcpConnect::ptr tcpConnect)
 {
-  cout << "new connection arrived!It's name is  " << tcpConnect->getName()
-       << endl;
+  // cout << "new connection arrived!It's name is  " << tcpConnect->getName()
+  //      << endl;
 }
 void messageCallback(TcpConnect::ptr tcpConnect, Buffer &buffer) 
 {
-  string echo;
-  echo.append("我是个无情的复读机，只会复读：");
-  string temp;
-  buffer.readAllAsString(temp);
-  echo.append(temp);
-  tcpConnect->send(echo);
+  string request;
+  buffer.readAllAsString(request);
+  tcpConnect->send(request);
 
 }
 void writeCompleteCallback(TcpConnect::ptr tcpConnect)
 {
-  cout<<"写完喽！\n";
+  // cout<<"写完喽！\n";
 }
 void connectCloseCallback(TcpConnect::ptr tcpConnect)
 {

@@ -27,7 +27,6 @@ void TcpAcceptor::listen() {
   listening_=true;
   socket_->listen();
   event_->enableReading();
-  cout<<"Server is listening\n";
 }
 
 bool TcpAcceptor::isListen() {
