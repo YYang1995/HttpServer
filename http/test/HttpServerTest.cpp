@@ -13,7 +13,10 @@ void test(const HttpRequest &request, HttpResponse *response)
   response->setStatusMessage("OK");
   response->setContentType("text/html");
   response->addHeader("Server","ubuntu");
-  response->setBody("<h1>nihao</h1>");
+  string body;
+  body.append("<a href='http://www.baidu.com'>baidu</a>");
+  body.append("<h1>hi</h1>");
+  response->setBody(body);
   // response->setCloseConnection(true);
 }
 int main()

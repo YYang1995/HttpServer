@@ -7,7 +7,7 @@ namespace yy{
 class EventLoopThreadPool{
 public:
   EventLoopThreadPool(EventLoop *loop);
-  void init(int num=16);
+  void init(int num=8);
   bool isStarted();
   EventLoop *getOneLoopFromPool();  //轮询？
 private:
