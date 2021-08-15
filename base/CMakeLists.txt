@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(SOURCES
         noncopyable.cpp
         Thread.cpp
+        ALog.cpp
         )
 add_library(my_base ${SOURCES})
 target_link_libraries(my_base pthread)

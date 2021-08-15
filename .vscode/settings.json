@@ -50,6 +50,8 @@
     "initializer_list": "cpp",
     "limits": "cpp",
     "mutex": "cpp",
-    "stdexcept": "cpp"
-  }
+    "stdexcept": "cpp",
+    "list": "cpp"
+  },
+  "C_Cpp.errorSquiggles": "Disabled"
 }
