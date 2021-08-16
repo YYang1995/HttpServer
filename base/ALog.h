@@ -23,7 +23,7 @@ class ALog
   ALog(const ALog&) = delete;
   ALog& operator=(const ALog&) = delete;
 
-  static bool init(const char *logFileName =nullptr);
+  static bool init(const char *logFilePath =nullptr);
   static void shutdown();
   static void output(LOG_LEVEL level,const char *fileName,int linNo,const char *fmt,...);
   static void writeThreadFunc(); //写线程入口函数
@@ -31,12 +31,14 @@ class ALog
   static void getTime(std::string &log);
   static bool writeToFile(const std::string &data);
   static void setLevel(LOG_LEVEL level);
+  static bool createLogFile();
 
  private:
   static LOG_LEVEL level_;
   static int fd_;
   static bool bToFile_;  //写到文件还是控制台
   static std::string logFileName_;
+  static std::string logFilePath_;
   static std::string PID_;
   static LOG_LEVEL currentLevel_;          //当前日志level
   static std::list<std::string> logList_;  //待写入的日志列表

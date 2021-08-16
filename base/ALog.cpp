@@ -2,6 +2,7 @@
 
 #include <fcntl.h>
 #include <string.h>
+#include <sys/stat.h>  //for umask
 #include <time.h>
 #include <unistd.h>
 
@@ -16,6 +17,7 @@ LOG_LEVEL ALog::level_ = LOG_LEVEL_INFO;
 int ALog::fd_ = -1;
 bool ALog::bToFile_ = false;
 std::string ALog::logFileName_ = "default";
+std::string ALog::logFilePath_ = "logs/";
 string ALog::PID_ = "";
 LOG_LEVEL ALog::currentLevel_ = LOG_LEVEL_INFO;
 list<string> ALog::logList_;
@@ -25,15 +27,15 @@ condition_variable ALog::cv_;
 bool ALog::exit_ = false;
 bool ALog::running_ = false;
 
-bool ALog::init(const char *logFileName /*=nullptr*/)
+bool ALog::init(const char *logFilePath /*=nullptr*/)
 {
-  if (logFileName == nullptr)
+  if (logFilePath == nullptr)
   {
-    logFileName_.clear();
+    // logFilePath_.clear();
   }
   else
   {
-    logFileName_ = logFileName;
+    logFilePath_ = logFilePath;
   }
   PID_ = std::to_string(::getpid());
 
@@ -71,7 +73,7 @@ void ALog::output(LOG_LEVEL level, const char *currentFileName, int lineNo,
   log.append(msg);
   log.push_back(']');
 
-  log.append("\r\n"); //换行
+  log.append("\r\n");  //换行
 
   //日志文件名
   char fileName[64];
@@ -83,15 +85,15 @@ void ALog::output(LOG_LEVEL level, const char *currentFileName, int lineNo,
   int hour = tmNow->tm_hour + 8;
   int min = tmNow->tm_min;
   // int sec=tmNow->tm_sec;  需不需要秒？
-  snprintf(fileName, sizeof fileName, "%4d%02d%02d%02d%02d", year, month,
-           day, hour, min);
+  snprintf(fileName, sizeof fileName, "%4d%02d%02d%02d%02d", year, month, day,
+           hour, min);
 
   string newFileName;
   if (!logFileName_.empty())
   {
-    newFileName.append(logFileName_);
-    newFileName.append(".");
+    logFileName_.clear();
   }
+  newFileName.append(logFilePath_);
   newFileName.append(fileName);
   newFileName.append(".");
   newFileName.append(PID_);
@@ -99,7 +101,28 @@ void ALog::output(LOG_LEVEL level, const char *currentFileName, int lineNo,
 
   logFileName_.swap(newFileName);
 
+  if (!createLogFile())
+  {
+    return ;
+  }
   writeToFile(log);
+}
+
+bool ALog::createLogFile()
+{
+  if (fd_ != -1)
+  {
+    ::close(fd_);
+  }
+  //新建文件
+  umask(0002);
+  fd_ = open(logFileName_.c_str(),  O_CREAT | O_RDWR | O_APPEND, 0666);
+  if (fd_ == -1)
+  {
+    cout << "fd==-1 " << strerror(errno) << endl;
+    return false;
+  }
+  return true;
 }
 
 void ALog::makeLinePrefix(LOG_LEVEL level, string &log)
@@ -145,12 +168,6 @@ void ALog::writeThreadFunc() {}
 bool ALog::writeToFile(const string &data)
 {
   const char *msg = data.c_str();
-  if (fd_ != -1)
-  {
-    ::close(fd_);
-  }
-  //新建文件
-  fd_ = open(logFileName_.c_str(), O_CREAT | O_RDWR | O_APPEND, 0666);
 
   int hasWriten = 0;
   int total = data.size();
@@ -166,13 +183,10 @@ bool ALog::writeToFile(const string &data)
 
 void ALog::shutdown()
 {
-  if(fd_!=-1)
+  if (fd_ != -1)
   {
     ::close(fd_);
   }
 }
 
-void ALog::setLevel(LOG_LEVEL level)
-{
-  level_=level;
-}
+void ALog::setLevel(LOG_LEVEL level) { level_ = level; }
