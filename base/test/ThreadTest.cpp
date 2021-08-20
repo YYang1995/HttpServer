@@ -1,7 +1,7 @@
 #include "../Thread.h"
 #include <iostream>
 
-using namespace yy;
+using namespace base;
 using namespace std;
 
 class MyThread:public Thread
@@ -16,5 +16,6 @@ int main()
 {
   MyThread *myThread=new MyThread();
   myThread->start();
-  myThread->join();  //需要手动join是否不妥？
+  myThread->join();  
+  cout<<"thread id ="<<myThread->getNowThreadId()<<endl;
 }

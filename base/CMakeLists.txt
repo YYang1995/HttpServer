@@ -6,6 +6,7 @@ set(SOURCES
         noncopyable.cpp
         Thread.cpp
         ALog.cpp
+        CountDownLatch.cpp
         )
 add_library(my_base ${SOURCES})
 target_link_libraries(my_base pthread)

@@ -15,6 +15,7 @@ enum LOG_LEVEL
   LOG_LEVEL_FATAL
 };
 
+
 class ALog
 {
  public:
