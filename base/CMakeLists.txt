@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.0)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCES
-        noncopyable.cpp
         Thread.cpp
         ALog.cpp
         CountDownLatch.cpp

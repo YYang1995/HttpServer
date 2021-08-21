@@ -8,14 +8,16 @@
 using namespace base;
 using namespace std;
 
-#define LOG_INFO(...) \
-  ALog::output(LOG_LEVEL_INFO, __FILE__, __LINE__, __VA_ARGS__)
-
 int main()
 {
-  ALog::init("logs/");
-  string now;
-  LOG_INFO("hello ALog!\n");
-  sleep(1);
-  LOG_INFO("%d%02d",1,2);
+  ALog::init(nullptr,false);//写道控制台
+  // ALog::init("logs/", true);
+  for (int i = 0; i < 5; i++)
+  {
+    sleep(1);
+    LOG_INFO("hello ALog!");
+    LOG_ERROR("?");
+    LOG_FATAL("1+2=%d", 3);
+  }
+  ALog::shutdown();
 }
