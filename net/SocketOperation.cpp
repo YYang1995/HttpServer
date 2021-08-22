@@ -12,7 +12,7 @@
 
 
 using namespace std;
-using namespace yy;
+using namespace net;
 
 const uint32_t SocketOperation::Ipv4AddrAny = htonl(INADDR_ANY);
 

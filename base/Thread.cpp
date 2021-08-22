@@ -13,7 +13,7 @@
 using namespace base;
 using namespace std;
 
-Thread::Thread(string name_prefix /*="thraed"*/)
+Thread::Thread(string name_prefix /*="thread"*/)
     : name_prefix_(name_prefix),
       started_(false),
       joined_(false),

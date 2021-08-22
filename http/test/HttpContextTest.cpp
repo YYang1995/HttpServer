@@ -8,7 +8,8 @@
 
 
 using namespace std;
-using namespace yy;
+using namespace net;
+using namespace http;
 
 int main()
 {

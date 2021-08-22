@@ -5,7 +5,10 @@
 #include "../HttpServer.h"
 
 using namespace std;
-using namespace yy;
+using namespace http;
+using namespace base;
+using namespace net;
+
 
 void test(const HttpRequest &request, HttpResponse *response)
 {

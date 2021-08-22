@@ -2,7 +2,7 @@
 #include <netinet/in.h>
 #include <string>
 
-namespace yy
+namespace net
 {
 class SocketAddr{
 public:

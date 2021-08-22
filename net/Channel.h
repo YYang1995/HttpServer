@@ -1,7 +1,7 @@
 #pragma once
 #include <functional>
 
-namespace yy
+namespace net
 {
 class EventLoop;
 
@@ -70,4 +70,4 @@ class Channel
   EventCallback errorCallback_;
   EventCallback closeCallback_;
 };
-}  // namespace yy
+}  // namespace net

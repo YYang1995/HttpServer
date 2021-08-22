@@ -9,7 +9,7 @@
 #include "TcpAcceptor.h"
 #include "TcpConnect.h"
 
-namespace yy
+namespace net
 {
 class TcpServer
 {
@@ -62,4 +62,4 @@ class TcpServer
   std::shared_ptr<EventLoopThreadPool> threadPool_;
   int nextId;  //用于连接name的唯一性
 };
-}  // namespace yy
+}  // namespace net

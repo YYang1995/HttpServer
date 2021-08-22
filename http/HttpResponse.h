@@ -1,13 +1,16 @@
 #pragma once
 #include <map>
 #include <string>
+#include "../net/Buffer.h"
 
-namespace yy {
-class Buffer;
+namespace http
+{
 
-class HttpResponse {
-public:
-  enum StatusCode {
+class HttpResponse
+{
+ public:
+  enum StatusCode
+  {
     UnKnown = 0,
     _200OK = 200,
     _301MovedPermanently = 301,
@@ -24,9 +27,9 @@ public:
   void setContentType(const std::string &type);
   void addHeader(const std::string &key, const std::string &value);
   void setBody(const std::string &body);
-  void addToBuffer(Buffer *output);
+  void addToBuffer(net::Buffer *output);
 
-private:
+ private:
   std::string version_;
   StatusCode statusCode_;
   std::string statusMessage_;
@@ -37,4 +40,4 @@ private:
   // TODO 关闭信息？
   bool closeConnection_;
 };
-} // namespace yy
+}  // namespace http

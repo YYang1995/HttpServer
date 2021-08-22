@@ -3,7 +3,7 @@
 #include <unistd.h>
 
 using namespace std;
-using namespace yy;
+using namespace net;
 
 int main()
 {

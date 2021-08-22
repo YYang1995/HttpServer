@@ -1,21 +1,25 @@
 #pragma once
-#include "EventLoopThread.h"
-#include <vector>
 #include <memory>
+#include <vector>
 
-namespace yy{
-class EventLoopThreadPool{
-public:
+#include "EventLoopThread.h"
+
+
+namespace net
+{
+class EventLoopThreadPool
+{
+ public:
   EventLoopThreadPool(EventLoop *loop);
-  void init(int num=8);
+  void init(int num = 8);
   bool isStarted();
   EventLoop *getOneLoopFromPool();  //轮询？
-private:
+ private:
   EventLoop *mainLoop_;
   bool started_;
   uint16_t threadNum_;
   uint32_t threadIndex_;
   std::vector<std::shared_ptr<EventLoopThread>> threadPool_;
-  std::vector<EventLoop*> eventLoopPool_;
+  std::vector<EventLoop *> eventLoopPool_;
 };
-}
+}  // namespace net

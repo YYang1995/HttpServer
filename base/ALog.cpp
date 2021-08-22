@@ -3,6 +3,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <sys/stat.h>  //for umask
+#include <sys/syscall.h>
 #include <time.h>
 #include <unistd.h>
 
@@ -34,7 +35,7 @@ bool ALog::running_ = false;
 bool ALog::init(const char *logFilePath /*=nullptr*/, bool bToFile /* =true*/)
 {
   bToFile_ = bToFile;
-  if(!bToFile)
+  if (!bToFile)
   {
     fd_ = STDOUT_FILENO;
   }
@@ -63,7 +64,7 @@ void ALog::output(LOG_LEVEL level, const char *currentFileName, int lineNo,
   getTime(log);                //时间
 
   log.push_back('[');
-  log.append(std::to_string(pthread_self()));  //线程id
+  log.append(std::to_string(syscall(SYS_gettid)));  //线程tid
   log.push_back(']');
 
   log.push_back('[');

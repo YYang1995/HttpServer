@@ -5,7 +5,8 @@
 #include "../../net/TcpServer.h"
 
 using namespace std;
-using namespace yy;
+using namespace base;
+using namespace net;
 
 void connectCallback(TcpConnect::ptr tcpConnect)
 {

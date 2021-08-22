@@ -2,7 +2,8 @@
 #include "../net/Buffer.h"
 
 using namespace std;
-using namespace yy;
+using namespace http;
+using namespace net;
 
 HttpResponse::HttpResponse(const bool &close)
     : version_("HTTP/1.1"), statusCode_(UnKnown), closeConnection_(close)
@@ -31,7 +32,7 @@ void HttpResponse::addHeader(const string &key, const string &value)
 
 void HttpResponse::setBody(const string &body) { this->body_ = body; }
 
-void HttpResponse::addToBuffer(Buffer *output)
+void HttpResponse::addToBuffer(net::Buffer *output)
 {
   char buffer[32] = {0};
   snprintf(buffer, sizeof(buffer), "HTTP/1.1 %d ", statusCode_);

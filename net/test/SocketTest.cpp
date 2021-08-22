@@ -6,7 +6,7 @@
 #include "../SocketOperation.h"
 
 using namespace std;
-using namespace yy;
+using namespace net;
 
 int main()
 {

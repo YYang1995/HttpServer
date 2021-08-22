@@ -5,15 +5,14 @@
 #include <map>
 #include <vector>
 
-#include "../base/noncopyable.h"
 #include "Channel.h"
 #include "EventLoop.h"
 
-namespace yy
+namespace net
 {
 class EventLoop;
 
-class Poller : public noncopyable
+class Poller
 {
  public:
   typedef std::vector<Channel *> ChannelList;
@@ -38,4 +37,4 @@ class Poller : public noncopyable
 
   EventLoop *ownerLoop_;
 };
-}  // namespace yy
+}  // namespace net

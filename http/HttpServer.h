@@ -4,16 +4,17 @@
 #include "../net/TcpServer.h"
 #include "./HttpRequest.h"
 #include "./HttpResponse.h"
+#include "../net/Buffer.h"
 
-namespace yy
+namespace http
 {
 class HttpServer
 {
  public:
   using HttpCallBack =
-      std::function<void(const yy::HttpRequest &, yy::HttpResponse *)>;
+      std::function<void(const HttpRequest &, HttpResponse *)>;
 
-  HttpServer(EventLoop *loop, SocketAddr &addr);
+  HttpServer(net::EventLoop *loop, net::SocketAddr &addr);
   ~HttpServer();
   void start();
   void setHttpCallback(const HttpCallBack &cb)
@@ -21,16 +22,16 @@ class HttpServer
     httpCallback_=cb;
   }
  private:
-  void connectCallback(TcpConnect::ptr tcpConnect);
-  void messageCallback(TcpConnect::ptr tcpConnect, Buffer &buffer);
-  void writeCompleteCallback(TcpConnect::ptr TcpConnect);
+  void connectCallback(net::TcpConnect::ptr tcpConnect);
+  void messageCallback(net::TcpConnect::ptr tcpConnect, net::Buffer &buffer);
+  void writeCompleteCallback(net::TcpConnect::ptr TcpConnect);
   // void connectCloseCallback(TcpConnect::ptr TcpConnect);
 
   void defaultHttpCallback(const HttpRequest &request, HttpResponse *);
-  void onRequest(std::shared_ptr<TcpConnect> conn, const HttpRequest &request);
+  void onRequest(std::shared_ptr<net::TcpConnect> conn, const HttpRequest &request);
 
  private:
-  TcpServer server_;
+  net::TcpServer server_;
   HttpCallBack httpCallback_;
 };
-}  // namespace yy
+}  // namespace http

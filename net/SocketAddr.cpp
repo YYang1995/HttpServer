@@ -2,7 +2,7 @@
 
 #include "SocketOperation.h"
 
-using namespace yy;
+using namespace net;
 using namespace std;
 
 SocketAddr::SocketAddr(uint16_t port)

@@ -4,7 +4,7 @@
 
 #include "SocketOperation.h"
 
-using namespace yy;
+using namespace net;
 using namespace std;
 
 Socket::Socket(int fd) : sockfd_(fd) {}

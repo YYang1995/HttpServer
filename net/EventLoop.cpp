@@ -8,9 +8,9 @@
 #include "Epoll.h"
 
 using namespace std;
-using namespace yy;
+using namespace net;
 
-namespace yy
+namespace net
 {
 __thread EventLoop *t_loopInThisThread = 0;
 
@@ -122,4 +122,4 @@ void EventLoop::removeChannel(Channel *channel)
   poller_->removeChannel(channel);
 }
 
-}  // namespace yy
+}  // namespace net

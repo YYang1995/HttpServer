@@ -7,7 +7,7 @@
 
 #include "SocketOperation.h"
 
-using namespace yy;
+using namespace net;
 using namespace std;
 
 TcpConnect::TcpConnect(EventLoop *loop, SocketAddr &a, int fd)

@@ -2,7 +2,7 @@
 #include <string>
 #include <netinet/in.h>
 
-namespace yy
+namespace net
 {
   class SocketOperation
   {

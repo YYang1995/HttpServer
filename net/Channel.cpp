@@ -2,21 +2,21 @@
 
 #include <sys/epoll.h>
 #include <sys/poll.h>
-#include "TcpConnect.cpp"
-#include "TcpConnect.h"
-#include "TcpAcceptor.cpp"
-#include "TcpServer.cpp"
+
 #include <iostream>
 
 #include "EventLoop.h"
+#include "TcpAcceptor.cpp"
+#include "TcpConnect.cpp"
+#include "TcpConnect.h"
+#include "TcpServer.cpp"
+
 
 using namespace std;
-using namespace yy;
+using namespace net;
 
-namespace yy
-{
 const int Channel::kNoneEvent = 0;
-const int Channel::kReadEvent = POLLIN ; //| POLLPRI | POLLRDHUP
+const int Channel::kReadEvent = POLLIN;  //| POLLPRI | POLLRDHUP
 const int Channel::kWriteEvent = POLLOUT;
 
 Channel::Channel(EventLoop *loop, int fd)
@@ -28,9 +28,9 @@ void Channel::update() { loop_->updateChannel(this); }
 
 void Channel::handleEvent()
 {
-  if((revents_ & EPOLLRDHUP) && !(revents_ & EPOLLIN))  //TODO无效？
+  if ((revents_ & EPOLLRDHUP) && !(revents_ & EPOLLIN))  // TODO无效？
   {
-    if(closeCallback_) closeCallback_();
+    if (closeCallback_) closeCallback_();
   }
   if (revents_ & POLLNVAL)
   {
@@ -48,6 +48,4 @@ void Channel::handleEvent()
   {
     if (writeCallback_) writeCallback_();
   }
-  
 }
-}  // namespace yy

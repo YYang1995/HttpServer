@@ -7,7 +7,7 @@
 #include "EventLoop.h"
 #include "Socket.h"
 
-namespace yy
+namespace net
 {
 class TcpConnect;
 
@@ -90,4 +90,4 @@ typedef std::shared_ptr<TcpConnect> ptr;
   void errorEvent();
   void setState(int state) { this->state = state; }
 };
-}  // namespace yy
+}  // namespace net

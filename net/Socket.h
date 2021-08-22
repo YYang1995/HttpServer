@@ -3,7 +3,7 @@
 #include "SocketAddr.h"
 
 
-namespace yy
+namespace net
 {
 class Socket
 {

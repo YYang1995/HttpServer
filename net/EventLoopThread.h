@@ -8,17 +8,19 @@
 #include "../base/noncopyable.h"
 #include "EventLoop.h"
 
-namespace yy {
-class EventLoopThread : public yy::Thread {
-public:
-  EventLoopThread();
+namespace net
+{
+class EventLoopThread : public base::Thread
+{
+ public:
+  EventLoopThread(std::string name_prefix = "thread");
   ~EventLoopThread();
   virtual void run() override;
   EventLoop* getLoopInThread();
 
-private:
+ private:
   EventLoop* loop_;
   std::mutex mtx_;
   std::condition_variable cond_;
 };
-}// namespace yy
+}  // namespace net

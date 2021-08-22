@@ -8,7 +8,7 @@
 #include "SocketOperation.h"
 
 
-using namespace yy;
+using namespace net;
 using namespace std;
 
 const int Buffer::DefaultSize = 1024;

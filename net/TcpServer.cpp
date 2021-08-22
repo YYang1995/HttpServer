@@ -3,7 +3,7 @@
 #include <iostream>
 
 using namespace std;
-using namespace yy;
+using namespace net;
 
 TcpServer::TcpServer(EventLoop *loop, SocketAddr &addr)
     : loop_(loop),

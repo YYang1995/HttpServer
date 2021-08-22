@@ -7,9 +7,9 @@
 #include <iostream>
 
 using namespace std;
-using namespace yy;
+using namespace net;
 
-namespace yy
+namespace net
 {
 Poller::Poller(EventLoop *loop) : ownerLoop_(loop) {}
 Poller::~Poller() {}
@@ -96,4 +96,4 @@ void EventLoop::queueInLoop(const Functor &cb)
     wakeup();
   }
 }
-}  // namespace yy
+}  // namespace net

@@ -4,16 +4,15 @@
 #include <mutex>
 #include <vector>
 
-#include "../base/noncopyable.h"
 #include "Channel.h"
 #include "Epoll.h"
 
-namespace yy
+namespace net
 {
 class Channel;
 // class Poller;
 class Epoll;
-class EventLoop : public noncopyable
+class EventLoop
 {
  public:
   typedef std::function<void()> Functor;
@@ -48,4 +47,4 @@ class EventLoop : public noncopyable
   void wakeup();
   void doPendingFunctors();
 };
-}  // namespace yy
+}  // namespace net

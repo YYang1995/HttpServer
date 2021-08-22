@@ -6,8 +6,9 @@
 #include "../net/Buffer.h"
 
 
-using namespace yy;
+using namespace http;
 using namespace std;
+using namespace net;
 
 HttpContext::HttpContext() : state_(ExpectRequestLine) {}
 

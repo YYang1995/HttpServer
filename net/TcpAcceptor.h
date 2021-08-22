@@ -2,16 +2,17 @@
 #include <functional>
 #include <memory>
 
-#include "../base/noncopyable.h"
 #include "Channel.h"
 #include "EventLoop.h"
 #include "Socket.h"
 
-namespace yy {
-class TcpAcceptor : noncopyable {
-public:
+namespace net
+{
+class TcpAcceptor 
+{
+ public:
   typedef std::shared_ptr<TcpAcceptor> ptr;
-  typedef std::function<void(int sockfd,  SocketAddr &)> NewConnectCallback;
+  typedef std::function<void(int sockfd, SocketAddr &)> NewConnectCallback;
 
   TcpAcceptor(EventLoop *loop, SocketAddr &addr);
   ~TcpAcceptor();
@@ -19,7 +20,7 @@ public:
   bool isListen();
   void setNewConnectCallback(const NewConnectCallback &callback);
 
-private:
+ private:
   EventLoop *loop_;
   std::unique_ptr<Socket> socket_;
   std::unique_ptr<Channel> event_;
@@ -27,4 +28,4 @@ private:
   NewConnectCallback newConnectCallback_;
   void acceptHandle();
 };
-}// namespace yy
+}  // namespace net

@@ -4,8 +4,7 @@
 #include <string>
 #include <vector>
 
-
-namespace yy
+namespace net
 {
 class Buffer
 {
@@ -41,4 +40,4 @@ class Buffer
   uint32_t writeIndex;
   const char *bufferPtr() const { return &(*buffer.begin()); }
 };
-}  // namespace yy
+}  // namespace net

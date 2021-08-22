@@ -5,7 +5,7 @@
 #include <vector>
 #include <sys/epoll.h>
 
-namespace yy
+namespace net
 {
 class EventLoop;
 class Epoll
@@ -32,4 +32,4 @@ class Epoll
   void fillActiveChannels(int numEvents,ChannelList *channelList);
   void update(int operation,Channel *Channel);
 };
-}  // namespace yy
+}  // namespace net

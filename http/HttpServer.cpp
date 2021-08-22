@@ -1,12 +1,18 @@
 #include "HttpServer.h"
-#include "HttpContext.h"
+
 #include <time.h>
+
 #include <iostream>
 
-using namespace std;
-using namespace yy;
+#include "../net/Buffer.h"
+#include "HttpContext.h"
 
-HttpServer::HttpServer(EventLoop *loop, SocketAddr &addr):server_(loop,addr),httpCallback_(nullptr)
+using namespace std;
+using namespace http;
+using namespace net;
+
+HttpServer::HttpServer(EventLoop *loop, SocketAddr &addr)
+    : server_(loop, addr), httpCallback_(nullptr)
 {
   server_.setConnnectCallback(
       std::bind(&HttpServer::connectCallback, this, std::placeholders::_1));
@@ -21,15 +27,14 @@ HttpServer::~HttpServer() {}
 
 void HttpServer::start()
 {
-  cout<<"HttpServer start()!\n";
+  cout << "HttpServer start()!\n";
   server_.start();
 }
 
-void HttpServer::connectCallback(TcpConnect::ptr TcpConnect) 
-{
-}
+void HttpServer::connectCallback(TcpConnect::ptr TcpConnect) {}
 
-void HttpServer::messageCallback(TcpConnect::ptr tcpConnect, Buffer &buffer)
+void HttpServer::messageCallback(TcpConnect::ptr tcpConnect,
+                                 net::Buffer &buffer)
 {
   HttpContext context;
   time_t now_sec = time(0);
@@ -42,7 +47,7 @@ void HttpServer::messageCallback(TcpConnect::ptr tcpConnect, Buffer &buffer)
   }
   if (context.isParseAll())
   {
-    auto temp=context.getRequest();
+    auto temp = context.getRequest();
     onRequest(tcpConnect, context.getRequest());
     context.reset();
   }
@@ -50,9 +55,8 @@ void HttpServer::messageCallback(TcpConnect::ptr tcpConnect, Buffer &buffer)
 
 void HttpServer::writeCompleteCallback(TcpConnect::ptr tcpConnect) {}
 
-
 void HttpServer::defaultHttpCallback(const HttpRequest &request,
-                              HttpResponse *response)
+                                     HttpResponse *response)
 {
   response->setStatusCode(HttpResponse::_400BadRequest);
   response->setStatusMessage("Not Found");
@@ -69,13 +73,13 @@ void HttpServer::onRequest(std::shared_ptr<TcpConnect> conn,
                                  connection != "Keep-Alive"));
 
   HttpResponse response(close);
-  if(httpCallback_)
+  if (httpCallback_)
   {
     httpCallback_(request, &response);
   }
   else
   {
-    this->defaultHttpCallback(request,&response);
+    this->defaultHttpCallback(request, &response);
   }
   Buffer buffer;
   response.addToBuffer(&buffer);
@@ -83,7 +87,7 @@ void HttpServer::onRequest(std::shared_ptr<TcpConnect> conn,
   buffer.readAllAsString(str);
   conn->send(str);
   //短链接则直接关闭
-  if(response.getCloseConnection())
+  if (response.getCloseConnection())
   {
     conn->shutDownWrite();
   }
