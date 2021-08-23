@@ -1,15 +1,17 @@
 #include "Buffer.h"
 
-#include <sys/uio.h>
 #include <string.h>
+#include <sys/uio.h>
+
 #include <algorithm>
 #include <iostream>
 
+#include "../base/ALog.h"
 #include "SocketOperation.h"
-
 
 using namespace net;
 using namespace std;
+using namespace base;
 
 const int Buffer::DefaultSize = 1024;
 
@@ -30,7 +32,7 @@ int Buffer::readFromIO(int fd, int &errNo)
   if (n < 0)
   {
     errNo = errno;
-    cout<<"Buffer::readFromIO errno= "<<strerror(errno)<<endl;
+    LOG_ERROR("Buffer::readFromIO errno= %s ",strerror(errno));
   }
   else if ((uint32_t)n <= writeable)
   {
@@ -103,7 +105,7 @@ void Buffer::updateReadIndex(uint32_t len)
 void Buffer::readAsString(std::string &readBuf, uint32_t len)
 {
   len = std::min(readableBytes(), len);
-  readBuf.assign((const char *)(readIndexPtr()), len);  
+  readBuf.assign((const char *)(readIndexPtr()), len);
   updateReadIndex(len);
 }
 

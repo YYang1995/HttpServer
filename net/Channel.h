@@ -42,19 +42,15 @@ class Channel
     events_ = kNoneEvent;
     update();
   }
-  bool isWriting()
-  {
-    return events_ & kWriteEvent;
-  }
-  // for poller
+  bool isWriting() { return events_ & kWriteEvent; }
   int index() { return index_; }
   void set_index(int index) { index_ = index; }
+  void remove();
 
   EventLoop *ownerLoop() { return loop_; }
 
  private:
   void update();
-
   static const int kNoneEvent;
   static const int kReadEvent;
   static const int kWriteEvent;
@@ -63,7 +59,7 @@ class Channel
   const int fd_;
   int events_;   //关心的事件
   int revents_;  //发生的事件
-  int index_;    // used by poller
+  int index_;    // for poller
 
   EventCallback readCallback_;
   EventCallback writeCallback_;

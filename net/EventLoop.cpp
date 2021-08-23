@@ -2,11 +2,17 @@
 
 #include <assert.h>
 #include <pthread.h>
-#include "Channel.cpp"
+#include <sys/eventfd.h>
+#include <unistd.h>
+
 #include <iostream>
 
+#include "../base/ALog.h"
+#include "Channel.cpp"
 #include "Epoll.h"
+#include "Epoll.cpp"
 
+using namespace base;
 using namespace std;
 using namespace net;
 
@@ -15,25 +21,39 @@ namespace net
 __thread EventLoop *t_loopInThisThread = 0;
 
 EventLoop::EventLoop()
-    : looping_(false), threadId_(pthread_self()), activeChannels_(16)
+    : looping_(false),
+      threadId_(pthread_self()),
+      activeChannels_(16)
 {
-  poller_ = std::make_shared<Epoll>(this);
-  std::cout << "EventLoop created " << this << " in thread " << threadId_
-            << std::endl;
+  wakeupFd_=eventfd(0, EFD_NONBLOCK);
+  wakeupChannel_.reset(new Channel(this, wakeupFd_));
+  if(wakeupFd_==-1)
+  {
+    LOG_ERROR("EventLoop::EventLoop() wakeupFd_ error");
+  }
+  poller_ = std::make_unique<Epoll>(this);
+  // poller_ = new Epoll(this);
+  LOG_INFO("EventLoop created %ld in thread ", this, threadId_);
+
   if (t_loopInThisThread)
   {
-    std::cerr << "Another EvnetLoop " << t_loopInThisThread
-              << " exists in this thread\n";
+    LOG_ERROR("Another EvnetLoop %d exists in this thread", t_loopInThisThread);
   }
   else
   {
     t_loopInThisThread = this;
+    wakeupChannel_->setReadCallback(
+        std::bind(&EventLoop::handleWakeupRead, this));
+    wakeupChannel_->enableReading();
   }
 }
 EventLoop::~EventLoop()
 {
   assert(!looping_);
   t_loopInThisThread = nullptr;
+  wakeupChannel_->disableAll();
+  wakeupChannel_->remove();
+  ::close(wakeupFd_);
 }
 
 EventLoop *EventLoop::getEventLoopOfCurrentThread()
@@ -88,15 +108,18 @@ void EventLoop::doPendingFunctors()
 }
 void EventLoop::wakeup()
 {
-  // TODO
+  uint64_t one = 1;
+  int len = write(wakeupFd_, &one, sizeof one);
+  if (len != sizeof one)
+  {
+    LOG_ERROR("EventLoop::wakeup() error! Actually %d bytes were writen", len);
+  }
 }
 void EventLoop::assertInLoopThread()
 {
   if (!isInLoopThread())
   {
-    // std::cerr << "thread id ="<<loop;
-    // TODO
-    //    this->~EventLoop();
+    LOG_FATAL("EventLoop::assertInLoopThread() error. ");
   }
 }
 
@@ -120,6 +143,28 @@ void EventLoop::removeChannel(Channel *channel)
 {
   assertInLoopThread();
   poller_->removeChannel(channel);
+}
+
+void EventLoop::queueInLoop(const Functor &cb)
+{
+  {
+    std::lock_guard<std::mutex> lock(mutex_);
+    pendingFunctors.push_back(cb);
+  }
+  if (!isInLoopThread() || callingPendingFunctors_)
+  {
+    wakeup();
+  }
+}
+
+void EventLoop::handleWakeupRead()
+{
+  uint64_t one;
+  ssize_t len = read(wakeupFd_, &one, sizeof one);
+  if (len != sizeof one)
+  {
+    LOG_ERROR("EventLoop::handleWakeupRead() error");
+  }
 }
 
 }  // namespace net

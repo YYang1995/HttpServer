@@ -3,6 +3,7 @@
 #include "../../net/EventLoop.cpp"
 #include "../../net/EventLoop.h"
 #include "../../net/TcpServer.h"
+#include "../../base/ALog.h"
 
 using namespace std;
 using namespace base;
@@ -50,10 +51,12 @@ class Echo2
 
 int main()
 {
+  ALog::init(nullptr,false);
   EventLoop loop;
   SocketAddr addr(4220);
 
   Echo2 echo(&loop, addr);
   echo.start();
   loop.loop();
+  ALog::shutdown();
 }

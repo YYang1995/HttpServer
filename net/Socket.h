@@ -1,13 +1,13 @@
 #pragma once
 #include <sys/socket.h>
-#include "SocketAddr.h"
 
+#include "SocketAddr.h"
 
 namespace net
 {
 class Socket
 {
-public:
+ public:
   Socket(int fd);
   ~Socket();
   int getFd();
@@ -18,7 +18,8 @@ public:
   void setReusePort(bool on);
   int shutDownWrite();
   void setKeepAlive(bool on);
-private:
+
+ private:
   int sockfd_;
 };
-}
+}  // namespace net

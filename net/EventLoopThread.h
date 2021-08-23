@@ -4,9 +4,11 @@
 #include <mutex>
 #include <string>
 
+#include "../base/CountDownLatch.h"
 #include "../base/Thread.h"
 #include "../base/noncopyable.h"
 #include "EventLoop.h"
+
 
 namespace net
 {
@@ -20,7 +22,6 @@ class EventLoopThread : public base::Thread
 
  private:
   EventLoop* loop_;
-  std::mutex mtx_;
-  std::condition_variable cond_;
+  base::CountDownLatch latch_;
 };
 }  // namespace net

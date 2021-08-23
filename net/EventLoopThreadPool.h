@@ -4,7 +4,6 @@
 
 #include "EventLoopThread.h"
 
-
 namespace net
 {
 class EventLoopThreadPool

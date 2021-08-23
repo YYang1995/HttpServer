@@ -8,7 +8,7 @@
 
 namespace net
 {
-class TcpAcceptor 
+class TcpAcceptor
 {
  public:
   typedef std::shared_ptr<TcpAcceptor> ptr;
@@ -23,7 +23,7 @@ class TcpAcceptor
  private:
   EventLoop *loop_;
   std::unique_ptr<Socket> socket_;
-  std::unique_ptr<Channel> event_;
+  std::unique_ptr<Channel> channel_;
   bool listening_;
   NewConnectCallback newConnectCallback_;
   void acceptHandle();

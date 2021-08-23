@@ -136,7 +136,7 @@ bool ALog::createLogFile()
   fd_ = open(logFileName_.c_str(), O_CREAT | O_RDWR | O_APPEND, 0666);
   if (fd_ == -1)
   {
-    cout << "fd==-1 " << strerror(errno) << endl;
+    cout << "ALog::createLogFile() fd==-1 " << strerror(errno) << endl;
     return false;
   }
   return true;

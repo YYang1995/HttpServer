@@ -28,7 +28,7 @@ class EventLoop
   void updateChannel(Channel *channel);
   void removeChannel(Channel *Channel);
   void queueInLoop(const Functor &cb);
-  void runInLoop(const Functor &cb);  //作用？
+  void runInLoop(const Functor &cb); 
  private:
   typedef std::vector<Channel *> ChannelList;
 
@@ -39,11 +39,11 @@ class EventLoop
   const pthread_t threadId_;
   bool quit_;
   ChannelList activeChannels_;
-  std::shared_ptr<Epoll> poller_;  // poller_所指在何处？？
+  std::unique_ptr<Epoll> poller_;
   int wakeupFd_;
-  std::shared_ptr<Channel> wakeupChannel_;
+  std::unique_ptr<Channel> wakeupChannel_;  
 
-  void handleRead();
+  void handleWakeupRead();
   void wakeup();
   void doPendingFunctors();
 };

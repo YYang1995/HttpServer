@@ -6,10 +6,12 @@
 
 #include "../net/Buffer.h"
 #include "HttpContext.h"
+#include "../base/ALog.h"
 
 using namespace std;
 using namespace http;
 using namespace net;
+using namespace base;
 
 HttpServer::HttpServer(EventLoop *loop, SocketAddr &addr)
     : server_(loop, addr), httpCallback_(nullptr)
@@ -27,7 +29,7 @@ HttpServer::~HttpServer() {}
 
 void HttpServer::start()
 {
-  cout << "HttpServer start()!\n";
+  LOG_INFO( "HttpServer start()!");
   server_.start();
 }
 

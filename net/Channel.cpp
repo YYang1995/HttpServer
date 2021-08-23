@@ -1,22 +1,22 @@
 #include "Channel.h"
 
+#include <assert.h>
 #include <sys/epoll.h>
 #include <sys/poll.h>
 
 #include <iostream>
 
+#include "../base/ALog.h"
 #include "EventLoop.h"
-#include "TcpAcceptor.cpp"
-#include "TcpConnect.cpp"
 #include "TcpConnect.h"
-#include "TcpServer.cpp"
 
 
 using namespace std;
 using namespace net;
+using namespace base;
 
 const int Channel::kNoneEvent = 0;
-const int Channel::kReadEvent = POLLIN;  //| POLLPRI | POLLRDHUP
+const int Channel::kReadEvent = POLLIN | POLLPRI | POLLRDHUP;
 const int Channel::kWriteEvent = POLLOUT;
 
 Channel::Channel(EventLoop *loop, int fd)
@@ -34,7 +34,8 @@ void Channel::handleEvent()
   }
   if (revents_ & POLLNVAL)
   {
-    std::cerr << "Channel::handleEvent() POLLNAVAL;" << std::endl;
+    // std::cerr << "Channel::handleEvent() POLLNAVAL;" << std::endl;
+    LOG_ERROR("Channel::handleEvent() POLLNAVAL;");
   }
   if (revents_ & (POLLERR | POLLNVAL))
   {
@@ -48,4 +49,10 @@ void Channel::handleEvent()
   {
     if (writeCallback_) writeCallback_();
   }
+}
+
+void Channel::remove()
+{
+  assert(isNoneEvent());
+  loop_->removeChannel(this);
 }

@@ -28,7 +28,6 @@ class Epoll
   ChannelList activeChannels_;
   std::vector<epoll_event> events_;
   int epfd_;
-  // EpollFdList 
   void fillActiveChannels(int numEvents,ChannelList *channelList);
   void update(int operation,Channel *Channel);
 };

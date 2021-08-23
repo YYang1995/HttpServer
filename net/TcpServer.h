@@ -14,14 +14,13 @@ namespace net
 class TcpServer
 {
  public:
-
   TcpServer(EventLoop *loop, SocketAddr &addr);
   ~TcpServer();
   void start();
   //三个半事件
   // virtual void connectCallback(TcpConnect::ptr tcpConnect) = 0;
-  // virtual void messageCallback(TcpConnect::ptr tcpConnect, Buffer &buffer) = 0;
-  // virtual void writeCompleteCallback(TcpConnect::ptr tcpConnect) = 0;
+  // virtual void messageCallback(TcpConnect::ptr tcpConnect, Buffer &buffer) =
+  // 0; virtual void writeCompleteCallback(TcpConnect::ptr tcpConnect) = 0;
   // virtual void connectCloseCallback(TcpConnect::ptr tcpConnect) = 0;
 
   void addConnect(std::string name, TcpConnect::ptr connect);
@@ -29,17 +28,14 @@ class TcpServer
 
   void setConnnectCallback(const ConnectionCallback &cb)
   {
-    connectionCallback_=cb;
+    connectionCallback_ = cb;
   }
-  void setMessageCallback(const MessageCallback &cb)
-  {
-    messageCallback_=cb;
-  }
+  void setMessageCallback(const MessageCallback &cb) { messageCallback_ = cb; }
   void setWriteCompleteCallback(const WriteCompleteCallback &cb)
   {
-    writeCompleteCallback_=cb;
+    writeCompleteCallback_ = cb;
   }
-  //TcpConection::closeCallback绑定到这
+  // TcpConection::closeCallback绑定到这
   void removeConnect(const std::shared_ptr<TcpConnect> &conn);  //必须是const
 
   bool havaConnect(std::string name);

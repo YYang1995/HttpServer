@@ -1,8 +1,7 @@
-#include <string.h>
-
 #include <iostream>
 
 #include "../HttpServer.h"
+#include "../../base/ALog.h"
 
 using namespace std;
 using namespace http;
@@ -27,10 +26,12 @@ void test(const HttpRequest &request, HttpResponse *response)
 }
 int main()
 {
+  ALog::init(nullptr,false);
   EventLoop loop;
   SocketAddr addr(4220);
   HttpServer server(&loop, addr);
   server.setHttpCallback(test);
   server.start();
   loop.loop();
+  ALog::shutdown();
 }

@@ -10,9 +10,11 @@
 #include <sstream>
 #include <vector>
 
+#include "../base/ALog.h"
 
 using namespace std;
 using namespace net;
+using namespace base;
 
 const uint32_t SocketOperation::Ipv4AddrAny = htonl(INADDR_ANY);
 
@@ -32,7 +34,8 @@ int SocketOperation::bind(int sockfd, const struct sockaddr_in *addr)
   int ret = ::bind(sockfd, (struct sockaddr *)(addr), sizeof(struct sockaddr));
   if (ret < 0)
   {
-    std::cerr << "bind socket error" << std::endl;
+    // std::cerr << "bind socket error" << std::endl;
+    LOG_FATAL("bind socket error");
   }
   return ret;
 }
@@ -42,7 +45,8 @@ int SocketOperation::listen(int sockfd)
   int ret = ::listen(sockfd, SOMAXCONN);
   if (ret < 0)
   {
-    std::cerr << "listen socket error" << std::endl;
+    // std::cerr << "listen socket error" << std::endl;
+    LOG_FATAL("listen socket error");
   }
   return ret;
 }
@@ -53,7 +57,8 @@ int SocketOperation::connect(int sockfd, const struct sockaddr *addr)
                       static_cast<socklen_t>(sizeof(struct sockaddr_in6)));
   if (ret < 0)
   {
-    std::cerr << "connect error" << std::endl;
+    // std::cerr << "connect error" << std::endl;
+    LOG_FATAL("connect error");
   }
   return ret;
 }
@@ -62,11 +67,11 @@ int SocketOperation::accept(int sockfd, struct sockaddr_in *addr)
 {
   socklen_t addrlen = sizeof(struct sockaddr_in);
   // int ret = ::accept(sockfd, (struct sockaddr *)addr, &addrlen);
-  int ret=::accept4(sockfd,(struct sockaddr*)addr,&addrlen,SOCK_CLOEXEC|SOCK_NONBLOCK);
+  int ret = ::accept4(sockfd, (struct sockaddr *)addr, &addrlen,
+                      SOCK_CLOEXEC | SOCK_NONBLOCK);
   if (ret < 0)
   {
-    std::cerr << "accept socket error" << std::endl;
-    std::cerr << strerror(errno) << std::endl;
+    LOG_ERROR("accept socket error.");
   }
   return ret;
 }
@@ -90,7 +95,8 @@ void SocketOperation::close(int sockfd)
 {
   if (::close(sockfd))
   {
-    std::cerr << "close sockfd error" << std::endl;
+    // std::cerr << "close sockfd error" << std::endl;
+    LOG_ERROR("close sockfd error");
   }
 }
 
@@ -99,7 +105,8 @@ int SocketOperation::shutdownWrite(int sockfd)
   int ret = ::shutdown(sockfd, SHUT_WR);
   if (ret < 0)
   {
-    std::cerr << "shutdown sockfd error" << std::endl;
+    // std::cerr << "shutdown sockfd error" << std::endl;
+    LOG_ERROR("shutdownWrite error");
   }
   return ret;
 }
@@ -110,6 +117,7 @@ void SocketOperation::setTcpNoDelay(int sockfd)
   ::setsockopt(sockfd, IPPROTO_TCP, TCP_NODELAY, &opt, sizeof(opt));
 }
 
+//使addr的端口为port，接受ipv4为任意
 void SocketOperation::getAddrAnyIpv4(struct sockaddr_in &addr, uint16_t port)
 {
   bzero(&addr, sizeof(addr));
@@ -118,7 +126,7 @@ void SocketOperation::getAddrAnyIpv4(struct sockaddr_in &addr, uint16_t port)
   addr.sin_addr.s_addr = Ipv4AddrAny;
 }
 /**
- *
+ * 将addr的地址设为addtstr，端口设置为port
  * @param addrstr ipv4地址
  * @param port 端口
  * @param addr 将被修改的socketaddr_in
@@ -127,6 +135,7 @@ void SocketOperation::getAddrAnyIpv4(struct sockaddr_in &addr, uint16_t port)
 bool SocketOperation::toAddrIpv4(const std::string &addrstr, uint16_t port,
                                  struct sockaddr_in &addr)
 {
+  //可直接调用inet_addr
   std::vector<int> ip;
   size_t first = 0;
   while (true)
@@ -170,7 +179,7 @@ bool SocketOperation::toAddrIpv4(const std::string &addrstr,
                     addr);
 }
 
-//点分十进制ip:port转为字符串   主机序or网络序？
+//点分十进制ip:port转为字符串,accept接收到网络序，这里转为主机序   
 string SocketOperation::ipToString(struct sockaddr_in addr)
 {
   string ip;
@@ -180,15 +189,14 @@ string SocketOperation::ipToString(struct sockaddr_in addr)
     ip.append(std::to_string((int)(addrArray[i])));
     if (i != 3)
     {
-     ip.push_back('.');
+      ip.push_back('.');
     }
-   
   }
   return ip;
 }
 
 string SocketOperation::portToString(struct sockaddr_in addr)
 {
-  int port=(int)addr.sin_port;
+  int port = (int)addr.sin_port;
   return std::to_string(port);
 }

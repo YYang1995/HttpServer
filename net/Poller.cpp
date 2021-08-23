@@ -85,15 +85,4 @@ void Poller::updateChannel(Channel *channel)
   cout<<"update success\n";
 }
 
-void EventLoop::queueInLoop(const Functor &cb)
-{
-  {
-    std::lock_guard<std::mutex> lock(mutex_);
-    pendingFunctors.push_back(cb);
-  }
-  if (!isInLoopThread() || callingPendingFunctors_)
-  {
-    wakeup();
-  }
-}
 }  // namespace net
