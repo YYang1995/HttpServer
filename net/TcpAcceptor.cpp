@@ -49,7 +49,7 @@ void TcpAcceptor::acceptHandle()
   int connectfd = -1;
   if ((connectfd = socket_->accept(connectAddr)) > 0)
   {
-    LOG_INFO("new Connection! It's Ip is %s",connectAddr.ipToString().c_str());
+    // LOG_INFO("new Connection! It's Ip is %s",connectAddr.ipToString().c_str());
     if (newConnectCallback_)
     {
       newConnectCallback_(connectfd, connectAddr);

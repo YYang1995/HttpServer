@@ -51,5 +51,8 @@ class TcpServer
   std::atomic<bool> isStart_;
   std::unique_ptr<EventLoopThreadPool> threadPool_;
   int nextId;  //用于name的唯一性
+
+  std::mutex mtx_;
+  
 };
 }  // namespace net
