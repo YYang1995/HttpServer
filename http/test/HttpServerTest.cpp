@@ -2,6 +2,10 @@
 
 #include "../HttpServer.h"
 #include "../../base/ALog.h"
+#include "../../net/Buffer.h"
+#include "../HttpContext.h"
+#include "../HttpRequest.h"
+#include "../HttpResponse.h"
 
 using namespace std;
 using namespace http;

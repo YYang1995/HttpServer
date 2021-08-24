@@ -20,7 +20,7 @@ TcpAcceptor::TcpAcceptor(EventLoop *loop, SocketAddr &addr)
   socket_->setReusePort(true);
   socket_->bind(addr);
   channel_->setReadCallback(std::bind(&TcpAcceptor::acceptHandle, this));
-  loop_->updateChannel(channel_.get());
+  // loop_->updateChannel(channel_.get());   于listen()中设置
 }
 
 TcpAcceptor::~TcpAcceptor()
@@ -49,13 +49,14 @@ void TcpAcceptor::acceptHandle()
   int connectfd = -1;
   if ((connectfd = socket_->accept(connectAddr)) > 0)
   {
-    LOG_INFO("new Connection! Its Ip is %s",connectAddr.ipToString().c_str());
+    LOG_INFO("new Connection! It's Ip is %s",connectAddr.ipToString().c_str());
     if (newConnectCallback_)
     {
       newConnectCallback_(connectfd, connectAddr);
     }
     else
     {
+      LOG_ERROR("TcpAccepor::acceptHandle() error! Error Message= %s",strerror(errno));
       ::close(connectfd);
     }
   }

@@ -9,7 +9,7 @@
         "${file}",
         "-o",
         "${fileDirname}/${fileBasenameNoExtension}",
-        "-lmy_net","-lmy_http","-lmy_base",
+        "-lmy_http","-lmy_net","-lmy_base",
         "-lpthread"
       ],
       "options": {

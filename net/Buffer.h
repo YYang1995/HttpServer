@@ -19,6 +19,7 @@ class Buffer
   bool isEmpty();
   void ensureWriteableBytes(std::size_t len);
   void append(const char *data, std::size_t len);
+  void append(const char *data);
   void append(const std::string &str);
   void swap(Buffer &rhs);
 

@@ -10,17 +10,19 @@
 namespace net
 {
 class TcpConnect;
-
-typedef std::function<void(const std::shared_ptr<TcpConnect>&, Buffer &)>
+//定义在这里不妥
+typedef std::function<void(const std::shared_ptr<TcpConnect> &, Buffer &)>
     MessageCallback;
-typedef std::function<void(const std::shared_ptr<TcpConnect>&)> WriteCompleteCallback;
-typedef std::function<void(const std::shared_ptr<TcpConnect>&)> CloseCallback;
-typedef std::function<void(const std::shared_ptr<TcpConnect>&)> ConnectionCallback;
+typedef std::function<void(const std::shared_ptr<TcpConnect> &)>
+    WriteCompleteCallback;
+typedef std::function<void(const std::shared_ptr<TcpConnect> &)> CloseCallback;
+typedef std::function<void(const std::shared_ptr<TcpConnect> &)>
+    ConnectionCallback;
 
 class TcpConnect : public std::enable_shared_from_this<TcpConnect>
 {
  public:
-typedef std::shared_ptr<TcpConnect> ptr;
+  typedef std::shared_ptr<TcpConnect> ptr;
   enum ConnectState
   {
     Disconnected,
@@ -47,12 +49,9 @@ typedef std::shared_ptr<TcpConnect> ptr;
   };
   void setConnectionCallback(const ConnectionCallback &callback)
   {
-    connectionCallback_=callback;
+    connectionCallback_ = callback;
   }
-  EventLoop *getLoop()
-  {
-    return loop;
-  }
+  EventLoop *getLoop() { return loop; }
   SocketAddr &getAddr() { return addr; }
   const std::string getName() const { return name; }
 
@@ -65,14 +64,14 @@ typedef std::shared_ptr<TcpConnect> ptr;
 
   void connectEstablished();
   void connectDestroyed();
-  void connectHandle(); //?有用？
+  void connectHandle();  //?有用？
 
  private:
   EventLoop *loop;
   SocketAddr addr;
-  std::string name;
-  std::unique_ptr<Socket> socket;
-  std::unique_ptr<Channel> event;
+  std::string name;   //格式为=ip:port
+  std::unique_ptr<Socket> socket_;
+  std::unique_ptr<Channel> channel_;
 
   ConnectionCallback connectionCallback_;
   MessageCallback messageCallback_;

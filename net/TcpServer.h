@@ -17,11 +17,6 @@ class TcpServer
   TcpServer(EventLoop *loop, SocketAddr &addr);
   ~TcpServer();
   void start();
-  //三个半事件
-  // virtual void connectCallback(TcpConnect::ptr tcpConnect) = 0;
-  // virtual void messageCallback(TcpConnect::ptr tcpConnect, Buffer &buffer) =
-  // 0; virtual void writeCompleteCallback(TcpConnect::ptr tcpConnect) = 0;
-  // virtual void connectCloseCallback(TcpConnect::ptr tcpConnect) = 0;
 
   void addConnect(std::string name, TcpConnect::ptr connect);
   void addConnect(std::string name, TcpConnect *connect);
@@ -36,14 +31,14 @@ class TcpServer
     writeCompleteCallback_ = cb;
   }
   // TcpConection::closeCallback绑定到这
-  void removeConnect(const std::shared_ptr<TcpConnect> &conn);  //必须是const
+  void removeConnect(const std::shared_ptr<TcpConnect> &conn);  
 
   bool havaConnect(std::string name);
   long getConnectCount() const;
   void removeConnectionInLoop(const std::shared_ptr<TcpConnect> &conn);
 
  private:
-  EventLoop *loop_;
+  EventLoop *mainloop_;
   SocketAddr tcpAddr_;
   TcpAcceptor::ptr tcpAccpet_;
   std::map<std::string, TcpConnect::ptr> connectPool_;
@@ -53,9 +48,8 @@ class TcpServer
   WriteCompleteCallback writeCompleteCallback_;
 
   void newConnected(int sockfd, SocketAddr &addr);
-  void connectCloseEvent(TcpConnect::ptr connect);
   std::atomic<bool> isStart_;
-  std::shared_ptr<EventLoopThreadPool> threadPool_;
-  int nextId;  //用于连接name的唯一性
+  std::unique_ptr<EventLoopThreadPool> threadPool_;
+  int nextId;  //暂时没用
 };
 }  // namespace net

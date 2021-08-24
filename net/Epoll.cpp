@@ -78,7 +78,6 @@ void Epoll::update(int operation, Channel *channel)
   int fd = channel->fd();
   if (epoll_ctl(epfd_, operation, fd, &event) < 0)
   {
-    // cerr << "epoll_ctl error\n";
     LOG_ERROR("epoll_ctl error. %s",strerror(errno));
     return;
   }
@@ -94,7 +93,6 @@ void Epoll::fillActiveChannels(int numEvents, ChannelList *channelList)
     const auto iter = channels_.find(fd);
     if (iter == channels_.end() || iter->second != channel)
     {
-      // cerr << "Epoll::fillActiveChannels error\n";
       LOG_ERROR("Epoll::fillActiveChannels error");
       return;
     }
@@ -135,6 +133,7 @@ void Epoll::removeChannel(Channel *channel)
   int index = channel->index();
   assert(index == kAdd || index == kDelete);
   auto n = channels_.erase(fd);
+  (void)n; //TODO
   assert(n == 1);
   if (index == kAdd)
   {

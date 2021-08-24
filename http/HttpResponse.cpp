@@ -32,7 +32,7 @@ void HttpResponse::addHeader(const string &key, const string &value)
 
 void HttpResponse::setBody(const string &body) { this->body_ = body; }
 
-void HttpResponse::addToBuffer(net::Buffer *output)
+void HttpResponse::addToBuffer(Buffer *output)
 {
   char buffer[32] = {0};
   snprintf(buffer, sizeof(buffer), "HTTP/1.1 %d ", statusCode_);

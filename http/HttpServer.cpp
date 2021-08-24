@@ -7,6 +7,7 @@
 #include "../net/Buffer.h"
 #include "HttpContext.h"
 #include "../base/ALog.h"
+#include "../net/TcpServer.h"
 
 using namespace std;
 using namespace http;

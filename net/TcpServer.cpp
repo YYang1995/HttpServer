@@ -1,14 +1,15 @@
 #include "TcpServer.h"
 #include <assert.h>
 #include <iostream>
-
+#include "../base/ALog.h"
+using namespace base;
 using namespace std;
 using namespace net;
 
 TcpServer::TcpServer(EventLoop *loop, SocketAddr &addr)
-    : loop_(loop),
+    : mainloop_(loop),
       tcpAddr_(addr),
-      tcpAccpet_(new TcpAcceptor(loop, addr)),
+      tcpAccpet_(new TcpAcceptor(mainloop_, addr)),
       isStart_(false),
       threadPool_(new EventLoopThreadPool(loop)),
       nextId(1)
@@ -23,7 +24,7 @@ TcpServer::~TcpServer() {}
 void TcpServer::start()
 {
   threadPool_->init();
-  loop_->runInLoop(std::bind(&TcpAcceptor::listen,tcpAccpet_.get()));
+  mainloop_->runInLoop(std::bind(&TcpAcceptor::listen,tcpAccpet_.get()));
   isStart_ = true;
 }
 
@@ -32,7 +33,7 @@ void TcpServer::newConnected(int sockfd, SocketAddr &addr)
 
   EventLoop *ioLoop = threadPool_->getOneLoopFromPool();
   TcpConnect::ptr tcpConnect(new TcpConnect(ioLoop, addr, sockfd));
-  string connName=addr.ipToString()+" : "+addr.portToString();
+  string connName=addr.ipToString()+":"+addr.portToString();
   addConnect(connName, tcpConnect);
   nextId++;
   tcpConnect->setConnectionCallback(connectionCallback_);
@@ -40,8 +41,8 @@ void TcpServer::newConnected(int sockfd, SocketAddr &addr)
   tcpConnect->setWriteCompleteCallback(writeCompleteCallback_);
   tcpConnect->setCloseCallback(std::bind(&TcpServer::removeConnect,this,std::placeholders::_1));
   ioLoop->runInLoop(std::bind(&TcpConnect::connectEstablished,tcpConnect));
-    std::cout << "new connect <ip:port>= " << connName
-            << " total cnt= " << std::to_string(getConnectCount())<<endl;
+  LOG_INFO("new connect [ip:port]= %s. Total count= %d", connName.c_str(),
+           getConnectCount());
 }
 
 long TcpServer::getConnectCount() const { return connectPool_.size(); }
@@ -65,18 +66,13 @@ bool TcpServer::havaConnect(std::string name)
 void TcpServer::removeConnect(const shared_ptr<TcpConnect> &conn)
 {
   auto n=connectPool_.erase(conn->getName());
+  (void)n;
   assert(n==1);
-  loop_->queueInLoop(std::bind(&TcpServer::removeConnectionInLoop,this,conn));
+  mainloop_->queueInLoop(std::bind(&TcpServer::removeConnectionInLoop,this,conn));
 }
 
 void TcpServer::removeConnectionInLoop(const shared_ptr<TcpConnect> &conn)
 {
   EventLoop *ioLoop=conn->getLoop();
   ioLoop->runInLoop(std::bind(&TcpConnect::connectDestroyed,conn));
-}
-
-void TcpServer::connectCloseEvent(TcpConnect::ptr connect)
-{
-  // connectCloseCallback(connect);
-  // removeConnect(connect->getName());
 }

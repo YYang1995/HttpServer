@@ -70,7 +70,14 @@ void Buffer::append(const char *data, std::size_t len)
   writeIndex += len;
 }
 
+void Buffer::append(const char *data)
+{
+  append(data,strlen(data));
+}
+
 void Buffer::append(const std::string &str) { append(str.c_str(), str.size()); }
+
+
 
 void Buffer::swap(Buffer &rhs)
 {

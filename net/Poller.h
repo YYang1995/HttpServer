@@ -20,11 +20,6 @@ class Poller
   virtual ~Poller();
 
   void updateChannel(Channel *channel);
-  // void assertInLoopThread() {
-  //   //    ownerLoop_->assertInLoopThread();
-  //   std::cout << "assertInLoopThread\n";
-  // }
-  // TODO muduo这里返回自己实现的Timestamp
   void poll(int timeoutMs, ChannelList *activeChannels);
 
  private:

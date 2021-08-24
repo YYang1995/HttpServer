@@ -1,8 +1,12 @@
 #pragma once
 #include <map>
 #include <string>
-#include "../net/Buffer.h"
+// #include "../net/Buffer.h"
 
+namespace net
+{
+  class Buffer;
+}
 namespace http
 {
 

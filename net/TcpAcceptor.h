@@ -22,7 +22,7 @@ class TcpAcceptor
 
  private:
   EventLoop *loop_;
-  std::unique_ptr<Socket> socket_;
+  std::unique_ptr<Socket> socket_;  //监听socket
   std::unique_ptr<Channel> channel_;
   bool listening_;
   NewConnectCallback newConnectCallback_;
