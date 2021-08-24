@@ -15,8 +15,7 @@ TcpServer::TcpServer(EventLoop *loop, SocketAddr &addr)
       tcpAccpet_(new TcpAcceptor(mainloop_, addr)),
       isStart_(false),
       threadPool_(new EventLoopThreadPool(loop)),
-      nextId(1),
-      mtx_()
+      nextId(1)
 {
   tcpAccpet_->setNewConnectCallback(std::bind(&TcpServer::newConnected, this,
                                               std::placeholders::_1,
@@ -27,7 +26,7 @@ TcpServer::~TcpServer() {}
 
 void TcpServer::start()
 {
-  // threadPool_->init();
+  threadPool_->init();
   mainloop_->runInLoop(std::bind(&TcpAcceptor::listen, tcpAccpet_.get()));
   isStart_ = true;
 }
@@ -78,19 +77,13 @@ void TcpServer::removeConnect(const shared_ptr<TcpConnect> &conn)
 void TcpServer::removeConnectionInLoop(const shared_ptr<TcpConnect> &conn)
 {
   mainloop_->assertInLoopThread();
-  nextId--;
-  size_t n;
-  {
-    std::lock_guard<std::mutex> lock(mtx_);
-    n = connectPool_.erase(conn->getName());  //是否需要加锁
-
-  }
+  size_t n = connectPool_.erase(conn->getName());  //是否需要加锁
   if (n != 1)
   {
     LOG_ERROR("n=%d,pool totol size= %d", n, connectPool_.size());
   }
   (void)n;
-  assert(n==1);
+  assert(n == 1);
   EventLoop *ioLoop = conn->getLoop();
   ioLoop->runInLoop(std::bind(&TcpConnect::connectDestroyed, conn));
 }

@@ -1,4 +1,7 @@
 #include "HttpResponse.h"
+
+#include <unistd.h>
+
 #include "../net/Buffer.h"
 
 using namespace std;
@@ -49,6 +52,7 @@ void HttpResponse::addToBuffer(Buffer *output)
   {
     snprintf(buffer, sizeof(buffer), "Content-Length: %zd\r\n", body_.size());
     output->append(buffer);
+    output->append("Content-Type: text/html;charset=utf-8\r\n");
     output->append("Connection: Keep-Alive\r\n");
   }
   for (auto iter : headers_)

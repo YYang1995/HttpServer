@@ -80,6 +80,7 @@ void EventLoop::loop()
     doPendingFunctors();
   }
   looping_ = false;
+  LOG_INFO("EventLoop stop looping.");
 }
 void EventLoop::runInLoop(const Functor &cb)
 {
@@ -149,7 +150,9 @@ void EventLoop::queueInLoop(const Functor &cb)
 {
   {
     std::lock_guard<std::mutex> lock(mutex_);
-    pendingFunctors.push_back(cb);
+    pendingFunctors.push_back(std::move(cb));
+    // cout<<"pendingFucntors.size()= "<<pendingFunctors.size()<<endl;
+    // cout<<"pendingFucntors.capacity()= "<<pendingFunctors.capacity()<<endl;
   }
   if (!isInLoopThread() || callingPendingFunctors_)
   {

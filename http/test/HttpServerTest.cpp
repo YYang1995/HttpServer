@@ -4,6 +4,8 @@
 #include "../../base/ALog.h"
 #include "../../net/Buffer.h"
 #include "../HttpContext.h"
+#include <unistd.h>
+#include <fcntl.h>
 #include "../HttpRequest.h"
 #include "../HttpResponse.h"
 
@@ -28,13 +30,32 @@ void test(const HttpRequest &request, HttpResponse *response)
   response->setBody(body);
   // response->setCloseConnection(true);
 }
+
+void test2(const HttpRequest &request, HttpResponse *response)
+{
+  int fd=::open("../html/index.html",O_RDONLY);
+  if(fd==-1)
+  {
+    cout<<"open error\n";
+    return ;
+  }
+  string body;
+  char msg[1024];
+  int len;
+  while((len=read(fd,msg,sizeof msg))>0)
+  {
+    body.append(msg);
+  }
+  // msg[len]='?';
+  response->setBody(body);
+}
 int main()
 {
   ALog::init(nullptr,false);
   EventLoop loop;
   SocketAddr addr(4220);
   HttpServer server(&loop, addr);
-  server.setHttpCallback(test);
+  server.setHttpCallback(test2);
   server.start();
   loop.loop();
   ALog::shutdown();

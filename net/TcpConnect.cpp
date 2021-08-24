@@ -81,11 +81,10 @@ void TcpConnect::closeEvent()
   assert(state == Connected || state == Disconnecting);
   setState(Disconnected);
   channel_->disableAll();
-  if (closeCallback_)
-  {
-    //从Tcp连接池中移除;
-    closeCallback_(shared_from_this());
-  }
+  shared_ptr<TcpConnect> temp(shared_from_this());
+  //从Tcp连接池中移除;
+  // closeCallback_(shared_from_this());
+  closeCallback_(temp);
 }
 
 //从writeBuffer中向event->fd()中写数据
@@ -170,7 +169,7 @@ void TcpConnect::send(const string &data) { write(&*data.begin()); }
 
 void TcpConnect::errorEvent()
 {
-  LOG_ERROR("TcpConnect::errorEvent().Error message=%d", strerror(errno));
+  LOG_ERROR("TcpConnect::errorEvent().Error message=%s", strerror(errno));
 }
 
 void TcpConnect::connectDestroyed()

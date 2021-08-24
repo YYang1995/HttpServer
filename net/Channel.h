@@ -10,6 +10,7 @@ class Channel
  public:
   typedef std::function<void()> EventCallback;
   Channel(EventLoop *loop, int fd);
+  ~Channel();
   void handleEvent();
 
   void setReadCallback(const EventCallback &cb) { readCallback_ = cb; }
@@ -60,6 +61,7 @@ class Channel
   int events_;   //关心的事件
   int revents_;  //发生的事件
   int index_;    // for poller
+  bool eventHandling_;  
 
   EventCallback readCallback_;
   EventCallback writeCallback_;
