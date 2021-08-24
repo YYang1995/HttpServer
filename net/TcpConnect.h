@@ -53,8 +53,8 @@ class TcpConnect : public std::enable_shared_from_this<TcpConnect>
   }
   EventLoop *getLoop() { return loop; }
   SocketAddr &getAddr() { return addr; }
-  const std::string getName() const { return name; }
-
+  const std::string getName() const { return name_; }
+  void setName(const std::string &name);
   void setNoDelay();
   void shutDownWrite();
 
@@ -69,7 +69,7 @@ class TcpConnect : public std::enable_shared_from_this<TcpConnect>
  private:
   EventLoop *loop;
   SocketAddr addr;
-  std::string name;   //格式为=ip:port
+  std::string name_;   //格式为=ip:port
   std::unique_ptr<Socket> socket_;
   std::unique_ptr<Channel> channel_;
 

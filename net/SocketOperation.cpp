@@ -71,7 +71,7 @@ int SocketOperation::accept(int sockfd, struct sockaddr_in *addr)
                       SOCK_CLOEXEC | SOCK_NONBLOCK);
   if (ret < 0)
   {
-    LOG_ERROR("accept socket error.");
+    LOG_ERROR("accept socket error. Error message= %s",strerror(errno));
   }
   return ret;
 }

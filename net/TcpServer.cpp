@@ -1,6 +1,9 @@
 #include "TcpServer.h"
+
 #include <assert.h>
+
 #include <iostream>
+
 #include "../base/ALog.h"
 using namespace base;
 using namespace std;
@@ -24,23 +27,25 @@ TcpServer::~TcpServer() {}
 void TcpServer::start()
 {
   threadPool_->init();
-  mainloop_->runInLoop(std::bind(&TcpAcceptor::listen,tcpAccpet_.get()));
+  mainloop_->runInLoop(std::bind(&TcpAcceptor::listen, tcpAccpet_.get()));
   isStart_ = true;
 }
 
 void TcpServer::newConnected(int sockfd, SocketAddr &addr)
 {
-
   EventLoop *ioLoop = threadPool_->getOneLoopFromPool();
   TcpConnect::ptr tcpConnect(new TcpConnect(ioLoop, addr, sockfd));
-  string connName=addr.ipToString()+":"+addr.portToString();
+  string connName = addr.ipToString() + ":" + addr.portToString() + "_" +
+                    std::to_string(nextId);
+  tcpConnect->setName(connName);
   addConnect(connName, tcpConnect);
   nextId++;
   tcpConnect->setConnectionCallback(connectionCallback_);
   tcpConnect->setMessageCallback(messageCallback_);
   tcpConnect->setWriteCompleteCallback(writeCompleteCallback_);
-  tcpConnect->setCloseCallback(std::bind(&TcpServer::removeConnect,this,std::placeholders::_1));
-  ioLoop->runInLoop(std::bind(&TcpConnect::connectEstablished,tcpConnect));
+  tcpConnect->setCloseCallback(
+      std::bind(&TcpServer::removeConnect, this, std::placeholders::_1));
+  ioLoop->runInLoop(std::bind(&TcpConnect::connectEstablished, tcpConnect));
   LOG_INFO("new connect [ip:port]= %s. Total count= %d", connName.c_str(),
            getConnectCount());
 }
@@ -65,14 +70,21 @@ bool TcpServer::havaConnect(std::string name)
 
 void TcpServer::removeConnect(const shared_ptr<TcpConnect> &conn)
 {
-  auto n=connectPool_.erase(conn->getName());
-  (void)n;
-  assert(n==1);
-  mainloop_->queueInLoop(std::bind(&TcpServer::removeConnectionInLoop,this,conn));
+  mainloop_->queueInLoop(
+      std::bind(&TcpServer::removeConnectionInLoop, this, conn));
 }
 
 void TcpServer::removeConnectionInLoop(const shared_ptr<TcpConnect> &conn)
 {
-  EventLoop *ioLoop=conn->getLoop();
-  ioLoop->runInLoop(std::bind(&TcpConnect::connectDestroyed,conn));
+  mainloop_->assertInLoopThread();
+  nextId--;
+  size_t n = connectPool_.erase(conn->getName());  //是否需要加锁
+  if (n != 1)
+  {
+    LOG_ERROR("n=%d,pool totol size= %d", n, connectPool_.size());
+  }
+  (void)n;
+  assert(n==1);
+  EventLoop *ioLoop = conn->getLoop();
+  ioLoop->runInLoop(std::bind(&TcpConnect::connectDestroyed, conn));
 }

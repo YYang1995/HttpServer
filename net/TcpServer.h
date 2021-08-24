@@ -50,6 +50,6 @@ class TcpServer
   void newConnected(int sockfd, SocketAddr &addr);
   std::atomic<bool> isStart_;
   std::unique_ptr<EventLoopThreadPool> threadPool_;
-  int nextId;  //暂时没用
+  int nextId;  //用于name的唯一性
 };
 }  // namespace net

@@ -15,10 +15,11 @@ using namespace std;
 TcpConnect::TcpConnect(EventLoop *loop, SocketAddr &a, int fd)
     : loop(loop),
       addr(a),
-      name(addr.ipToString() + ":" + addr.portToString()),
+      // name_(addr.ipToString() + ":" + addr.portToString()),
+      name_(),
       channel_(new Channel(loop, fd)),
       socket_(new Socket(fd)),
-      state(Disconnected)
+      state(Connecting)
 {
   setNoDelay();
   // loop->updateChannel(channel_.get());  在TcpServer::newConnected中执行
@@ -32,10 +33,12 @@ TcpConnect::TcpConnect(EventLoop *loop, SocketAddr &a, int fd)
 TcpConnect::~TcpConnect()
 {
   assert(state == Disconnected);
-  LOG_INFO("TcpConnect [%s] disconnect.",name.c_str());
+  LOG_INFO("TcpConnect [%s] disconnect.", name_.c_str());
 }
 
 void TcpConnect::setNoDelay() { socket_->setTcpNoDelay(); }
+
+void TcpConnect::setName(const string &name) { name_ = name; }
 
 void TcpConnect::shutDownWrite()
 {
@@ -165,18 +168,25 @@ void TcpConnect::write(const void *data, uint32_t len)
 
 void TcpConnect::send(const string &data) { write(&*data.begin()); }
 
-void TcpConnect::errorEvent() { LOG_ERROR("TcpConnect::errorEvent()"); }
+void TcpConnect::errorEvent()
+{
+  LOG_ERROR("TcpConnect::errorEvent().Error message=%d", strerror(errno));
+}
 
 void TcpConnect::connectDestroyed()
 {
-  setState(Disconnected);
-  // channel_->disableAll();
+  loop->assertInLoopThread();
+  if (state = Connected)
+  {
+    setState(Disconnected);
+    channel_->disableAll();
+  }
   channel_->remove();
 }
 
 void TcpConnect::connectEstablished()
 {
-  assert(state = Connecting);
+  assert(state == Connecting);
   setState(Connected);
   channel_->enableReading();
   if (connectionCallback_) connectionCallback_(shared_from_this());

@@ -184,6 +184,7 @@ void ALog::writeThreadFunc()
 {
   // std::lock_guard<std::mutex> guard(mutex_);
   string log;
+  list<string> temp;
   while (running_)
   {
     pthread_mutex_lock(&ALog::mutex_);
@@ -192,14 +193,14 @@ void ALog::writeThreadFunc()
       // cond_.wait();
       pthread_cond_wait(&ALog::cond_, &ALog::mutex_);
     }
-
-    while (!logList_.empty())
+    temp.swap(logList_);
+    pthread_mutex_unlock(&ALog::mutex_);
+    while (!temp.empty())
     {
-      log = logList_.front();
-      logList_.pop_front();
+      log = temp.front();
+      temp.pop_front();
       writeToFile(log.c_str());
     }
-    pthread_mutex_unlock(&ALog::mutex_);
   }
 }
 
