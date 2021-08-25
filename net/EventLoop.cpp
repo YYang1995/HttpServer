@@ -75,14 +75,16 @@ void EventLoop::loop()
     for (auto iter = activeChannels_.begin(); iter != activeChannels_.end();
          iter++)
     {
-      (*iter)->handleEvent();
+      currentActiveChannel_=*iter;
+      currentActiveChannel_->handleEvent();
     }
+    currentActiveChannel_=nullptr;
     doPendingFunctors();
   }
   looping_ = false;
   LOG_INFO("EventLoop stop looping.");
 }
-void EventLoop::runInLoop(const Functor &cb)
+void EventLoop::runInLoop(Functor cb)
 {
   if (isInLoopThread())
   {
@@ -146,11 +148,12 @@ void EventLoop::removeChannel(Channel *channel)
   poller_->removeChannel(channel);
 }
 
-void EventLoop::queueInLoop(const Functor &cb)
+void EventLoop::queueInLoop(Functor cb)
 {
   {
     std::lock_guard<std::mutex> lock(mutex_);
-    pendingFunctors.push_back(std::move(cb));
+    // pendingFunctors.push_back(std::move(cb));
+    pendingFunctors.push_back(cb);
     // cout<<"pendingFucntors.size()= "<<pendingFunctors.size()<<endl;
     // cout<<"pendingFucntors.capacity()= "<<pendingFunctors.capacity()<<endl;
   }

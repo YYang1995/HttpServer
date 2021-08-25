@@ -40,7 +40,7 @@ class TcpServer
  private:
   EventLoop *mainloop_;
   SocketAddr tcpAddr_;
-  TcpAcceptor::ptr tcpAccpet_;
+  std::unique_ptr<TcpAcceptor> tcpAccpet_;
   std::map<std::string, TcpConnect::ptr> connectPool_;
 
   ConnectionCallback connectionCallback_;
@@ -49,10 +49,8 @@ class TcpServer
 
   void newConnected(int sockfd, SocketAddr &addr);
   std::atomic<bool> isStart_;
-  std::unique_ptr<EventLoopThreadPool> threadPool_;
+  std::shared_ptr<EventLoopThreadPool> threadPool_;  //why shared_ptr?
   int nextId;  //用于name的唯一性
-
-  std::mutex mtx_;
   
 };
 }  // namespace net

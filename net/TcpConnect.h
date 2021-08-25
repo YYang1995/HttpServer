@@ -69,7 +69,7 @@ class TcpConnect : public std::enable_shared_from_this<TcpConnect>
  private:
   EventLoop *loop;
   SocketAddr addr;
-  std::string name_;   //格式为=ip:port
+  std::string name_;  //格式为=ip:port
   std::unique_ptr<Socket> socket_;
   std::unique_ptr<Channel> channel_;
 

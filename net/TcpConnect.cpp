@@ -32,8 +32,8 @@ TcpConnect::TcpConnect(EventLoop *loop, SocketAddr &a, int fd)
 
 TcpConnect::~TcpConnect()
 {
+  // LOG_INFO("TcpConnect [%s] disconnect.", name_.c_str()); //TODO 这一行
   assert(state == Disconnected);
-  LOG_INFO("TcpConnect [%s] disconnect.", name_.c_str());
 }
 
 void TcpConnect::setNoDelay() { socket_->setTcpNoDelay(); }
