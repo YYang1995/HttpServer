@@ -44,9 +44,9 @@ void test2(const HttpRequest &request, HttpResponse *response)
   int len;
   while((len=read(fd,msg,sizeof msg))>0)
   {
+    msg[len]='\0';
     body.append(msg);
   }
-  // msg[len]='?';
   response->setBody(body);
 }
 int main()
