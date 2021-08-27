@@ -1,7 +1,7 @@
 #include "HttpResponse.h"
 
 #include <unistd.h>
-
+#include <time.h>
 #include "../net/Buffer.h"
 
 using namespace std;
@@ -9,7 +9,10 @@ using namespace http;
 using namespace net;
 
 HttpResponse::HttpResponse(const bool &close)
-    : version_("HTTP/1.1"), statusCode_(UnKnown), closeConnection_(close)
+    : version_("HTTP/1.1"),
+      statusCode_(_200OK),
+      statusMessage_("OK"),
+      closeConnection_(close)  // TODO statusCode_
 {
 }
 
@@ -38,9 +41,11 @@ void HttpResponse::setBody(const string &body) { this->body_ = body; }
 void HttpResponse::addToBuffer(Buffer *output)
 {
   char buffer[32] = {0};
-  snprintf(buffer, sizeof(buffer), "HTTP/1.1 %d ", statusCode_);
-  output->append(buffer);
-  output->append(statusMessage_);
+  // snprintf(buffer, sizeof(buffer), "HTTP/1.1 %d %s", statusCode_,
+  //          statusMessage_);
+  string responseLine="HTTP/1.1 200 OK";
+  output->append(responseLine);
+  // output->append(statusMessage_);
   output->append("\r\n");
   // add headers
   //判断是否是最后的信息
@@ -53,7 +58,12 @@ void HttpResponse::addToBuffer(Buffer *output)
     snprintf(buffer, sizeof(buffer), "Content-Length: %zd\r\n", body_.size());
     output->append(buffer);
     output->append("Content-Type: text/html;charset=utf-8\r\n");
-    output->append("Connection: Keep-Alive\r\n");
+    output->append("Connection: keep-alive\r\n");
+    output->append("Server: ubuntu-18.04\r\n");
+    time_t now=time(nullptr);
+    char *time_now=ctime(&now);
+    snprintf(buffer,sizeof(buffer),"Date: %s\r\n",time_now);
+    output->append(buffer);
   }
   for (auto iter : headers_)
   {

@@ -34,9 +34,9 @@ void HttpServer::start()
   server_.start();
 }
 
-void HttpServer::connectCallback(TcpConnect::ptr TcpConnect) {}
+void HttpServer::connectCallback(const TcpConnect::ptr &TcpConnect) {}
 
-void HttpServer::messageCallback(TcpConnect::ptr tcpConnect,
+void HttpServer::messageCallback(const TcpConnect::ptr &tcpConnect,
                                  net::Buffer &buffer)
 {
   HttpContext context;

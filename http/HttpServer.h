@@ -22,8 +22,8 @@ class HttpServer
     httpCallback_=cb;
   }
  private:
-  void connectCallback(net::TcpConnect::ptr tcpConnect);
-  void messageCallback(net::TcpConnect::ptr tcpConnect, net::Buffer &buffer);
+  void connectCallback(const net::TcpConnect::ptr &tcpConnect);
+  void messageCallback(const net::TcpConnect::ptr &tcpConnect, net::Buffer &buffer);
   void writeCompleteCallback(net::TcpConnect::ptr TcpConnect);
   // void connectCloseCallback(TcpConnect::ptr TcpConnect);
 
