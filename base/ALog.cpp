@@ -116,11 +116,16 @@ void ALog::output(LOG_LEVEL level, const char *currentFileName, int lineNo,
   }
   {
     // std::lock_guard<std::mutex> guard(mutex_);
+    int log_num = 0;
     pthread_mutex_lock(&mutex_);
     logList_.push_back(log);
-    pthread_mutex_unlock(&mutex_);
+    log_num = logList_.size();
     // cond_.notify_one();
+    // if (log_num == 3)
+    // {
     pthread_cond_signal(&ALog::cond_);
+    // }
+    pthread_mutex_unlock(&mutex_);
   }
 }
 
@@ -185,21 +190,29 @@ void ALog::writeThreadFunc()
   // std::lock_guard<std::mutex> guard(mutex_);
   string log;
   list<string> temp;
-  while (running_)
+  running_ = true;
+  while (true)
   {
-    pthread_mutex_lock(&ALog::mutex_);
-    while (logList_.empty())
+    while (!logList_.empty())
     {
-      // cond_.wait();
-      pthread_cond_wait(&ALog::cond_, &ALog::mutex_);
+      pthread_mutex_lock(&ALog::mutex_);
+      temp.swap(logList_);
+      pthread_mutex_unlock(&ALog::mutex_);
     }
-    temp.swap(logList_);
-    pthread_mutex_unlock(&ALog::mutex_);
     while (!temp.empty())
     {
       log = temp.front();
       temp.pop_front();
       writeToFile(log.c_str());
+    }
+
+    while (logList_.empty())
+    {
+      if(exit_)
+        return ;
+      pthread_mutex_lock(&ALog::mutex_);
+      pthread_cond_wait(&ALog::cond_, &ALog::mutex_);
+      pthread_mutex_unlock(&ALog::mutex_);
     }
   }
 }

@@ -17,7 +17,7 @@ class TcpServer
   TcpServer(EventLoop *loop, SocketAddr &addr);
   ~TcpServer();
   void start();
-
+  void stop();
   void addConnect(std::string name, TcpConnect::ptr connect);
   void addConnect(std::string name, TcpConnect *connect);
 

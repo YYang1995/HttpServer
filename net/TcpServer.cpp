@@ -22,11 +22,14 @@ TcpServer::TcpServer(EventLoop *loop, SocketAddr &addr)
                                               std::placeholders::_2));
 }
 
-TcpServer::~TcpServer() {}
+TcpServer::~TcpServer()
+{
+
+}
 
 void TcpServer::start()
 {
-  threadPool_->init();
+  // threadPool_->init(1);
   mainloop_->runInLoop(std::bind(&TcpAcceptor::listen, tcpAccpet_.get()));
   isStart_ = true;
 }
@@ -86,4 +89,17 @@ void TcpServer::removeConnectionInLoop(const shared_ptr<TcpConnect> &conn)
   assert(n == 1);
   EventLoop *ioLoop = conn->getLoop();
   ioLoop->runInLoop(std::bind(&TcpConnect::connectDestroyed, conn));
+}
+
+void TcpServer::stop()
+{
+  for(auto iter=connectPool_.begin();iter!=connectPool_.end();iter++)
+  {
+    auto conn = iter->second;  // TcpConnect::ptr
+    iter->second.reset();
+    conn->getLoop()->runInLoop(std::bind(&TcpConnect::connectDestroyed,conn));
+    conn.reset();
+  }
+  threadPool_->destroy();
+  isStart_=false;
 }

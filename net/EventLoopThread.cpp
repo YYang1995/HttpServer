@@ -5,11 +5,24 @@ using namespace std;
 using namespace base;
 
 EventLoopThread::EventLoopThread(std::string name_prefix /*="thread"*/)
-    : loop_(nullptr)
+    : loop_(nullptr), mtx_()
 {
 }
 
-EventLoopThread::~EventLoopThread() {}
+EventLoopThread::~EventLoopThread()
+{
+  loop_->quit();
+  join();
+}
+
+void EventLoopThread::destroy()
+{
+  if(loop_!=nullptr)
+  {
+    loop_->quit();
+  }
+  base::Thread::join();
+}
 
 void EventLoopThread::run()
 {
@@ -23,9 +36,15 @@ void EventLoopThread::run()
 
 EventLoop* EventLoopThread::getLoopInThread()
 {
-  while (loop_ == nullptr)
+  EventLoop* loop = nullptr;   //返回一个copy
   {
-    latch_.wait();
+    // std::lock_guard<std::mutex> guard(mtx_);
+    while (loop_ == nullptr)
+    {
+      latch_.wait();
+    }
+    loop=loop_;
   }
-  return loop_;
+
+  return loop;
 }

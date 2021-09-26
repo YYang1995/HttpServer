@@ -133,7 +133,6 @@ void Epoll::removeChannel(Channel *channel)
   int index = channel->index();
   assert(index == kAdd || index == kDelete);
   auto n = channels_.erase(fd);
-  (void)n; //TODO
   assert(n == 1);
   if (index == kAdd)
   {

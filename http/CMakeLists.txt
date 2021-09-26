@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-project(muduo_practice_http)
+project(http_server)
 
 set(SOURCES
         HttpContext.cpp
@@ -17,4 +17,4 @@ install(TARGETS my_http
         DESTINATION lib)
 
 install(FILES ${HTTPS}
-        DESTINATION include/muduo_practice/http)
+        DESTINATION include/http_server/http)

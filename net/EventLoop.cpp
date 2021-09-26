@@ -23,7 +23,8 @@ __thread EventLoop *t_loopInThisThread = 0;
 EventLoop::EventLoop()
     : looping_(false),
       threadId_(pthread_self()),
-      activeChannels_(16)
+      activeChannels_(16),  
+      poller_(std::make_unique<Epoll>(this))
 {
   wakeupFd_=eventfd(0, EFD_NONBLOCK);
   wakeupChannel_.reset(new Channel(this, wakeupFd_));
@@ -31,8 +32,7 @@ EventLoop::EventLoop()
   {
     LOG_ERROR("EventLoop::EventLoop() wakeupFd_ error");
   }
-  poller_ = std::make_unique<Epoll>(this);
-  // poller_ = new Epoll(this);
+
   LOG_INFO("EventLoop created %ld in thread ", this, threadId_);
 
   if (t_loopInThisThread)
@@ -82,7 +82,7 @@ void EventLoop::loop()
     doPendingFunctors();
   }
   looping_ = false;
-  LOG_INFO("EventLoop stop looping.");
+  // LOG_INFO("EventLoop stop looping.");
 }
 void EventLoop::runInLoop(Functor cb)
 {
@@ -115,14 +115,14 @@ void EventLoop::wakeup()
   int len = write(wakeupFd_, &one, sizeof one);
   if (len != sizeof one)
   {
-    LOG_ERROR("EventLoop::wakeup() error! Actually %d bytes were writen", len);
+    // LOG_ERROR("EventLoop::wakeup() error! Actually %d bytes were writen", len);
   }
 }
 void EventLoop::assertInLoopThread()
 {
   if (!isInLoopThread())
   {
-    LOG_FATAL("EventLoop::assertInLoopThread() error. ");
+    // LOG_FATAL("EventLoop::assertInLoopThread() error. ");
   }
 }
 
@@ -169,7 +169,7 @@ void EventLoop::handleWakeupRead()
   ssize_t len = read(wakeupFd_, &one, sizeof one);
   if (len != sizeof one)
   {
-    LOG_ERROR("EventLoop::handleWakeupRead() error");
+    // LOG_ERROR("EventLoop::handleWakeupRead() error");
   }
 }
 

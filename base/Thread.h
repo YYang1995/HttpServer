@@ -30,7 +30,7 @@ class Thread
  private:
   void beginRun();  //线程入口函数
   std::string name_;
-  std::string name_prefix_ = "thraed";  //线程名=name/tid_
+  std::string name_prefix_ = "thread";  //线程名=name/tid_
   bool started_;
   bool joined_;
   pthread_t threadId_;

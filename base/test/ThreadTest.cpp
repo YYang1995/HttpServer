@@ -29,13 +29,13 @@ class MyThread : public Thread
 };
 int main()
 {
-  MyThread *myThread = new MyThread("work");
-  myThread->start();
+  MyThread myThread("work");
+  myThread.start();
   latch.wait();
-  cout << "thread id =" << myThread->getThreadId() << endl;
+  cout << "thread id =" << myThread.getThreadId() << endl;
   cout << "process id =" << getpid() << endl;
   cout << "another id= " << syscall(__NR_gettid) << endl;
-  cout << "thread name= " << myThread->getName() << endl;
-  cout << "thraed name prefix= " << myThread->getNamePrefix() << endl;
-  myThread->join();
+  cout << "thread name= " << myThread.getName() << endl;
+  cout << "thraed name prefix= " << myThread.getNamePrefix() << endl;
+  myThread.join();
 }

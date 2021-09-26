@@ -10,7 +10,7 @@
 namespace net
 {
 class TcpConnect;
-//定义在这里不妥
+//定义在这里不妥 TODO
 typedef std::function<void(const std::shared_ptr<TcpConnect> &, Buffer &)>
     MessageCallback;
 typedef std::function<void(const std::shared_ptr<TcpConnect> &)>

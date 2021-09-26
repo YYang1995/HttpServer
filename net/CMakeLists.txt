@@ -1,5 +1,5 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
-project(muduo_practice)
+project(http_server)
 
 set(SOURCES
         Channel.cpp
@@ -23,4 +23,4 @@ file(GLOB HEADERS "*.h")
 
 install(TARGETS my_net
         DESTINATION lib)
-install(FILES ${HEADERS} DESTINATION include/muduo_practice/net)
+install(FILES ${HEADERS} DESTINATION include/http_server/net)

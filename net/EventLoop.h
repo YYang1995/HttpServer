@@ -28,7 +28,8 @@ class EventLoop
   void updateChannel(Channel *channel);
   void removeChannel(Channel *Channel);
   void queueInLoop(Functor cb);
-  void runInLoop(Functor cb); 
+  void runInLoop(Functor cb);
+
  private:
   typedef std::vector<Channel *> ChannelList;
 
@@ -40,8 +41,8 @@ class EventLoop
   bool quit_;
   ChannelList activeChannels_;
   std::unique_ptr<Epoll> poller_;
+  std::unique_ptr<Channel> wakeupChannel_;
   int wakeupFd_;
-  std::unique_ptr<Channel> wakeupChannel_;  
   Channel *currentActiveChannel_;
   void handleWakeupRead();
   void wakeup();

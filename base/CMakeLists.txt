@@ -15,4 +15,4 @@ file(GLOB HEADERS "*.h")
 install(TARGETS my_base
         DESTINATION lib)
 
-install(FILES ${HEADERS} DESTINATION include/muduo_practice/base)
+install(FILES ${HEADERS} DESTINATION include/http_server/base)

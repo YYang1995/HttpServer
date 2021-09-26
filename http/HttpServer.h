@@ -17,6 +17,10 @@ class HttpServer
   HttpServer(net::EventLoop *loop, net::SocketAddr &addr);
   ~HttpServer();
   void start();
+  void stop()
+  {
+    server_.stop();
+  }
   void setHttpCallback(const HttpCallBack &cb)
   {
     httpCallback_=cb;

@@ -1,6 +1,6 @@
+#include <atomic>
 #include <memory>
 #include <mutex>
-#include <atomic>
 
 namespace base
 {
@@ -9,34 +9,30 @@ template <typename T>
 class SingleTon
 {
  public:
-  static T* GetInstance()
+  static T& GetInstance()
   {
-    if (SingleTon::obj == nullptr)
+    if (instance_ == nullptr)
     {
-      std::lock_guard<std::mutex> guard(mtx);
-      if (SingleTon::obj == nullptr)
-      {
-        SingleTon::obj = new T();
-      }
+      instance_ = new T();
     }
-
-    return SingleTon::obj;
+    return *instance_;
   }
-
-  static void Destory() { delete SingleTon::obj; }
-
+  static void init()
+  {
+    instance_=new T();
+  }
+  static void destroy()
+  {
+    delete instance_;
+  }
  private:
   SingleTon();
-  ~SingleTon();
-  SingleTon(const SingleTon&) ;
-  SingleTon& operator=(const SingleTon&) ;
+  ~SingleTon() = default;
+  SingleTon(const SingleTon&);
+  SingleTon& operator=(const SingleTon&);
 
  private:
-  static T* obj;
-  static std::mutex mtx;
+  static T* instance_;
 };
-template <typename T>
-T* SingleTon<T>::obj = nullptr;
-template <typename T>
-std::mutex SingleTon<T>::mtx;
+
 }  // namespace base

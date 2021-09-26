@@ -18,10 +18,12 @@ class EventLoopThread : public base::Thread
   EventLoopThread(std::string name_prefix = "thread");
   ~EventLoopThread();
   virtual void run() override;
+  void destroy();
   EventLoop* getLoopInThread();
 
  private:
   EventLoop* loop_;
+  std::mutex mtx_;
   base::CountDownLatch latch_;
 };
 }  // namespace net

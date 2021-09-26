@@ -42,7 +42,7 @@ void Thread::join()
 void Thread::start()
 {
   assert(started_ == false);
-  thread_.reset(new thread(std::bind(&Thread::beginRun, this)));
+  thread_=make_shared<std::thread>(std::bind(&Thread::beginRun, this));
   latch_.wait();
   assert(threadId_ > 0);  //表明线程创建成功
 }
