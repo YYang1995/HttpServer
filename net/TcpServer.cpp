@@ -29,7 +29,7 @@ TcpServer::~TcpServer()
 
 void TcpServer::start()
 {
-  // threadPool_->init(1);
+  threadPool_->init();
   mainloop_->runInLoop(std::bind(&TcpAcceptor::listen, tcpAccpet_.get()));
   isStart_ = true;
 }
